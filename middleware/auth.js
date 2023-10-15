@@ -23,7 +23,7 @@ module.exports = {
         }
 
         try{
-            const decode = await promisify(jwt.verify)(token, "D5JKJA851JIJKPOIUD987985HUHKKNBYGSYDHJ5654")
+            const decode = await promisify(jwt.verify)(token, "CHAVE_SECRETA")
             req.userId = decode.id
             return next()
         } catch(err){

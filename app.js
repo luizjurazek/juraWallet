@@ -2,67 +2,115 @@ const express = require('express')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 
-
-
 const app = express()
 
+// Database 
+const {
+    connection
+} = require('./connection.js')
 
-const { eAdmin } = require('./middleware/auth.js')
+// Auxiliares
+const {
+    eAdmin
+} = require('./middleware/auth.js')
+const {
+    gerarStringAleatoria
+} = require('./funcAuxiliares.js')
 
+// Middlewares
 app.use(express.json())
 
-app.get('/', eAdmin,async (req, res) =>{
-    return res.json({
-        erro: false,
-        mensagem: "Listar usuários",
-        id_usuario_logado: req.userId
+app.get('/listartransacoes', eAdmin, async (req, res) => {
+    connection.query('SELECT * FROM transacoes', function (err, results, fields) {
+        if (err) {
+            console.error("Erro ao listar as transacoes: " + err)
+            return res.status(400).json({
+                error: true,
+                mensagem: "Houve um erro ao listar as transacoes!"
+            })
+        } else {
+            const query = results
+            return res.status(200).json({
+                error: false,
+                id_usuario_logado: req.userId,
+                transacoes: query
+            })
+        }
     })
 })
 
-app.post('/cadastrar', async (req, res) =>{
-    // $2a$08$tkx07l5UK3dRs5fVxS5Rr.5o7IrC9hCr10NIIEf0MHucxHB4TRpOa
-    const password = await bcrypt.hash("1234567", 8)
+app.post('/cadastrar', async (req, res) => {
+    const username = req.body.username
+    const password = await bcrypt.hash(req.body.password, 8)
+    const email = req.body.email
+    const name = req.body.name
 
-    console.log(password);
-    return res.json({
-        erro: false,
-        mensagem: "Cadastrar usuário"
-    });
-})
-
-app.post('/login', async (req, res) =>{
-    console.log(req.body)
-
-    if(req.body.email != "luizjurazek@gmail.com"){
-        return res.status(400).json({
-            erro: true,
-            mensagem: "Erro usuário ou senha incorreto! Email incorreto"
-        })
-    }
-
-
-    // primeira password vem da requisição, a segunda deve ser a senha que foi criptográfada no banco de dados 
-    if(!(await bcrypt.compare(req.body.password, "$2a$08$tkx07l5UK3dRs5fVxS5Rr.5o7IrC9hCr10NIIEf0MHucxHB4TRpOa"))){
-        return res.status(400).json({
-            erro: true,
-            mensagem: "Erro usuário ou senha incorreto! Senha incorreta"
-        })
-    }
-
-    const token = jwt.sign({id: 2}, "D5JKJA851JIJKPOIUD987985HUHKKNBYGSYDHJ5654",{
-        // expiresIn: 600 // 10 min
-        // expiresIn: '7d' // 7 dias
-        expiresIn: 60 // 1 minuto
+    connection.query(`INSERT INTO users(s_user_users, s_password_users, s_email_users, s_nome_users) VALUES 
+    ("${username}", "${password}", "${email}", "${name}")`, (err) => {
+        if (err) {
+            console.error("Erro ao cadastrar o usuário: " + err)
+            return res.status(400).json({
+                error: true,
+                mensagem: "Erro ao cadastrar o usuário!"
+            })
+        } else {
+            return res.status(200).json({
+                error: false,
+                mensagem: "Usuário cadastrado com sucesso!"
+            })
+        }
     })
+})
 
-    return res.json({
-        erro: false,
-        mensagem: "Login realizado com sucesso!",
-        token
-    });
+app.post('/login', async (req, res) => {
+    const {
+        email,
+        password
+    } = req.body
+
+    try {
+        const [rows] = await connection.promise().query(`SELECT * FROM users WHERE s_email_users = ?`, [email])
+
+        // Verifica se o usuário foi encontrado
+        if (rows.length === 0) {
+            return res.status(400).json({
+                error: true,
+                mensagem: "Usuário não encontrado!"
+            })
+        }
+
+        // Verificando a senha do usuário
+        const user = rows[0]
+        if (!(await bcrypt.compare(password, user.s_password_users))) {
+            return res.status(400).json({
+                erro: true,
+                mensagem: "Erro usuário ou senha incorreto! Senha incorreta"
+            })
+        }
+
+        // const secretKey = gerarStringAleatoria(10)
+        const token = jwt.sign({
+            id: user.id_user_users
+        }, "CHAVE_SECRETA", {
+            expiresIn: '7d' // 7 dias
+        })
+
+        return res.json({
+            error: false,
+            message: 'Login realizado com sucesso!',
+            token,
+        })
+
+    } catch (err) {
+        console.error(err);
+        return res.status(500).json({
+            err: true,
+            mensagem: 'Erro interno do servidor',
+        });
+    }
 })
 
 
-app.listen(8080, ()=> {
+app.listen(8080, () => {
     console.log("Servidor rodando na porta 8080: http://localhost:8080/")
 });
