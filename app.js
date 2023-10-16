@@ -39,6 +39,31 @@ app.get('/listartransacoes', eAdmin, async (req, res) => {
     })
 })
 
+app.delete("/deletartransacao/:id", eAdmin, async (req, res) => {
+    const id = req.params.id
+    try {
+        const query = await connection.promise().query(`DELETE FROM transacoes WHERE id_transacoes = ?`, id)
+
+        if (query[0].affectedRows > 0) {
+            return res.status(200).json({
+                error: false,
+                mensagem: "Transação de id " + id + " deletada com sucesso!"
+            })
+        } else {
+            return res.status(400).json({
+                error: true,
+                mensagem: "Houve um erro ao deletar o item"
+            })
+        }
+    } catch (err) {
+        console.error(err);
+        return res.status(500).json({
+            err: true,
+            mensagem: 'Erro interno do servidor',
+        });
+    }
+})
+
 app.post('/cadastrar', async (req, res) => {
     const username = req.body.username
     const password = await bcrypt.hash(req.body.password, 8)
