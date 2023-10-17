@@ -117,6 +117,7 @@ router.post('/criartransacao', eAdmin, async (req, res) => {
         const query = await connection.promise().query(`INSERT INTO transacoes (s_nome_transacoes, s_categoria_transacoes, i_valor_transacoes, s_tipo_transacoes, dt_data_transacoes) 
         VALUES ("${nome}", "${categoria}", ${valor}, "${tipoTransacao}" , "${data}")`)
 
+        
         if (query[0].affectedRows > 0) {
             return res.status(200).json({
                 error: false,
