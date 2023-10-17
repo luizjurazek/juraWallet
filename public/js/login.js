@@ -3,24 +3,24 @@ const btnLogin = document.getElementById("login")
 btnLogin.addEventListener("click", (evt) => {
     event.preventDefault();
 
-    const username = document.getElementById("username").value
+    const email = document.getElementById("email").value
     const password = document.getElementById("password").value
-    fetch('http://127.0.0.1:3000/login', {
+    fetch('http://127.0.0.1:8080/login', {
             method: 'POST',
             headers: {
                 'Content-type': 'application/json'
             },
             body: JSON.stringify({
-                username,
+                email,
                 password
             }),
-        }).then(response => {
-            console.log(response.status)
-            if (response.status === 200) {
-                // Redireciona para a página de perfil em caso de sucesso
-                console.log("logado com sucesso")
+        }).then(response => response.json())
+        .then(data => {
+            if (data.error == false) {
+                localStorage.setItem('token', data.token)
+                console.log('Token capturado:', data.token);
             } else {
-                alert('Falha na autenticação. Verifique seu nome de usuário e senha.');
+                console.error('Erro no login:', data.mensagem);
             }
         })
         .catch(error => {

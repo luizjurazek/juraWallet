@@ -1,4 +1,5 @@
 const express = require('express')
+const cors = require('cors')
 const app = express()
 
 // Importando rotas
@@ -13,6 +14,12 @@ app.set('views', './views');
 // Middlewares
 app.use(express.json())
 app.use(express.static('./public'));
+app.use(cors({
+    origin: 'http://localhost:8080/',
+    credentials: true,
+    methods: 'GET, PUT, POST, OPTIONS, DELETE',
+    allowedHeaders: 'Aceept, Content-Type, Authorization'
+}))
 
 
 // Rotas 

@@ -17,22 +17,10 @@ const {
 } = require('../funcAuxiliares')
 
 
-// router.get('/home', eAdmin, async (req, res) => {
-//     if (req.acessoPermitido) {
-//         // O acesso é permitido, renderize a página "home.ejs"
-//         res.render('../views/home.ejs');
-//     } else {
-//         // O acesso não é permitido, verifique o código de status
-//         if (res.statusCode === 400) {
-//             // Código de status 400 indica que o acesso foi negado
-//             res.render('../views/naoautorizadopage.ejs');
-//         } else {
-//             // Outros códigos de status podem ser tratados aqui
-//             // Por exemplo, redirecionar para uma página de erro padrão
-//             res.redirect('/erro');
-//         }
-//     }
-// });
+router.get('/home', eAdmin, async (req, res) => {
+    req.headers.authorization = localStorage.getItem(token)
+    res.render('../views/home.ejs')
+});
 
 router.get('/listartodastransacoes', eAdmin, async (req, res) => {
     connection.query('SELECT * FROM transacoes', function (err, results, fields) {
