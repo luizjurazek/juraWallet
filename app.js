@@ -5,8 +5,15 @@ const app = express()
 const transactionRoutes = require('./routes/transaction.js')
 const loginRoutes = require('./routes/login.js')
 
+// View engine
+app.set('view engine', 'ejs')
+// Definir o diretório de modelos
+app.set('views', './views');
+
 // Middlewares
 app.use(express.json())
+app.use(express.static('./public'));
+
 
 // Rotas 
 app.use('/', transactionRoutes)

@@ -1,0 +1,112 @@
+.d-flex{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Aba */
+.calc_aba {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 70px;
+    background-color: rgba(128, 128, 128, 0.2);
+    border-radius: 0px 10px 10px 0px;
+    cursor: pointer;
+}
+
+
+.calc {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row-reverse;
+    position: absolute;
+    bottom: 0vh;
+    left: 0px;
+    transition: all 0.2s;
+}
+
+.calc_exibir {
+    left: -248px !important;
+    transition: all 0.2s;
+}
+
+.calc_principal {
+    flex-direction: column;
+    padding: 10px;
+    width: 250px;
+    background-color: #eee;
+    border: 3px solid #bbb;
+    border-radius: 8px;
+}
+
+/* Titulo */
+.calc_principal .div_nome {
+    width: 220px;
+}
+
+/* Display */
+.calc_principal .div_display {
+    margin-bottom: 5px;
+}
+
+
+.calc_principal .div_display .display {
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    border-radius: 5px;
+    padding: 8px;
+    width: 210px;
+    height: 35px;
+    background-color: #3b3c3f;
+    color: #fff;
+    font-family: monospace;
+    font-size: larger;
+}
+
+/* Teclas */
+.calc_principal .div_teclas {
+    width: 225px;
+    flex-wrap: wrap;
+}
+
+.calc_principal .div_teclas .tecla {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #aaa;
+    border: 3px solid #888;
+    font-weight: bold;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    border-radius: 8px;
+    margin: 1px;
+}
+.calc_principal .div_teclas .tecla:hover{
+    background-color: rgb(151, 151, 151);
+    border-color: rgb(138, 138, 138);
+}
+
+.calc_principal .div_teclas .tecla-operacao {
+    background-color: rgb(151, 151, 151) !important;
+    border-color: rgb(151, 151, 151) !important;
+}
+
+.calc_principal .div_teclas .tecla-operacao:hover {
+    background-color: rgb(123, 123, 123) !important;
+    border-color: rgb(123, 123, 123) !important;
+}
+
+.calc_principal .div_teclas .tecla-igual {
+    background-color: #AECBFA;
+    border-color: #91a9d0;
+}
+
+.calc_principal .div_teclas .tecla-igual:hover {
+    background-color: #91a9d0 !important; 
+    border-color: #768aab !important;
+}

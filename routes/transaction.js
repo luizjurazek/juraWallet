@@ -16,6 +16,24 @@ const {
     separarTransacaoPorTipo
 } = require('../funcAuxiliares')
 
+
+// router.get('/home', eAdmin, async (req, res) => {
+//     if (req.acessoPermitido) {
+//         // O acesso é permitido, renderize a página "home.ejs"
+//         res.render('../views/home.ejs');
+//     } else {
+//         // O acesso não é permitido, verifique o código de status
+//         if (res.statusCode === 400) {
+//             // Código de status 400 indica que o acesso foi negado
+//             res.render('../views/naoautorizadopage.ejs');
+//         } else {
+//             // Outros códigos de status podem ser tratados aqui
+//             // Por exemplo, redirecionar para uma página de erro padrão
+//             res.redirect('/erro');
+//         }
+//     }
+// });
+
 router.get('/listartodastransacoes', eAdmin, async (req, res) => {
     connection.query('SELECT * FROM transacoes', function (err, results, fields) {
         if (err) {
@@ -26,10 +44,14 @@ router.get('/listartodastransacoes', eAdmin, async (req, res) => {
             })
         } else {
             const query = results
+            const transacaoPorTipo = separarTransacaoPorTipo(query)
             return res.status(200).json({
                 error: false,
                 id_usuario_logado: req.userId,
-                transacoes: query
+                quantidadeDeTransacoes: query.length,
+                transacoes: query,
+                entradas: transacaoPorTipo[0],
+                saidas: transacaoPorTipo[1]
             })
         }
     })

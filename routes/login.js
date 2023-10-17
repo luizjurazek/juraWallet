@@ -9,10 +9,10 @@ const {
     connection
 } = require('../connection.js')
 
-// Auxiliares
-const {
-    eAdmin
-} = require('../middleware/auth.js')
+
+router.get('/', async (req, res) =>{
+    res.render('../views/login.ejs')
+})
 
 router.post('/cadastrar', async (req, res) => {
     const username = req.body.username

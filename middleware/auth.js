@@ -7,6 +7,7 @@ module.exports = {
         const authHeader = req.headers.authorization;
         // console.log(authHeader)
         if(!authHeader){
+            const acessoPermitido = false;
             return res.status(400).json({
                 erro: true,
                 mensagem: "Erro: necessário realizar o login para acessar a página! Falta token A"
@@ -17,6 +18,7 @@ module.exports = {
         // console.log("Token: " + token)
 
         if(!token){
+            const acessoPermitido = false;
             return res.status(400).json({
                 erro: true,
                 mensagem: "Erro: necessário realizar o login para acessar a página! Falta o token B"

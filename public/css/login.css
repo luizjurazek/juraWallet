@@ -1,0 +1,114 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+.container {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.bg-gray {
+    background-color: #010101;
+}
+
+.card-login {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    width: 60vh;
+    height: 60vh;
+    border-radius: 10px;
+    background-color: rgba(84, 87, 88, 0.451);
+}
+
+.card-info {
+    transition: all 0.2s;
+    height: 265px;
+}
+.user-info {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 25px;
+}
+
+.user-info label {
+    color: #fff;
+}
+
+.user-login {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.user-login button {
+    cursor: pointer;
+    width: 40vh;
+    height: 35px;
+    border-radius: 5px;
+    border: 0;
+    color: #fff;
+    background-color: #78A2CC;
+    margin-bottom: 15px;
+}
+
+.user-login button:hover {
+    background-color: #4e78a3;
+}
+
+.card-login .user-info input,
+.card-login .user-info select {
+    width: 40vh;
+    height: 30px;
+    border-radius: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    outline: 0;
+    border: 0;
+}
+
+.user-login span {
+    color: #fff;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.user-login span:hover {
+    color: rgb(219, 219, 219);
+}
+
+#sucess-longin {
+    transition: ease-in 1s;
+}
+
+.sucess-login {
+    display: none;
+}
+
+.card-checkmark {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 265px;
+}
+
+.card-checkmark  i {
+    color: #9ABC66;
+    font-size: 100px;
+    line-height: 100px;
+    margin-left:-15px;
+}
+
+.card-checkmark h2 {
+    color: #9ABC66;
+}
+
+

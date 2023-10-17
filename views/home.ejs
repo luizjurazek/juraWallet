@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <%- include('header') %>
+    <div>
+        <main class="resumo container">
+            <div class="resume-card">
+                <div class="card card-entrada bg-green" id="entradas">
+                    <h3>Entradas</h3>
+                    <div class="resume-box-value">
+                        <span>R$</span>
+                        <p id="value-card-entradas">00,00</p>
+                    </div>
+                </div>
+                <div class="card card-saida bg-red" id="saidas">
+                    <h3>Saídas</h3>
+                    <div class="resume-box-value">
+                        <span>R$</span>
+                        <p id="value-card-saidas">00,00</p>
+                    </div>
+                </div>
+                <div class="card card-total bg-blue" id="saldo">
+                    <h3>Saldo</h3>
+                    <div class="resume-box-value">
+                        <span>R$</span>
+                        <p>00,00</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cadastro container">
+                <div action="" id="form-cadastro" class="form-cadastro">
+                    <div class="form-itens">
+                        <div class="form-item">
+                            <label for="name">Nome</label>
+                            <input type="text" name="nome" id="nome_transacao" required>
+                        </div>
+                        <div class="form-item">
+                            <label for="category">Categoria</label>
+                            <select name="category" id="category_transacao" class="form-category" required>
+                                <option value=""></option>
+                                <option value="salario">Salário</option>
+                                <option value="gastos fixos">Gastos fixos</option>
+                                <option value="mercado">Mercado</option>
+                                <option value="farmacia">Farmácia</option>
+                            </select>
+                        </div>
+                        <div class="form-item">
+                            <label for="valor">Valor</label>
+                            <input type="number" name="valor" id="valor_transacao" placeholder="R$" required>
+                        </div>
+                        <div class="form-item">
+                            <label for="tipo-transacao">Tipo</label>
+                            <select name="tipo-transacao" id="tipo_transacao" class="form-tipo" required>
+                                <option value="entrada">Entrada</option>
+                                <option value="saida">Saída</option>
+                            </select>
+                        </div>
+                        <div class="form-item">
+                            <label for="Data">Data</label>
+                            <input type="date" name="data" id="data_transacao" class="form-data" required>
+                        </div>
+                    </div>
+                    <button id="cadastrar_transacao" class="cadastrar">Cadastrar</button>
+                </div>
+            </div>
+            <div class="transacoes container" id="transacoes">
+                <div class="transacoes-cabecalho">
+                    <div class="item">Nome</div>
+                    <div class="item">Categoria</div>
+                    <div class="item">Valor</div>
+                    <div class="item">Tipo</div>
+                    <div class="item">Data</div>
+                    <div class="item acoes"></div>
+                </div>
+            </div>
+
+
+        </main>
+    </div>
+    <%- include('footer') %>
+</body>
+</html>

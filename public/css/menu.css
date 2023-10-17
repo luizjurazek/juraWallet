@@ -1,0 +1,70 @@
+.bg-menu {
+    background-color: #010101;
+}
+
+.bg-green {
+    background-color: #76cc76;
+    color: #fff;
+}
+
+.bg-blue {
+    background-color: #78A2CC;
+    color: #fff;
+}
+
+.bg-red {
+    background-color: #FF6961;
+    color: #fff;
+}
+
+.bg-white {
+    background-color: #fff;
+}
+
+.header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    height: 95px;
+}
+
+.header .div-logo h1 {
+    color: white;
+}
+
+.header .div-logo .logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.menu {
+    display: flex;
+    align-items: center;
+}
+
+.menu-list {
+    display: flex;
+    flex-direction: row;
+}
+
+.menu-list .item-menu {
+    margin-left: 35px;
+    list-style: none;
+}
+
+.header .div-logo a,
+.menu-list .item-menu a,
+.menu-list .item-menu span {
+    text-decoration: none;
+    color: white;
+}
+
+@media only screen and (max-width: 800px) {
+    .header {
+        flex-direction: column;
+        justify-content: center;
+        height: 125px;
+    }
+}
