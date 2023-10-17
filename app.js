@@ -1,24 +1,12 @@
 const express = require('express')
 const app = express()
 
-// Database 
-const {
-    connection
-} = require('./connection.js')
-
-// Auxiliares
-const {
-    eAdmin
-} = require('./middleware/auth.js')
-
-
 // Importando rotas
 const transactionRoutes = require('./routes/transaction.js')
 const loginRoutes = require('./routes/login.js')
 
 // Middlewares
 app.use(express.json())
-
 
 // Rotas 
 app.use('/', transactionRoutes)

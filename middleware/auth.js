@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken')
 const { promisify } = require('util')
+const JWT_SECRET = process.env.JWT_SECRET
 
 module.exports = {
     eAdmin: async function (req, res, next){
@@ -23,7 +24,7 @@ module.exports = {
         }
 
         try{
-            const decode = await promisify(jwt.verify)(token, "CHAVE_SECRETA")
+            const decode = await promisify(jwt.verify)(token, JWT_SECRET)
             req.userId = decode.id
             return next()
         } catch(err){

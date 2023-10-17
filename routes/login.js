@@ -3,6 +3,7 @@ const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const router = express.Router()
 
+const JWT_SECRET = process.env.JWT_SECRET
 // Database 
 const {
     connection
@@ -65,7 +66,7 @@ router.post('/login', async (req, res) => {
         // const secretKey = gerarStringAleatoria(10)
         const token = jwt.sign({
             id: user.id_user_users
-        }, "CHAVE_SECRETA", {
+        }, JWT_SECRET, {
             expiresIn: '7d' // 7 dias
         })
 
