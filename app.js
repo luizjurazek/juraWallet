@@ -13,56 +13,15 @@ const {
 const {
     eAdmin
 } = require('./middleware/auth.js')
-const {
-    gerarStringAleatoria
-} = require('./funcAuxiliares.js')
+
+
+// Rotas
+const transactionRoutes = require('./routes/transaction.js')
 
 // Middlewares
 app.use(express.json())
 
-app.get('/listartransacoes', eAdmin, async (req, res) => {
-    connection.query('SELECT * FROM transacoes', function (err, results, fields) {
-        if (err) {
-            console.error("Erro ao listar as transacoes: " + err)
-            return res.status(400).json({
-                error: true,
-                mensagem: "Houve um erro ao listar as transacoes!"
-            })
-        } else {
-            const query = results
-            return res.status(200).json({
-                error: false,
-                id_usuario_logado: req.userId,
-                transacoes: query
-            })
-        }
-    })
-})
-
-app.delete("/deletartransacao/:id", eAdmin, async (req, res) => {
-    const id = req.params.id
-    try {
-        const query = await connection.promise().query(`DELETE FROM transacoes WHERE id_transacoes = ?`, id)
-
-        if (query[0].affectedRows > 0) {
-            return res.status(200).json({
-                error: false,
-                mensagem: "Transação de id " + id + " deletada com sucesso!"
-            })
-        } else {
-            return res.status(400).json({
-                error: true,
-                mensagem: "Houve um erro ao deletar o item"
-            })
-        }
-    } catch (err) {
-        console.error(err);
-        return res.status(500).json({
-            err: true,
-            mensagem: 'Erro interno do servidor',
-        });
-    }
-})
+app.use('/', transactionRoutes)
 
 app.post('/cadastrar', async (req, res) => {
     const username = req.body.username

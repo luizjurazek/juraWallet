@@ -13,7 +13,7 @@ module.exports = {
         }
 
         const [bearer, token] = authHeader.split(' ')
-        console.log("Token: " + token)
+        // console.log("Token: " + token)
 
         if(!token){
             return res.status(400).json({
