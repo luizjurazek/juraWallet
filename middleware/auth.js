@@ -6,7 +6,7 @@ const JWT_SECRET = process.env.JWT_SECRET
 
 module.exports = {
     eAdmin: async function (req, res, next) {
-        const tokenTeste = "Bearer " + req.cookies.token;
+        const tokenTeste = req.cookies.token;
         const headerAuthorization = req.headers.authorization;
 
         let authHeader;
@@ -16,7 +16,8 @@ module.exports = {
         } else if (headerAuthorization) {
             authHeader = headerAuthorization;
         }
-        // console.log(authHeader)
+
+
         if (!authHeader) {
             return res.status(400).json({
                 erro: true,
@@ -24,8 +25,7 @@ module.exports = {
             });
         }
 
-        const [bearer, token] = authHeader.split(' ')
-        console.log("Token: " + token)
+        const token = authHeader
         if (!token) {
             return res.status(400).json({
                 erro: true,

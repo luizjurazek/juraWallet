@@ -68,31 +68,7 @@ function editarTransacaoFunc(idTransacao, nomeTransacao, categoriaTransacao, val
         })
 }
 
-// Função para obter todas as transações e atualizar a interface do usuário
-function getTransacoes() {
-    // Seleciona os elementos HTML onde os valores de entradas, saídas e saldo serão exibidos.
-    const valueEntradas = document.querySelector("#entradas p")
-    const valueSaidas = document.querySelector("#saidas p")
-    const valueSaldo = document.querySelector("#saldo p")
-    const transacoesItens = document.querySelector("#transacoes")
-    const url = 'http://127.0.0.1:3000/transacoes'
-    let transacoes;
 
-    // Realiza uma solicitação GET para obter as transações da API.
-    fetch(url)
-        .then(res => res.json())
-        .then(data => {
-            // Calcula os valores de entradas, saídas e saldo e atualiza a interface do usuário.
-            transacoes = somarValores(data)
-            valueEntradas.innerHTML = transacoes.entradas.toFixed(2)
-            valueSaidas.innerHTML = transacoes.saidas.toFixed(2)
-            valueSaldo.innerHTML = transacoes.saldo.toFixed(2)
-            // Exibe todas as transações na interface do usuário.
-            allTransacoes(data, transacoesItens)
-        }).catch(error => {
-            console.log("Erro na API: " + error)
-        })
-}
 
 // Função para excluir uma transação
 function deleteTransacao(id, elToRemove) {
@@ -116,6 +92,33 @@ function deleteTransacao(id, elToRemove) {
             }
         }).catch(error => {
             console.log("Error" + error)
+        })
+}
+
+// Função para obter todas as transações e atualizar a interface do usuário
+function getTransacoes() {
+    // Seleciona os elementos HTML onde os valores de entradas, saídas e saldo serão exibidos.
+    // const valueEntradas = document.querySelector("#entradas p")
+    // const valueSaidas = document.querySelector("#saidas p")
+    // const valueSaldo = document.querySelector("#saldo p")
+    // const transacoesItens = document.querySelector("#transacoes")
+    const url = 'http://127.0.0.1:8080/listartodastransacoes'
+    // let transacoes;
+
+    // Realiza uma solicitação GET para obter as transações da API.
+    fetch(url)
+        .then(res => res.json())
+        .then(data => {
+            // Calcula os valores de entradas, saídas e saldo e atualiza a interface do usuário.
+            // transacoes = somarValores(data)
+            // valueEntradas.innerHTML = transacoes.entradas.toFixed(2)
+            // valueSaidas.innerHTML = transacoes.saidas.toFixed(2)
+            // valueSaldo.innerHTML = transacoes.saldo.toFixed(2)
+            // // Exibe todas as transações na interface do usuário.
+            // allTransacoes(data, transacoesItens)
+            console.log(data)
+        }).catch(error => {
+            console.log("Erro na API: " + error)
         })
 }
 

@@ -1,18 +1,21 @@
-document.onload =  async function (e) {
-    const token = document.cookie;
-    const arrayToken = token.split("=")
-
-    await fetch('/http://localhost:8080/home', {
+// Função para obter todas as transações e atualizar a interface do usuário
+let token = document.cookie.split('=')
+console.log(token[1])
+function getTransacoes() {
+    fetch('http://127.0.0.1:8080/listartodastransacoes', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${arrayToken[1]}`, // Configure o token JWT no cabeçalho
+                'Authorization': token[1], // Configure o token JWT no cabeçalho
             },
         })
-        .then((response) => {
-            // Processar a resposta da rota autenticada
+        .then(res => res.json())
+        .then(data => {
+
+            console.log(data.transacoes)
+        }).catch(error => {
+            console.log("Erro na API: " + error)
         })
-        .catch((error) => {
-            // Lidar com erros, como autenticação falhada
-        });
 }
+
+window.addEventListener('load', getTransacoes)

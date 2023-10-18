@@ -320,6 +320,12 @@ body {
     background-color: #78A2CC;
 }
 
+.transacoes-date {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
 hr {
     width: 100%;
     border-color: #f3f3f3;
