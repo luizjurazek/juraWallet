@@ -1,4 +1,3 @@
-const e = require('express')
 const express = require('express')
 const router = express.Router()
 
@@ -18,9 +17,9 @@ const {
 
 
 router.get('/home', eAdmin, async (req, res) => {
-    req.headers.authorization = localStorage.getItem(token)
     res.render('../views/home.ejs')
 });
+
 
 router.get('/listartodastransacoes', eAdmin, async (req, res) => {
     connection.query('SELECT * FROM transacoes', function (err, results, fields) {

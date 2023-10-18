@@ -1,6 +1,7 @@
 const express = require('express')
 const cors = require('cors')
 const app = express()
+const cookieParser = require('cookie-parser');
 
 // Importando rotas
 const transactionRoutes = require('./routes/transaction.js')
@@ -14,8 +15,9 @@ app.set('views', './views');
 // Middlewares
 app.use(express.json())
 app.use(express.static('./public'));
+app.use(cookieParser());
 app.use(cors({
-    origin: 'http://localhost:8080/',
+    origin: '*',
     credentials: true,
     methods: 'GET, PUT, POST, OPTIONS, DELETE',
     allowedHeaders: 'Aceept, Content-Type, Authorization'

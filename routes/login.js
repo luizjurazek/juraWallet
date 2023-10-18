@@ -10,7 +10,7 @@ const {
 } = require('../connection.js')
 
 
-router.get('/', async (req, res) =>{
+router.get('/', async (req, res) => {
     res.render('../views/login.ejs')
 })
 
@@ -29,7 +29,11 @@ router.post('/cadastrar', async (req, res) => {
                 mensagem: "Erro ao cadastrar o usuário!"
             })
         } else {
-            return res.status(200).json({
+            return res.status(200).cookie('token', token, {
+                maxAge: 3600000,
+                httpOnly: true,
+                secure: false
+            }).json({
                 error: false,
                 mensagem: "Usuário cadastrado com sucesso!"
             })
@@ -70,6 +74,11 @@ router.post('/login', async (req, res) => {
             expiresIn: '7d' // 7 dias
         })
 
+        res.cookie('token', token, {
+            maxAge: 3600000,
+            httpOnly: true,
+            secure: false
+        })
         return res.json({
             error: false,
             message: 'Login realizado com sucesso!',
