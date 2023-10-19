@@ -1,24 +1,21 @@
 // Função para obter todas as transações e atualizar a interface do usuário
 let token = document.cookie.split('=')
-const entradasEl = document.querySelector("#entradas p")
-const saidasEl = document.querySelector("#saidas p")
-const saldoEl = document.querySelector("#saldo p")
 const transacoesItens = document.querySelector("#transacoes")
 
 function getTransacoes() {
-    fetch('http://127.0.0.1:8080/listartodastransacoes', {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': token[1], // Configure o token JWT no cabeçalho
-            },
-        })
+    const endPoint = 'http://127.0.0.1:8080/listartodastransacoes';
+    const requestOptions = {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': token[1], // Configure o token JWT no cabeçalho
+        },
+    }
+
+    fetch(endPoint, requestOptions)
         .then(res => res.json())
         .then(data => {
-            console.log(data.entradas.total)
-            entradasEl.innerHTML = "R$ " + data.entradas.total.toFixed(2)
-            saidasEl.innerHTML = "R$ " + data.saidas.total.toFixed(2)
-            saldoEl.innerHTML = "R$ " + (data.entradas.total - data.saidas.total).toFixed(2)
+            atualizarResumo(data.entradas.total, data.saidas.total)
             allTransacoes(data.transacoes, transacoesItens)
 
         }).catch(error => {
@@ -26,20 +23,31 @@ function getTransacoes() {
         })
 }
 
+function atualizarResumo(totalEntradas, saidasTotal){
+    const entradasEl = document.querySelector("#entradas p")
+    const saidasEl = document.querySelector("#saidas p")
+    const saldoEl = document.querySelector("#saldo p")
 
+    entradasEl.innerHTML = "R$ " + totalEntradas.toFixed(2)
+    saidasEl.innerHTML = "R$ " + saidasTotal.toFixed(2)
+    saldoEl.innerHTML = "R$ " + (totalEntradas - saidasTotal).toFixed(2)
+}
 
 function deleteTransacao(id, elToRemove) {
     // Define o ID da transação a ser excluída e o endpoint da API para exclusão.
     let idDelete = id
+    const endPoint = `http://127.0.0.1:8080/deletartransacao/${idDelete}`;
+
+    const requestOptions = {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            'Authorization': token[1], // Configure o token JWT no cabeçalho
+        }
+    }
 
     // Realiza uma solicitação DELETE para excluir a transação.
-    fetch(`http://127.0.0.1:8080/deletartransacao/${idDelete}`,{
-        method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': token[1], // Configure o token JWT no cabeçalho
-            },
-    })
+    fetch(endPoint, requestOptions)
         .then(res => res.json())
         .then(data => {
             if (data.error == false) {
@@ -55,7 +63,6 @@ function deleteTransacao(id, elToRemove) {
             console.log("Error" + error)
         })
 }
-
 
 function editarTransacaoFunc(idTransacao, nomeTransacao, categoriaTransacao, valorTransacao, tipoTransacao, dataTransacao) {
     // Cria um objeto com os dados da transação a ser editada.
@@ -86,18 +93,14 @@ function editarTransacaoFunc(idTransacao, nomeTransacao, categoriaTransacao, val
         .then(res => res.json())
         .then(data => {
             if (data.error == false) {
-                // Se a edição for bem-sucedida, oculta o elemento de edição e mostra um alerta.
                 document.getElementById("editarTransacao").classList.add("ocultar")
                 alert(`A transação foi editada com sucesso!`)
                 window.location.reload()
             } else if (data.error == true) {
-                // Se a edição falhar, exibe um alerta de erro.
                 alert(`Houve um erro ao editar a transação de id ${transacaoEditada.id} e nome ${transacaoEditada.nome}, tente novamente!`)
             }
         })
 }
-
-
 
 function allTransacoes(transacoes, elToAppend) {
     for (let i = 0; i < transacoes.length; i++) {
@@ -112,47 +115,29 @@ function allTransacoes(transacoes, elToAppend) {
         // Formatando a fullDataTransacao para dia/mes/ano
         const dataString = fullDataTransacao
         const dataObjeto = new Date(dataString)
-        // Extraia o ano, mês e dia da data
+        // Extraiindo o ano, mês e dia da data
         let ano = dataObjeto.getFullYear();
         let mes = (dataObjeto.getMonth() + 1).toString().padStart(2, '0'); // O mês é base 0, então somamos 1
         let dia = dataObjeto.getDate().toString().padStart(2, '0');
 
-        // Crie a data formatada no formato "AAAA-MM-DD"
+        // Data no formato "AAAA-MM-DD"
         let dataTransacaoFormatada = `${mes}/${dia}/${ano}`;
 
 
-        const transacaoLinha = document.createElement("div")
-        transacaoLinha.setAttribute("class", "transacoes-item")
-        transacaoLinha.setAttribute("id", idTransacao)
-
-        const nomeElement = document.createElement("div")
-        nomeElement.setAttribute("class", "item")
-        nomeElement.innerHTML = nomeTransacao;
-
-        const categoriaElement = document.createElement("div")
-        categoriaElement.setAttribute("class", "item")
-        categoriaElement.innerHTML = categoriaTransacao;
-
-        const valorElement = document.createElement("div")
-        valorElement.innerHTML = "R$ " + valorTransacao.toFixed(2);
+        const transacaoLinha = createElement("div", "idTransacao", "transacoes-item", '')
+        const nomeElement = createElement("div", "", "item", nomeTransacao)
+        const categoriaElement = createElement("div", "", "item", categoriaTransacao)
+        const valorElement = createElement("div", "", "", "R$ " + valorTransacao.toFixed(2))
         if (tipoTransacao == "saida") {
             valorElement.setAttribute("class", "item saida")
         } else {
             valorElement.setAttribute("class", "item")
         }
+        const tipoElement = createElement("div", "", "item", tipoTransacao)
+        const dataElement = createElement("div", "", "item", dataTransacaoFormatada)
 
 
-        const tipoElement = document.createElement("div")
-        tipoElement.setAttribute("class", "item")
-        tipoElement.innerHTML = tipoTransacao;
-
-        const dataElement = document.createElement("div")
-        dataElement.setAttribute("class", "item")
-
-        dataElement.innerHTML = dataTransacaoFormatada;
-
-        const deleteIcon = document.createElement("img")
-        deleteIcon.setAttribute("class", "btnDelete")
+        const deleteIcon = createElement("img", "", "btnDelete", "")
         deleteIcon.setAttribute("src", "../assets/icons/delete.svg")
         deleteIcon.addEventListener("click", (evt) => {
 
@@ -180,8 +165,7 @@ function allTransacoes(transacoes, elToAppend) {
 
         })
 
-        const editIcon = document.createElement("img")
-        editIcon.setAttribute("class", "btnEdit")
+        const editIcon = createElement("img", "", "btnEdit")
         editIcon.setAttribute("src", "../assets/icons/edit.svg")
         editIcon.addEventListener("click", (evt) => {
             const editarTransacao = document.getElementById("editarTransacao");
@@ -192,7 +176,6 @@ function allTransacoes(transacoes, elToAppend) {
             document.getElementById("tipo_transacao_editar").value = tipoTransacao;
             document.getElementById("data_transacao_editar").value = `${ano}-${mes}-${dia}`
 
-
             editarTransacao.classList.remove("ocultar");
 
             btn_editar_transacao.addEventListener("click", (evt) => {
@@ -202,13 +185,7 @@ function allTransacoes(transacoes, elToAppend) {
                 const valorEditado = document.getElementById("valor_transacao_editar").value
                 const tipoEditado = document.getElementById("tipo_transacao_editar").value
                 const dataEditada = document.getElementById("data_transacao_editar").value
-                // console.log(idTransacaoEditada)
-                // console.log(nomeEditado)
-                // console.log(categoriaEditada)
-                // console.log(valorEditado)
-                // console.log(tipoEditado)
-                // console.log(dataEditada)
-                
+
                 editarTransacaoFunc(idTransacaoEditada, nomeEditado, categoriaEditada, valorEditado, tipoEditado, dataEditada)
             })
 
@@ -226,5 +203,13 @@ function allTransacoes(transacoes, elToAppend) {
     }
 }
 
+// Função auxiliar para criar os elementos
+function createElement(tipoEl, IdEl, classEl, innerEl) {
+    let el = document.createElement(tipoEl)
+    el.setAttribute("id", IdEl)
+    el.setAttribute("class", classEl)
+    el.innerHTML = innerEl
+    return el
+}
 
 window.addEventListener('load', getTransacoes)
