@@ -67,7 +67,6 @@ router.post('/login', async (req, res) => {
             })
         }
 
-        // const secretKey = gerarStringAleatoria(10)
         const token = jwt.sign({
             id: user.id_user_users
         }, JWT_SECRET, {
@@ -79,7 +78,7 @@ router.post('/login', async (req, res) => {
             httpOnly: true,
             secure: false
         })
-        return res.json({
+        return res.status(200).json({
             error: false,
             message: 'Login realizado com sucesso!',
             token,

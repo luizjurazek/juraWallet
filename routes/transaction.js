@@ -147,7 +147,7 @@ router.post('/criartransacao', eAdmin, async (req, res) => {
     }
 })
 
-router.put('/editartransacao', eAdmin, async (req, res) => {
+router.post('/editartransacao', eAdmin, async (req, res) => {
     let id = req.body.id;
     let nome = req.body.nome;
     let categoria = req.body.categoria;
@@ -178,7 +178,7 @@ router.put('/editartransacao', eAdmin, async (req, res) => {
     }
 })
 
-router.delete('/deletartransacao/:id', eAdmin, async (req, res) => {
+router.post('/deletartransacao/:id', eAdmin, async (req, res) => {
     const id = req.params.id
     try {
         const query = await connection.promise().query(`DELETE FROM transacoes WHERE id_transacoes = ?`, id)

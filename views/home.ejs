@@ -5,33 +5,133 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="../css/style.css">
+    <title>Controle financeiro</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../css/menu.css">
+    <link rel="stylesheet" href="../css/calculadora.css">
 </head>
 
-<body>
-    <%- include('header') %>
+<body id="body">
+    <div id="excluirItemContainer" class="excluirItemContainer ocultar">
+        <div class="modalDelete">
+            <div class="modalMsg">
+                <h3>Deseja excluir o item?</h3>
+            </div>
+            <div class="modalItem">
+                <div class="item" id="modalItemNome"></div>
+                <div class="item" id="modalItemCategoria"></div>
+                <div class="item" id="modalItemValor"></div>
+                <div class="item" id="modalItemTipo"></div>
+                <div class="item" id="modalItemData"></div>
+            </div>
+
+            <div class="btnModal">
+                <button id="btn_excluir" class="btn_excluir">Excluir</button>
+                <button id="btn_cancelar" class="btn_cancelar">cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="editarTransacao" class="editarTransacao ocultar">
+        <div class="editarTransacaoForm">
+            <div class="editarCabecalho">
+                <h3>Editar a transação: </h3>
+            </div>
+            <hr>
+            <div class="itemTransacao">
+                <div class="form-item-editar">
+                    <label for="name">Nome</label>
+                    <input type="text" name="nome" id="nome_transacao_editar" required>
+                </div>
+                <div class="form-item-editar">
+                    <label for="category">Categoria</label>
+                    <select name="category" id="category_transacao_editar" class="form-category" required>
+                        <option value=""></option>
+                        <option value="salario">Salário</option>
+                        <option value="gastos fixos">Gastos fixos</option>
+                        <option value="mercado">Mercado</option>
+                        <option value="farmacia">Farmácia</option>
+                    </select>
+                </div>
+                <div class="form-item-editar">
+                    <label for="valor">Valor</label>
+                    <input type="number" name="valor" id="valor_transacao_editar" placeholder="R$" required>
+                </div>
+                <div class="form-item-editar">
+                    <label for="tipo-transacao">Tipo</label>
+                    <select name="tipo-transacao" id="tipo_transacao_editar" class="form-tipo" required>
+                        <option value="entrada">Entrada</option>
+                        <option value="saida">Saída</option>
+                    </select>
+                </div>
+                <div class="form-item-editar">
+                    <label for="Data">Data</label>
+                    <input type="date" name="data" id="data_transacao_editar" class="form-data" required>
+                </div>
+            </div>
+            <hr>
+            <div class="btnModal modalEditar">
+                <button id="btn_editar_transacao" class="btn_editar_transacao">Editar</button>
+                <button id="btn_cancelar_edicao" class="btn_cancelar_edicao">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="header-placeholder">
+        <div class="bg-menu">
+            <header class="header container">
+                <div class="div-logo">
+                    <a href="" class="logo">
+                        <img src="assets/img/logo-jura-wallet2-nobg.png" alt="" width="80px">
+                        <h1>JuraWallet</h1>
+                    </a>
+                </div>
+
+                <div class="menu">
+                    <ul class="menu-list">
+                        <li class="item-menu">
+                            <a href="#">Entradas</a>
+                        </li>
+                        <li class="item-menu">
+                            <a href="#">Saídas</a>
+                        </li>
+                        <li class="item-menu">
+                            <a href="#">Resumo</a>
+                        </li>
+                        <li class="item-menu" id="time">
+                            <span></span>
+                        </li>
+                    </ul>
+                </div>
+            </header>
+        </div>
+    </div>
+
+
+
     <div>
         <main class="resumo container">
             <div class="resume-card">
                 <div class="card card-entrada bg-green" id="entradas">
                     <h3>Entradas</h3>
                     <div class="resume-box-value">
-                        <span>R$</span>
                         <p id="value-card-entradas">00,00</p>
                     </div>
                 </div>
                 <div class="card card-saida bg-red" id="saidas">
                     <h3>Saídas</h3>
                     <div class="resume-box-value">
-                        <span>R$</span>
                         <p id="value-card-saidas">00,00</p>
                     </div>
                 </div>
                 <div class="card card-total bg-blue" id="saldo">
                     <h3>Saldo</h3>
                     <div class="resume-box-value">
-                        <span>R$</span>
                         <p>00,00</p>
                     </div>
                 </div>
@@ -74,35 +174,6 @@
                 </div>
             </div>
             <div class="transacoes container" id="transacoes">
-                <div class="transacoes-date">
-                    <div class="dt-ano">
-                        <label for="ano">
-                            <select name="ano" id="ano">
-                                <option value="2022">2022</option>
-                                <option value="2023">2023</option>
-                                <option value="2024">2024</option>
-                            </select>
-                        </label>
-                    </div>
-                    <div class="dt-mes">
-                        <label for="mes">
-                            <select name="mes" id="mes">
-                                <option value="01">Janeiro</option>
-                                <option value="02">Fevereiro</option>
-                                <option value="03">Março</option>
-                                <option value="04">Abril</option>
-                                <option value="05">Maio</option>
-                                <option value="06">Junho</option>
-                                <option value="07">Julho</option>
-                                <option value="08">Agosto</option>
-                                <option value="09">Setembro</option>
-                                <option value="10">Outubro</option>
-                                <option value="11">Novembro</option>
-                                <option value="12">Dezembro</option>
-                            </select>
-                        </label>
-                    </div>
-                </div>
                 <div class="transacoes-cabecalho">
                     <div class="item">Nome</div>
                     <div class="item">Categoria</div>
@@ -116,8 +187,49 @@
 
         </main>
     </div>
-    <%- include('footer') %>
+
+    <div id="calc" class="calc calc_exibir">
+        <div id="calc_aba" class="calc_aba">
+            <img id="img_aba_calc" src="assets/icons/arrow_right.svg" alt="">
+        </div>
+        <div id="calc_principal" class="calc_principal">
+            <div id="div_nome" class="div_nome">
+                <p>Calculadora</p>
+            </div>
+            <div id="div_display" class="div_display  d-flex">
+                <p id="display" class="display">0</p>
+            </div>
+            <div id="div_teclas" class="div_teclas d-flex">
+                <button id="t-clear" class="tecla clear">CL</button>
+                <button id="t(" class="tecla num">(</button>
+                <button id="t)" class="tecla num">)</button>
+                <button id="t-cpy" class="tecla tecla-operacao cpy">CPY</button>
+                <button id="t7" class="tecla num">7</button>
+                <button id="t8" class="tecla num">8</button>
+                <button id="t9" class="tecla num">9</button>
+                <button id="tsoma" class="tecla tecla-operacao op">+</button>
+                <button id="t4" class="tecla num">4</button>
+                <button id="t5" class="tecla num">5</button>
+                <button id="t6" class="tecla num">6</button>
+                <button id="tsubtrair" class="tecla tecla-operacao op">-</button>
+                <button id="t1" class="tecla num">1</button>
+                <button id="t2" class="tecla num">2</button>
+                <button id="t3" class="tecla num">3</button>
+                <button id="tmultiplicar" class="tecla tecla-operacao op">x</button>
+                <button id="t0" class="tecla num">0</button>
+                <button id="tseparador" class="tecla num">,</button>
+                <button id="tigual" class="tecla tecla-igual res">=</button>
+                <button id="tdivisao" class="tecla tecla-operacao op">/</button>
+            </div>
+        </div>
+    </div>
+
+
+
     <script src="../js/home.js"></script>
+    <script src="js/cadastro.js" type="module"></script>
+    <script src="js/getDate.js"></script>
+    <script src="js/calculadora.js"></script>
 </body>
 
 </html>
