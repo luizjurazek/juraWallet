@@ -15,7 +15,6 @@ const {
     separarTransacaoPorTipo
 } = require('../funcAuxiliares')
 
-
 router.get('/home', eAdmin, async (req, res) => {
     res.render('../views/home.ejs')
 });

@@ -64,7 +64,7 @@ function editarTransacaoFunc(idTransacao, nomeTransacao, categoriaTransacao, val
         nome: nomeTransacao,
         categoria: categoriaTransacao,
         valor: valorTransacao,
-        tipoTransacao: tipoTransacao,
+        tipo: tipoTransacao,
         data: dataTransacao
     }
 
@@ -88,7 +88,7 @@ function editarTransacaoFunc(idTransacao, nomeTransacao, categoriaTransacao, val
             if (data.error == false) {
                 // Se a edição for bem-sucedida, oculta o elemento de edição e mostra um alerta.
                 document.getElementById("editarTransacao").classList.add("ocultar")
-                alert(`A transação de id ${transacaoEditada.id} e nome ${transacaoEditada.nome} foi editada com sucesso!`)
+                alert(`A transação foi editada com sucesso!`)
                 window.location.reload()
             } else if (data.error == true) {
                 // Se a edição falhar, exibe um alerta de erro.
@@ -184,31 +184,37 @@ function allTransacoes(transacoes, elToAppend) {
         editIcon.setAttribute("class", "btnEdit")
         editIcon.setAttribute("src", "../assets/icons/edit.svg")
         editIcon.addEventListener("click", (evt) => {
-            // const editarTransacao = document.getElementById("editarTransacao");
-            // const btn_cancelar_edicao = document.getElementById("btn_cancelar_edicao");
-            // document.getElementById("nome_transacao_editar").value = nomeTransacao;
-            // document.getElementById("category_transacao_editar").value = categoriaTransacao;
-            // document.getElementById("valor_transacao_editar").value = valorTransacao.toFixed(2);
-            // document.getElementById("tipo_transacao_editar").value = tipoTransacao;
-            // document.getElementById("data_transacao_editar").value = `${ano}-${mes}-${dia}`
+            const editarTransacao = document.getElementById("editarTransacao");
+            const btn_cancelar_edicao = document.getElementById("btn_cancelar_edicao");
+            document.getElementById("nome_transacao_editar").value = nomeTransacao;
+            document.getElementById("category_transacao_editar").value = categoriaTransacao;
+            document.getElementById("valor_transacao_editar").value = valorTransacao.toFixed(2);
+            document.getElementById("tipo_transacao_editar").value = tipoTransacao;
+            document.getElementById("data_transacao_editar").value = `${ano}-${mes}-${dia}`
 
 
-            // editarTransacao.classList.remove("ocultar");
+            editarTransacao.classList.remove("ocultar");
 
-            // btn_editar_transacao.addEventListener("click", (evt) => {
-            //     const idTransacaoEditada = idTransacao
-            //     const nomeEditado = document.getElementById("nome_transacao_editar").value
-            //     const categoriaEditada = document.getElementById("category_transacao_editar").value
-            //     const valorEditado = document.getElementById("valor_transacao_editar").value
-            //     const tipoEditado = document.getElementById("tipo_transacao_editar").value
-            //     const dataEditada = document.getElementById("data_transacao_editar").value
+            btn_editar_transacao.addEventListener("click", (evt) => {
+                const idTransacaoEditada = idTransacao
+                const nomeEditado = document.getElementById("nome_transacao_editar").value
+                const categoriaEditada = document.getElementById("category_transacao_editar").value
+                const valorEditado = document.getElementById("valor_transacao_editar").value
+                const tipoEditado = document.getElementById("tipo_transacao_editar").value
+                const dataEditada = document.getElementById("data_transacao_editar").value
+                // console.log(idTransacaoEditada)
+                // console.log(nomeEditado)
+                // console.log(categoriaEditada)
+                // console.log(valorEditado)
+                // console.log(tipoEditado)
+                // console.log(dataEditada)
+                
+                editarTransacaoFunc(idTransacaoEditada, nomeEditado, categoriaEditada, valorEditado, tipoEditado, dataEditada)
+            })
 
-            //     editarTransacaoFunc(idTransacaoEditada, nomeEditado, categoriaEditada, valorEditado, tipoEditado, dataEditada)
-            // })
-
-            // btn_cancelar_edicao.addEventListener("click", (evt) => {
-            //     editarTransacao.classList.add("ocultar");
-            // });
+            btn_cancelar_edicao.addEventListener("click", (evt) => {
+                editarTransacao.classList.add("ocultar");
+            });
         });
 
         const buttonItem = document.createElement("div")
