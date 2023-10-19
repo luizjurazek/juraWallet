@@ -85,12 +85,12 @@ function editarTransacaoFunc(idTransacao, nomeTransacao, categoriaTransacao, val
     fetch(endpoint, requestOptions)
         .then(res => res.json())
         .then(data => {
-            if (data.success == true) {
+            if (data.error == false) {
                 // Se a edição for bem-sucedida, oculta o elemento de edição e mostra um alerta.
                 document.getElementById("editarTransacao").classList.add("ocultar")
                 alert(`A transação de id ${transacaoEditada.id} e nome ${transacaoEditada.nome} foi editada com sucesso!`)
                 window.location.reload()
-            } else if (data.success == false) {
+            } else if (data.error == true) {
                 // Se a edição falhar, exibe um alerta de erro.
                 alert(`Houve um erro ao editar a transação de id ${transacaoEditada.id} e nome ${transacaoEditada.nome}, tente novamente!`)
             }

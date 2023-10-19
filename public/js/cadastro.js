@@ -9,6 +9,7 @@ cadastrar_transacao.addEventListener("click", (evt) => {
     const valor_transacao = document.getElementById("valor_transacao").value
     const tipo_transacao = document.getElementById("tipo_transacao").value
     const data_transacao = document.getElementById("data_transacao").value
+    console.log(tipo_transacao)
 
     // Cria um objeto "transacao" com os valores dos campos.
     const transacao = {
@@ -18,6 +19,8 @@ cadastrar_transacao.addEventListener("click", (evt) => {
         tipo: tipo_transacao,
         data: data_transacao
     }
+
+    console.log(transacao)
 
     // Verifica se algum campo no formulário está vazio.
     if (transacao.nome == "" || transacao.cadastrar_transacao == "" || transacao.valor == "" || transacao.tipo == "" || transacao.data == "") {
@@ -29,21 +32,23 @@ cadastrar_transacao.addEventListener("click", (evt) => {
         const requestOptions = {
             method: "POST",
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                'Authorization': token[1], // Configure o token JWT no cabeçalho
             },
             body: JSON.stringify(transacao)
         }
 
         // Define o endpoint da API para criar uma nova transação.
-        const endpoint = "http://127.0.0.1:3000/criartransacao"
+        const endpoint = "http://127.0.0.1:8080/criartransacao"
 
         // Realiza a solicitação POST para criar a transação.
         fetch(endpoint, requestOptions)
             .then(response => response.json()) // Analisa a resposta JSON.
             .then(data => {
-                if (data.success) {
+                if (data.error == false) {
                     // Se a criação for bem-sucedida, exibe no console uma mensagem de sucesso com o ID da nova transação.
-                    console.log("Transação criada com sucesso. ID:", data.id);
+                    alert("Transação criada com sucesso.");
+                    window.location.reload()
                 } else {
                     // Se houver um erro na criação, exibe no console uma mensagem de erro com a descrição do erro.
                     console.error("Erro ao criar a transação:", data.error);
@@ -55,6 +60,6 @@ cadastrar_transacao.addEventListener("click", (evt) => {
             });
 
         // Recarrega a página para atualizar os dados da lista de transações após a criação bem-sucedida.
-        window.location.reload()
+        // 
     }
 })
