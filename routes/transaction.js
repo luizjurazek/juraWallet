@@ -19,6 +19,10 @@ router.get('/home', eAdmin, async (req, res) => {
     res.render('../views/home.ejs')
 });
 
+router.get('/paginanaoencontrada', eAdmin, async (req, res) => {
+    res.render('../views/naoAutorizadoPage.ejs')
+});
+
 
 router.get('/listartodastransacoes', eAdmin, async (req, res) => {
     connection.query('SELECT * FROM transacoes', function (err, results, fields) {
