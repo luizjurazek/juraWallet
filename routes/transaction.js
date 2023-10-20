@@ -47,21 +47,21 @@ router.get('/listartransacaopordata/:mes/:ano', eAdmin, async (req, res) => {
     let mes = (req.params.mes.length === 1) ? "0" + req.params.mes : req.params.mes;;
     let ano = (req.params.ano >= 2001 && req.params.ano <= 2100) ? req.params.ano : null;
 
-    if(mes > 0 && mes < 13){
+    if (mes > 0 && mes < 13) {
         try {
             const query = await connection.promise().query(`SELECT * FROM transacoes WHERE DATE_FORMAT(dt_data_transacoes, '%Y-%m') = '${ano}-${mes}'`)
             if (query[0] != "") {
-                console.log(query[0])
-                const transacaoPorTipo = separarTransacaoPorTipo(query[0]) 
-                const response = {
+                const result = query[0]
+                console.log(result)
+                const transacaoPorTipo = separarTransacaoPorTipo(result)
+                return res.status(200).json({
                     error: false,
-                    mes: mes,
-                    ano: ano,
-                    quantidadeDeTransacoes: query[0].length,
-                    todasTransacoes: query[0],
+                    id_usuario_logado: req.userId,
+                    quantidadeDeTransacoes: result.length,
+                    transacoes: result,
                     entradas: transacaoPorTipo[0],
                     saidas: transacaoPorTipo[1]
-                }
+                })
 
                 return res.status(200).json(response)
             } else if (query[0] == "") {
@@ -86,7 +86,7 @@ router.get('/listartransacaopordata/:mes/:ano', eAdmin, async (req, res) => {
             mensagem: "Insira mês e ano válidos!"
         })
     }
-    
+
 })
 
 router.get('/listartransacao', eAdmin, async (req, res) => {
@@ -125,7 +125,7 @@ router.post('/criartransacao', eAdmin, async (req, res) => {
         const query = await connection.promise().query(`INSERT INTO transacoes (s_nome_transacoes, s_categoria_transacoes, i_valor_transacoes, s_tipo_transacoes, dt_data_transacoes) 
         VALUES ("${nome}", "${categoria}", ${valor}, "${tipoTransacao}" , "${data}")`)
 
-        
+
         if (query[0].affectedRows > 0) {
             return res.status(200).json({
                 error: false,

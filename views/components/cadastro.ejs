@@ -1,0 +1,36 @@
+<div class="cadastro container">
+    <div action="" id="form-cadastro" class="form-cadastro">
+        <div class="form-itens">
+            <div class="form-item">
+                <label for="name">Nome</label>
+                <input type="text" name="nome" id="nome_transacao" required>
+            </div>
+            <div class="form-item">
+                <label for="category">Categoria</label>
+                <select name="category" id="category_transacao" class="form-category" required>
+                    <option value=""></option>
+                    <option value="salario">Salário</option>
+                    <option value="gastos fixos">Gastos fixos</option>
+                    <option value="mercado">Mercado</option>
+                    <option value="farmacia">Farmácia</option>
+                </select>
+            </div>
+            <div class="form-item">
+                <label for="valor">Valor</label>
+                <input type="number" name="valor" id="valor_transacao" placeholder="R$" required>
+            </div>
+            <div class="form-item">
+                <label for="tipo-transacao">Tipo</label>
+                <select name="tipo-transacao" id="tipo_transacao" class="form-tipo" required>
+                    <option value="entrada">Entrada</option>
+                    <option value="saida">Saída</option>
+                </select>
+            </div>
+            <div class="form-item">
+                <label for="Data">Data</label>
+                <input type="date" name="data" id="data_transacao" class="form-data" required>
+            </div>
+        </div>
+        <button id="cadastrar_transacao" class="cadastrar">Cadastrar</button>
+    </div>
+</div>

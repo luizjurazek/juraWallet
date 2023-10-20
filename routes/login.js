@@ -57,7 +57,7 @@ router.post('/login', async (req, res) => {
                 mensagem: "Usuário não encontrado!"
             })
         }
-
+        console.log(rows)
         // Verificando a senha do usuário
         const user = rows[0]
         if (!(await bcrypt.compare(password, user.s_password_users))) {
@@ -78,14 +78,15 @@ router.post('/login', async (req, res) => {
             httpOnly: true,
             secure: false
         })
+
         return res.status(200).json({
             error: false,
+            nomeUsuario: user.s_nome_users,
             message: 'Login realizado com sucesso!',
             token,
         })
 
     } catch (err) {
-        console.error(err);
         return res.status(500).json({
             err: true,
             mensagem: 'Erro interno do servidor',

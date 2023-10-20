@@ -1,0 +1,44 @@
+<div id="editarTransacao" class="editarTransacao ocultar">
+    <div class="editarTransacaoForm">
+        <div class="editarCabecalho">
+            <h3>Editar a transação: </h3>
+        </div>
+        <hr>
+        <div class="itemTransacao">
+            <div class="form-item-editar">
+                <label for="name">Nome</label>
+                <input type="text" name="nome" id="nome_transacao_editar" required>
+            </div>
+            <div class="form-item-editar">
+                <label for="category">Categoria</label>
+                <select name="category" id="category_transacao_editar" class="form-category" required>
+                    <option value=""></option>
+                    <option value="salario">Salário</option>
+                    <option value="gastos fixos">Gastos fixos</option>
+                    <option value="mercado">Mercado</option>
+                    <option value="farmacia">Farmácia</option>
+                </select>
+            </div>
+            <div class="form-item-editar">
+                <label for="valor">Valor</label>
+                <input type="number" name="valor" id="valor_transacao_editar" placeholder="R$" required>
+            </div>
+            <div class="form-item-editar">
+                <label for="tipo-transacao">Tipo</label>
+                <select name="tipo-transacao" id="tipo_transacao_editar" class="form-tipo" required>
+                    <option value="entrada">Entrada</option>
+                    <option value="saida">Saída</option>
+                </select>
+            </div>
+            <div class="form-item-editar">
+                <label for="Data">Data</label>
+                <input type="date" name="data" id="data_transacao_editar" class="form-data" required>
+            </div>
+        </div>
+        <hr>
+        <div class="btnModal modalEditar">
+            <button id="btn_editar_transacao" class="btn_editar_transacao">Editar</button>
+            <button id="btn_cancelar_edicao" class="btn_cancelar_edicao">Cancelar</button>
+        </div>
+    </div>
+</div>

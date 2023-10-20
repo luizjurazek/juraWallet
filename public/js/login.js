@@ -17,10 +17,10 @@ btnLogin.addEventListener("click", (evt) => {
         }).then(response => response.json())
         .then(data => {
             if (data.error == false) {
-                localStorage.setItem('token', data.token)
+                console.log(data)
                 setTimeout(() => {
                     window.location.href = "http://localhost:8080/home"
-                }, 500);
+                }, 1200);
             } else {
                 console.error('Erro no login:', data.mensagem);
                 alert("Usuário ou senha não encontrado, tente novamente!")
