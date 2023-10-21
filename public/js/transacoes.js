@@ -1,5 +1,7 @@
-// Função para obter todas as transações e atualizar a interface do usuário
-let token = document.cookie.split('=')
+// Token de autenticacao
+const regexForToken = /token=([^;]*)/;
+let token = document.cookie.match(regexForToken)
+// Função para obter todas as transações e atualizar a interface do usuário\
 const transacoesItens = document.querySelector("#transacoes")
 
 function getTransacoes() {
@@ -8,7 +10,7 @@ function getTransacoes() {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': token[1], // Configure o token JWT no cabeçalho
+            'Authorization': token[1], // Capturar a segunda posição do array que foi extraido o token via regex
         },
     }
 

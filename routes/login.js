@@ -33,11 +33,7 @@ router.post('/cadastrar', async (req, res) => {
                 mensagem: "Erro ao cadastrar o usuário!"
             })
         } else {
-            return res.status(200).cookie('token', token, {
-                maxAge: 3600000,
-                httpOnly: true,
-                secure: false
-            }).json({
+            return res.status(200).json({
                 error: false,
                 mensagem: "Usuário cadastrado com sucesso!"
             })
@@ -61,7 +57,6 @@ router.post('/login', async (req, res) => {
                 mensagem: "Usuário não encontrado!"
             })
         }
-        console.log(rows)
         // Verificando a senha do usuário
         const user = rows[0]
         if (!(await bcrypt.compare(password, user.s_password_users))) {
@@ -71,23 +66,28 @@ router.post('/login', async (req, res) => {
             })
         }
 
+        const seteDiasEmMilissegundos = 7 * 24 * 60 * 60 * 1000;
         const token = jwt.sign({
             id: user.id_user_users
         }, JWT_SECRET, {
-            expiresIn: '7d' // 7 dias
+            expiresIn: seteDiasEmMilissegundos // 7 dias
         })
 
-        res.cookie('token', token, {
-            maxAge: 3600000,
-            httpOnly: true,
-            secure: false
-        })
+        // res.cookie('token', token, {
+        //     maxAge: seteDiasEmMilissegundos,
+        //     httpOnly: true,
+        //     secure: false
+        // })
 
         return res.status(200).json({
             error: false,
             nomeUsuario: user.s_nome_users,
             message: 'Login realizado com sucesso!',
-            token,
+            autenticacao: {
+                token,
+                expiresIn: seteDiasEmMilissegundos,
+                id: user.id_user_users
+            },
         })
 
     } catch (err) {

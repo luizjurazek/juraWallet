@@ -18,7 +18,9 @@ btnLogin.addEventListener("click", (evt) => {
         .then(data => {
             if (data.error == false) {
                 console.log(data)
-                localStorage.setItem('token', data.token)
+                localStorage.setItem('usuario', data.nomeUsuario)
+                document.cookie = `token=${data.autenticacao.token};expires=${data.autenticacao.expiresIn}`
+                document.cookie = `user=${data.nomeUsuario};idUser=${data.autenticacao.id}`
                 setTimeout(() => {
                     window.location.href = "http://localhost:8080/home"
                 }, 100);
