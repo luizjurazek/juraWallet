@@ -29,12 +29,13 @@
 
 .card-info {
     transition: all 0.2s;
-    height: 265px;
 }
 .user-info {
     display: flex;
     flex-direction: column;
     margin-bottom: 25px;
+    justify-content: center;
+    align-items: center;
 }
 
 .user-info label {
@@ -47,6 +48,17 @@
     justify-content: center;
     align-items: center;
 }
+
+.user-login a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.user-login a:hover {
+    text-decoration: underline;
+    color: #cccccc;
+}
+
 
 .user-login button {
     cursor: pointer;
@@ -81,7 +93,8 @@
 }
 
 .user-login span:hover {
-    color: rgb(219, 219, 219);
+    text-decoration: underline;
+    color: #cccccc;
 }
 
 #sucess-longin {

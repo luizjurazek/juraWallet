@@ -88,24 +88,31 @@
     cursor: pointer;
 }
 
-.user-cadastro span:hover {
-    color: rgb(219, 219, 219);
+.card-checkmark a,
+.user-cadastro a {
+    color: #fff;
+    text-decoration: none;
 }
 
-#sucess-longin {
-    transition: ease-in 1s;
-}
-
-.sucess-cadastro {
-    display: none;
+.card-checkmark a:hover,
+.user-cadastro p:hover {
+    text-decoration: underline;
+    color: #cccccc;
 }
 
 .card-checkmark {
     display: flex;
-    justify-content: center;
+    justify-content: space-evenly;
     align-items: center;
     flex-direction: column;
     height: 265px;
+}
+
+.card-checkmark .success {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .card-checkmark  i {
@@ -119,4 +126,6 @@
     color: #9ABC66;
 }
 
-
+.ocultar {
+    display: none;
+}

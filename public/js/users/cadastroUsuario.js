@@ -1,4 +1,6 @@
 const btn_cadastro = document.getElementById("btn_cadastro");
+const card_info = document.getElementById("card-info");
+const sucess_cadastro = document.getElementById("sucess-cadastro")
 
 btn_cadastro.addEventListener('click', (evt) => {
     const nome = document.getElementById("nome").value;
@@ -23,7 +25,10 @@ btn_cadastro.addEventListener('click', (evt) => {
     fetch(endpoint, requestOptions)
     .then(res => res.json())
     .then(data => {
-        console.log(data)
+        if(data.error == false){
+            card_info.classList.add("ocultar")
+            sucess_cadastro.classList.remove("ocultar")
+        }
     })
     
 })
