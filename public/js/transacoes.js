@@ -56,7 +56,6 @@ function deleteTransacao(id, elToRemove) {
                 document.getElementById("excluirItemContainer").classList.add("ocultar")
                 elToRemove.remove()
                 alert("Transação excluída com sucesso!")
-                window.location.reload()
             }
             if (data.success == true) {
                 alert("Houve um erro ao deletar a transação, tente novamente!")
@@ -126,17 +125,17 @@ function allTransacoes(transacoes, elToAppend) {
         let dataTransacaoFormatada = `${mes}/${dia}/${ano}`;
 
 
-        const transacaoLinha = createElement("div", "idTransacao", "transacoes-item", '')
-        const nomeElement = createElement("div", "", "item", nomeTransacao)
-        const categoriaElement = createElement("div", "", "item", categoriaTransacao)
-        const valorElement = createElement("div", "", "", "R$ " + valorTransacao.toFixed(2))
+        const transacaoLinha = createElement("tr", "idTransacao", "transacoes-item", '')
+        const nomeElement = createElement("td", "", "item", nomeTransacao)
+        const categoriaElement = createElement("td", "", "item", categoriaTransacao)
+        const valorElement = createElement("td", "", "", "R$ " + valorTransacao.toFixed(2))
         if (tipoTransacao == "saida") {
             valorElement.setAttribute("class", "item saida")
         } else {
             valorElement.setAttribute("class", "item")
         }
-        const tipoElement = createElement("div", "", "item", tipoTransacao)
-        const dataElement = createElement("div", "", "item", dataTransacaoFormatada)
+        const tipoElement = createElement("td", "", "item", tipoTransacao)
+        const dataElement = createElement("td", "", "item", dataTransacaoFormatada)
 
 
         const deleteIcon = createElement("img", "", "btnDelete", "")
@@ -196,7 +195,7 @@ function allTransacoes(transacoes, elToAppend) {
             });
         });
 
-        const buttonItem = document.createElement("div")
+        const buttonItem = document.createElement("td")
         buttonItem.setAttribute("class", "item acoes")
         buttonItem.append(editIcon, deleteIcon)
 

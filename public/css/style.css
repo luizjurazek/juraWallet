@@ -120,12 +120,12 @@ body {
 
 .transacoes .transacoes-item {
     display: flex;
-    flex-direction: row;
-    justify-content: flex-start; /* Alterado para alinhar à esquerda */
-    align-items: center; /* Adicionado para centralizar verticalmente */
+    /* flex-direction: row;
+    justify-content: flex-start; 
+    align-items: center; 
     margin: 10px 10px;
     padding-top: 10px;
-    border-bottom: 1px solid #f3f3f3;
+    border-bottom: 1px solid #f3f3f3; */
 }
 
 .transacoes-cabecalho {
@@ -136,9 +136,16 @@ body {
     padding: 8px 10px;
 }
 
+.itemCabecalho {
+    text-align: left;
+    flex: 1;
+}
+
 .transacoes .item {
-    text-align: left; /* Alinhar o texto à esquerda */
-    flex: 1; /* Expandir para preencher o espaço disponível */
+    text-align: left;
+    flex: 1;
+    border: 1px solid #cccccc;
+    padding: 5px;
 }
 
 .transacoes .acoes {
