@@ -14,6 +14,10 @@ router.get('/', async (req, res) => {
     res.render('../views/login.ejs')
 })
 
+router.get('/cadastrar', (req, res) => {
+    res.render('../views/cadastro.ejs')
+})
+
 router.post('/cadastrar', async (req, res) => {
     const username = req.body.username
     const password = await bcrypt.hash(req.body.password, 8)

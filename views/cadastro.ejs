@@ -6,10 +6,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="http://localhost:8080/assets/img/logo-jura-wallet2-nobg.png"/>
-    <title>Entre com Segurança e Facilidade no Seu JuraWallet - Sua Central Financeira Pessoal | JuraWallet</title>
-    <meta name="description" content="Entre na sua conta JuraWallet com facilidade e segurança. Gerencie suas finanças pessoais de forma conveniente, acompanhe gastos e economias, e alcance seus objetivos financeiros. Seu futuro financeiro começa aqui.">
-    <link rel="canonical" href="http://localhost:8080/" />
-    <link rel="stylesheet" href="../css/login.css">
+    <title>Faça seu cadastro com Segurança e Facilidade no Seu JuraWallet - Sua Central Financeira Pessoal | JuraWallet</title>
+    <meta name="description" content="Realizado o cadastro da sua conta JuraWallet com facilidade e segurança. Gerencie suas finanças pessoais de forma conveniente, acompanhe gastos e economias, e alcance seus objetivos financeiros. Seu futuro financeiro começa aqui.">
+    <link rel="canonical" href="http://localhost:8080/cadastro" />
+    <link rel="stylesheet" href="../css/cadastro.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
@@ -18,33 +18,38 @@
 
 <body>
     <div class="container bg-gray">
-        <div class="card-login">
+        <div class="card-cadastro">
             <div class="user-logo">
-                <img src="/assets/img/logo-jura-wallet2-nobg.png" alt="" width="180px">
+                <img src="/assets/img/logo-jura-wallet2-nobg.png" alt="">
             </div>
+            <h3 class="title-cadastro">Faça seu cadastro: </h3>
             <div id="card-info" class="card-info">
                 <div class="user-info">
-                    <label for="username">email</label>
+                    <label for="nome">Nome: </label>
+                    <input type="text" name="nome" id="nome" required>
+                    <label for="username">Nome de usuário: </label>
+                    <input type="text" name="username" id="username" required>
+                    <label for="email">Email: </label>
                     <input type="email" name="email" id="email" required>
                     <label for="password">Senha</label>
                     <input type="password" name="password" id="password" required>
                 </div>
-                <div class="user-login">
-                    <button class="login" id="login">Login</button>
-                    <span>Esqueceu a senha?</span>
+                <div class="user-cadastro">
+                    <button class="cadastro" id="cadastro">Cadastrar</button>
+                    <p>Já tem cadastro? Fazer o login.</p>
                 </div>
             </div>
-            <div id="sucess-login" class="sucess-login">
+            <div id="sucess-cadastro" class="sucess-cadastro">
                 <div class="card-checkmark">
                     <i class="checkmark">✓</i>
-                    <h2>Logado com sucesso!</h2>
+                    <h2>Cadastrado com sucesso!</h2>
                 </div>
             </div>
         </div>
     </div>
    
 
-    <script src="../js/users/login.js"></script>
+    <script src="../js/users/cadastro.js"></script>
 </body>
 
 </html>

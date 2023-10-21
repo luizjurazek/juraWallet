@@ -19,7 +19,7 @@ router.get('/home', eAdmin, async (req, res) => {
     res.render('../views/home.ejs')
 });
 
-router.get('/paginanaoencontrada', eAdmin, async (req, res) => {
+router.get('/pagenotfound', eAdmin, async (req, res) => {
     res.render('../views/naoAutorizadoPage.ejs')
 });
 
