@@ -1,4 +1,0 @@
-nome_transacao,categoria_transacao,valor_transacao,tipo_transacao,data_transacao
-Produto 1,teste,10,entrada,2023-10-20
-Produto 2,teste,20,saida,2023-10-20
-Produto 3,teste,30,entrada,2023-10-20

@@ -245,7 +245,7 @@ body {
     align-items: center;
     width: 100vw;
     height: 100vh;
-    position: absolute;
+    position: fixed;
     background-color: #090c0e34;
 }
 

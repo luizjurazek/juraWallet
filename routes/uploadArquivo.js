@@ -16,13 +16,23 @@ const {
 } = require('../connection.js')
 
 router.post('/importartransacoes', eAdmin, upload.single('csvFile'), async (req, res) => {
-    const csvFilePath = req.file.path;
     const results = [];
+    let csvFilePath;
 
     if (!req.file) {
         return res.status(400).json({
-            error: 'Nenhum arquivo CSV enviado'
+            error: true,
+            message: 'Nenhum arquivo CSV enviado'
         });
+    }
+
+    if (!req.file.path) {
+        return res.status(400).json({
+            error: true,
+            message: 'Nenhum arquivo CSV enviado'
+        });
+    } else {
+        csvFilePath = req.file.path;
     }
 
     fs.createReadStream(csvFilePath)

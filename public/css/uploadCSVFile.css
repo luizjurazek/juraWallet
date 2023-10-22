@@ -1,8 +1,22 @@
+.modal_upload_massivo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    background-color: #090c0e34;
+}
+
 .containerUploadCsv {
     display: flex;
-    flex-direction: row;
-    margin-top: 10px;
-    /* border: 1px solid red; */
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    width: 40vw;
+    height: 20vh;
+    background-color: #fff;
+    border-radius: 5px;
 }
 
 .csv-upload-form {
@@ -13,6 +27,7 @@
 }
 
 .btnFileInput {
+    margin-top: 10px;
     border-radius: 5px;
     cursor: pointer;
     color: #fff;
@@ -37,3 +52,16 @@
     cursor: pointer;
 }
 
+.btn_cancelar {
+    width: 40%;
+    padding: 5px;
+    outline: none;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+}
+
+.btn_cancelar:hover {
+    background-color: #5b91c7;
+}
