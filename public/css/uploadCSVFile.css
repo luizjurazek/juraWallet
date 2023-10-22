@@ -1,0 +1,39 @@
+.containerUploadCsv {
+    display: flex;
+    flex-direction: row;
+    margin-top: 10px;
+    /* border: 1px solid red; */
+}
+
+.csv-upload-form {
+    display: flex;
+    flex-direction: row;
+    width: 80%;
+    margin-left: 15px;
+}
+
+.btnFileInput {
+    border-radius: 5px;
+    cursor: pointer;
+    color: #fff;
+    background-color: #0c0e0fc7;
+    height: 30px;
+    width: 100%;
+    outline: 0;
+    border: 0;
+}
+
+.btnFileInput:hover {
+    background-color: #090c0e;
+}
+
+.csvFileInput {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.csvFileInput input {
+    cursor: pointer;
+}
+

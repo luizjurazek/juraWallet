@@ -6,6 +6,7 @@ const cookieParser = require('cookie-parser');
 // Importando rotas
 const transactionRoutes = require('./routes/transaction.js')
 const loginRoutes = require('./routes/login.js')
+const uploadArquivo = require('./routes/uploadArquivo.js')
 
 // View engine
 app.set('view engine', 'ejs')
@@ -27,6 +28,7 @@ app.use(cors({
 // Rotas 
 app.use('/', transactionRoutes)
 app.use('/', loginRoutes)
+app.use('/', uploadArquivo)
 
 
 
