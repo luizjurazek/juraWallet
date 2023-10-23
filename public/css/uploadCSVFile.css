@@ -11,10 +11,10 @@
 .containerUploadCsv {
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: space-evenly;
     align-items: center;
     width: 40vw;
-    height: 20vh;
+    height: 27vh;
     background-color: #fff;
     border-radius: 5px;
 }
