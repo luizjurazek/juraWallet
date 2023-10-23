@@ -9,6 +9,12 @@ const {
     connection
 } = require('../connection.js')
 
+const {
+    logout
+} = require('../middleware/auth.js')
+
+router.get('/logout', logout);
+
 
 router.get('/', async (req, res) => {
     res.render('../views/login.ejs')
