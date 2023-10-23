@@ -1,0 +1,30 @@
+.popup_logout {
+    cursor: pointer;
+}
+
+.modal_logout {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    height: 100vh;
+    width: 100vw;
+    background-color: #090c0e34;
+    z-index: 999;
+}
+
+.container_logout {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 25vw;
+    height: 20vh;
+    background-color: #fff;
+    border-radius: 5px;
+    color: #000;
+}
+
+.container_logout .btn_logout{
+    background-color: #FF6961;
+}
