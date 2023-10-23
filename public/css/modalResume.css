@@ -1,0 +1,22 @@
+.resume-card {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    margin-top: 10px;
+    height: 120px;
+}
+
+.resume-card .card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 15px;
+    width: 30%;
+    height: 100px;
+}
+
+.resume-box-value {
+    display: flex;
+}

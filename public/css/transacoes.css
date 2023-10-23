@@ -1,0 +1,60 @@
+.transacoes {
+    display: flex;
+    flex-direction: column;
+    border-radius: 0px 0px 10px 10px;
+    margin-top: 35px;
+    /* height: 300px;
+    overflow-y: auto; */
+    margin-left: 15px;
+    margin-right: 15px;
+    background-color: #fff;
+}
+
+.transacoes .transacoes-item {
+    display: flex;
+    /* flex-direction: row;
+    justify-content: flex-start; 
+    align-items: center; 
+    margin: 10px 10px;
+    padding-top: 10px;
+    border-bottom: 1px solid #f3f3f3; */
+}
+
+
+
+.transacoes-cabecalho {
+    display: flex;
+    justify-content: space-around;
+    background-color: #090c0e;
+    color: #fff;
+    padding: 8px 10px;
+}
+
+.itemCabecalho {
+    text-align: left;
+    flex: 1;
+}
+
+.transacoes .item {
+    text-align: left;
+    flex: 1;
+    border: 1px solid #cccccc;
+    padding: 5px;
+}
+
+.transacoes .acoes {
+    display: flex !important;
+    justify-content: flex-end;
+}
+
+.transacoes .acoes img {
+    margin-left: 15px;
+}
+
+.transacoes .saida {
+    color: red;
+}
+
+.btnDelete, .btnEdit {
+    cursor: pointer;
+}

@@ -1,0 +1,71 @@
+.form-cadastro {
+    display: flex;
+    flex-direction: column;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.form-itens {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.form-itens .form-item {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    /* padding-right: 10px; */
+    width: 19%;
+}
+
+.form-category, .form-tipo, .form-data {
+    cursor: pointer;
+}
+
+.form-itens .form-item label {
+    font-weight: bold;
+}
+
+.form-cadastro .form-itens input,
+.form-cadastro .form-itens select {
+    height: 30px;
+    border-radius: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    outline: 0;
+    border: 0;
+}
+
+.form-cadastro .form-itens #valor {
+    text-align: right;
+}
+
+.form-cadastro .form-itens #valor_transacao::-webkit-outer-spin-button,
+.form-cadastro .form-itens #valor_transacao::-webkit-inner-spin-button,
+.form-item-editar input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+
+.form-cadastro .cadastrar {
+    border-radius: 5px;
+    cursor: pointer;
+    color: #fff;
+    background-color: #0c0e0fc7;
+    /* margin-top: 20px;
+    margin-left: 15px;
+    margin-right: 15px; */
+    height: 30px;
+    outline: 0;
+    border: 0;
+}
+
+.form-cadastro .cadastrar:hover {
+    background-color: #090c0e;
+}
+
+.ocultar {
+    display: none !important; 
+}
