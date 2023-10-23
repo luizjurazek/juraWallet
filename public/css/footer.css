@@ -1,0 +1,14 @@
+.footer-placeholder {
+    margin-top: 40px;   
+}
+
+.footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 40px;
+}
+
+.footer p {
+    color: #fff;
+}

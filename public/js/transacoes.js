@@ -135,7 +135,7 @@ function allTransacoes(transacoes, elToAppend) {
             valorElement.setAttribute("class", "item")
         }
         const tipoElement = createElement("td", "", "item", tipoTransacao)
-        const dataElement = createElement("td", "", "item", dataTransacaoFormatada)
+        const dataElement = createElement("td", "", "item", `${dia}/${mes}/${ano}`)
 
 
         const deleteIcon = createElement("img", "", "btnDelete", "")

@@ -21,22 +21,12 @@
 
 .csv-upload-form {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     width: 80%;
     margin-left: 15px;
 }
 
-.btnFileInput {
-    margin-top: 10px;
-    border-radius: 5px;
-    cursor: pointer;
-    color: #fff;
-    background-color: #0c0e0fc7;
-    height: 30px;
-    width: 100%;
-    outline: 0;
-    border: 0;
-}
+
 
 .btnFileInput:hover {
     background-color: #090c0e;
@@ -52,6 +42,7 @@
     cursor: pointer;
 }
 
+.btn_file_upload, 
 .btn_cancelar {
     width: 40%;
     padding: 5px;
@@ -62,6 +53,53 @@
     cursor: pointer;
 }
 
+.btn_file_upload {
+    background-color: #76cc76;
+}
+
+.btn_file_upload:hover {
+    background-color: #59b459;
+}
+
+.btnFileInput {
+    margin-top: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    color: #fff;
+    background-color: #0c0e0fc7;
+    height: 30px;
+    width: 100%;
+    outline: 0;
+    border: 0;
+}
+
 .btn_cancelar:hover {
     background-color: #5b91c7;
+}
+
+.btns_enviar_csv {
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 20px;
+}
+
+.csvFileInput input[type="file"] {
+    display: none;
+}
+
+.csvFileInput label {
+    width: 40%;
+    padding: 8px;
+    outline: none;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+    background-color: #0c0e0fc7;
+    text-align: center;
+    font-size: 14px;
+}
+
+.csvFileInput label:hover {
+    background-color: #090c0e;
 }

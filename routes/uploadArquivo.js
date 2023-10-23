@@ -29,7 +29,7 @@ router.post('/importartransacoes', eAdmin, upload.single('csvFile'), async (req,
     if (!req.file.path) {
         return res.status(400).json({
             error: true,
-            message: 'Nenhum arquivo CSV enviado'
+            message: 'Nenhum arquivo CSV enviadooo'
         });
     } else {
         csvFilePath = req.file.path;

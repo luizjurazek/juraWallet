@@ -7,11 +7,10 @@ btn_file_input.addEventListener('click', (evt) => {
 })
 
 btn_cancelar.addEventListener("click", (evt) => {
-    console.log("Teste")
     modal_upload_massivo.classList.add("ocultar")
 })
 
-document.getElementById('csv-upload-form').addEventListener('submit', function (event) {
+document.getElementById('btn_file_upload').addEventListener('click', function (event) {
     event.preventDefault();
     const formData = new FormData();
     formData.append('csvFile', document.getElementById('csvFileInput').files[0]);
