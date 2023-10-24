@@ -50,7 +50,6 @@ router.get('/listartodastransacoes', eAdmin, async (req, res) => {
 router.get('/listartransacaopordata/:mes/:ano', eAdmin, async (req, res) => {
     let mes = (req.params.mes.length === 1) ? "0" + req.params.mes : req.params.mes;;
     let ano = (req.params.ano >= 2001 && req.params.ano <= 2100) ? req.params.ano : null;
-
     if (mes > 0 && mes < 13) {
         try {
             const query = await connection.promise().query(`SELECT * FROM transacoes WHERE DATE_FORMAT(dt_data_transacoes, '%Y-%m') = '${ano}-${mes}'`)
@@ -67,7 +66,7 @@ router.get('/listartransacaopordata/:mes/:ano', eAdmin, async (req, res) => {
                     saidas: transacaoPorTipo[1]
                 })
 
-                return res.status(200).json(response)
+                // return res.status(200).json(response)
             } else if (query[0] == "") {
                 const response = {
                     error: true,

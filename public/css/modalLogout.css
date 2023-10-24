@@ -26,5 +26,9 @@
 }
 
 .container_logout .btn_logout{
+    background-color: #78A2CC;
+}
+
+.container_logout .btn_cancelar {
     background-color: #FF6961;
 }

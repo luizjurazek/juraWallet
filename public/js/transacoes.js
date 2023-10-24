@@ -3,8 +3,59 @@ const regexForToken = /token=([^;]*)/;
 let token = document.cookie.match(regexForToken)
 // Função para obter todas as transações e atualizar a interface do usuário\
 const transacoesItens = document.querySelector("#transacoes")
+const buscar_transacoes = document.getElementById("buscar-transacoes")
+const buscar_todas_transacoes = document.getElementById("buscar-todas-transacoes")
 
-function getTransacoes() {
+buscar_transacoes.addEventListener("click", () => {
+    transacoesItens.innerHTML = "";
+    const mes = document.getElementById("mes-transacao").value;
+    const ano = document.getElementById("ano-transacao").value;
+    if (mes == "-" || ano == "-") {
+        getTodasTransacoes()
+    } else {
+        getTrasacoesPorMes(mes, ano)
+    }
+
+})
+
+buscar_todas_transacoes.addEventListener("click", () => {
+    transacoesItens.innerHTML = "";
+
+    getTodasTransacoes()
+})
+
+function getTrasacoesPorMes(mes, ano) {
+    mesFiltro = mes;
+    anoFiltro = ano;
+
+    const endPoint = `http://127.0.0.1:8080/listartransacaopordata/${mesFiltro}/${anoFiltro}`;
+    const requestOptions = {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': token[1], // Capturar a segunda posição do array que foi extraido o token via regex
+        },
+    }
+
+    fetch(endPoint, requestOptions)
+        .then(res => res.json())
+        .then(data => {
+            if (data.entradas.total == null) {
+                data.entradas.total = "00.00";
+            } else if (data.saidas.total == null) {
+                data.saidas.total = "00.00";
+            }
+
+            atualizarResumo(data.entradas.total, data.saidas.total)
+            allTransacoes(data.transacoes, transacoesItens)
+
+
+        }).catch(error => {
+            console.log("Erro na API: " + error)
+        })
+}
+
+function getTodasTransacoes() {
     const endPoint = 'http://127.0.0.1:8080/listartodastransacoes';
     const requestOptions = {
         method: 'GET',
@@ -25,14 +76,14 @@ function getTransacoes() {
         })
 }
 
-function atualizarResumo(totalEntradas, saidasTotal){
+function atualizarResumo(totalEntradas, saidasTotal) {
     const entradasEl = document.querySelector("#entradas p")
     const saidasEl = document.querySelector("#saidas p")
     const saldoEl = document.querySelector("#saldo p")
 
-    entradasEl.innerHTML = "R$ " + totalEntradas.toFixed(2)
-    saidasEl.innerHTML = "R$ " + saidasTotal.toFixed(2)
-    saldoEl.innerHTML = "R$ " + (totalEntradas - saidasTotal).toFixed(2)
+    entradasEl.innerHTML = "R$ " + totalEntradas //.toFixed(2)
+    saidasEl.innerHTML = "R$ " + saidasTotal //.toFixed(2)
+    saldoEl.innerHTML = "R$ " + (totalEntradas - saidasTotal) //.toFixed(2)
 }
 
 function deleteTransacao(id, elToRemove) {
@@ -213,4 +264,9 @@ function createElement(tipoEl, IdEl, classEl, innerEl) {
     return el
 }
 
-window.addEventListener('load', getTransacoes)
+window.addEventListener('load', () => {
+    const date = new Date()
+    const currentYear = date.getFullYear();
+    const currentMonth = date.getMonth() + 1;
+    getTrasacoesPorMes(currentMonth, currentYear)
+})
