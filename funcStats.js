@@ -34,30 +34,30 @@ function getStatsGeral(objectTransacoes){
 }
 
 function getStatsMes(objectTransacoes){
-    let somaValorPorMes = {}
-    let somaCategoriasPorMes = {}
-    let dados = []
+    let totaisPorMes = {}
 
     objectTransacoes.forEach((transacao) => {
-        const dataTransacao = new Date(transacao.dt_data_transacoes)
+        const dataTransacao = new Date(transacao.dt_data_transacoes);
         const mes = dataTransacao.getMonth() + 1;
         const ano = dataTransacao.getFullYear();
 
-        const chaveMes = `${ano}-${mes}`
+        const chaveMes = `${ano}-${mes}`;
 
-        somaValorPorMes = (somaValorPorMes[chaveMes] || 0) + transacao.i_valor_transacoes
-
-        if(!somaCategoriasPorMes[chaveMes]){
-            somaCategoriasPorMes[chaveMes] = {};
+        if(!totaisPorMes[chaveMes]){
+            totaisPorMes[chaveMes] = {
+                entrada: 0,
+                saida: 0,
+            };
         }
 
-        const categoria = transacao.s_categoria_transacoes;
-        somaCategoriasPorMes[chaveMes][categoria] = (somaCategoriasPorMes[chaveMes][categoria] || 0) + 1;
-
+        if(transacao.s_tipo_transacoes === 'entrada'){
+            totaisPorMes[chaveMes].entrada += transacao.i_valor_transacoes;
+        } else if (transacao.s_tipo_transacoes === 'saida'){
+            totaisPorMes[chaveMes].saida += transacao.i_valor_transacoes;
+        }
     })
 
-    dados.push(somaValorPorMes, somaCategoriasPorMes)
-    return dados;
+    return totaisPorMes
 }
 
 module.exports = {
