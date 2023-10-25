@@ -1,4 +1,4 @@
-function getStatsGeral(objectTransacoes){
+function getStatsGeral(objectTransacoes) {
     const transacoesPorCategoria = {};
     const somasPorCategoriaETipo = {};
 
@@ -33,7 +33,7 @@ function getStatsGeral(objectTransacoes){
     return somasPorCategoriaETipo
 }
 
-function getStatsMes(objectTransacoes){
+function entradaEsaidaPorMesDoAno(objectTransacoes) {
     let totaisPorMes = {}
 
     objectTransacoes.forEach((transacao) => {
@@ -43,16 +43,16 @@ function getStatsMes(objectTransacoes){
 
         const chaveMes = `${ano}-${mes}`;
 
-        if(!totaisPorMes[chaveMes]){
+        if (!totaisPorMes[chaveMes]) {
             totaisPorMes[chaveMes] = {
                 entrada: 0,
                 saida: 0,
             };
         }
 
-        if(transacao.s_tipo_transacoes === 'entrada'){
+        if (transacao.s_tipo_transacoes === 'entrada') {
             totaisPorMes[chaveMes].entrada += transacao.i_valor_transacoes;
-        } else if (transacao.s_tipo_transacoes === 'saida'){
+        } else if (transacao.s_tipo_transacoes === 'saida') {
             totaisPorMes[chaveMes].saida += transacao.i_valor_transacoes;
         }
     })
@@ -60,7 +60,25 @@ function getStatsMes(objectTransacoes){
     return totaisPorMes
 }
 
+function somaCategoriaPorMes(objectTransacoes) {
+    const somaPorCategoria = {};
+
+    objectTransacoes.forEach((transacao) => {
+        const categoria = transacao.s_categoria_transacoes;
+        const valor = transacao.i_valor_transacoes;
+
+        if (somaPorCategoria[categoria]) {
+            somaPorCategoria[categoria] += valor;
+        } else {
+            somaPorCategoria[categoria] = valor;
+        }
+    });
+
+    return somaPorCategoria;
+}
+
 module.exports = {
     getStatsGeral,
-    getStatsMes
+    entradaEsaidaPorMesDoAno,
+    somaCategoriaPorMes
 }
