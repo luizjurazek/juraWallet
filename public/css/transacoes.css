@@ -31,9 +31,16 @@
     width: 10vw;
     text-align: center;
     outline: none;
-    background-color: #090C0E;
+    background-color: #353535;
     color: #fff;
     border: none;
+    cursor: pointer;
+}
+
+.form-item .form-ano:hover,
+.form-item .form-mes:hover,
+.btn-transacoes:hover {
+    background-color: #090c0e;
 }
 
 .form-item-btn {
@@ -48,7 +55,7 @@
     outline: 0;
     border: 0;
     padding: 5px;
-    background-color: #0c0e0fc7;
+    background-color: #353535;
     margin-left: 10px;
 }
 

@@ -55,7 +55,6 @@ router.get('/listartransacaopordata/:mes/:ano', eAdmin, async (req, res) => {
             const query = await connection.promise().query(`SELECT * FROM transacoes WHERE DATE_FORMAT(dt_data_transacoes, '%Y-%m') = '${ano}-${mes}'`)
             if (query[0] != "") {
                 const result = query[0]
-                console.log(result)
                 const transacaoPorTipo = separarTransacaoPorTipo(result)
                 return res.status(200).json({
                     error: false,

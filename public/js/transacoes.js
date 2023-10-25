@@ -15,12 +15,12 @@ buscar_transacoes.addEventListener("click", () => {
     } else {
         getTrasacoesPorMes(mes, ano)
     }
-
 })
 
 buscar_todas_transacoes.addEventListener("click", () => {
     transacoesItens.innerHTML = "";
-
+    document.getElementById("mes-transacao").value = "-"
+    document.getElementById("ano-transacao").value = "-"
     getTodasTransacoes()
 })
 
@@ -81,9 +81,9 @@ function atualizarResumo(totalEntradas, saidasTotal) {
     const saidasEl = document.querySelector("#saidas p")
     const saldoEl = document.querySelector("#saldo p")
 
-    entradasEl.innerHTML = "R$ " + totalEntradas //.toFixed(2)
-    saidasEl.innerHTML = "R$ " + saidasTotal //.toFixed(2)
-    saldoEl.innerHTML = "R$ " + (totalEntradas - saidasTotal) //.toFixed(2)
+    entradasEl.innerHTML = "R$ " + parseFloat(totalEntradas).toFixed(2)
+    saidasEl.innerHTML = "R$ " + parseFloat(saidasTotal).toFixed(2)
+    saldoEl.innerHTML = "R$ " + (totalEntradas - saidasTotal).toFixed(2)
 }
 
 function deleteTransacao(id, elToRemove) {
