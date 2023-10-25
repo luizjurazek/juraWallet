@@ -220,6 +220,7 @@ function allTransacoes(transacoes, elToAppend) {
         const editIcon = createElement("img", "", "btnEdit")
         editIcon.setAttribute("src", "../assets/icons/edit.svg")
         editIcon.addEventListener("click", (evt) => {
+            // Criar uma funcao para editar
             const editarTransacao = document.getElementById("editarTransacao");
             const btn_cancelar_edicao = document.getElementById("btn_cancelar_edicao");
             document.getElementById("nome_transacao_editar").value = nomeTransacao;

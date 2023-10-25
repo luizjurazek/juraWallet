@@ -7,6 +7,7 @@ const cookieParser = require('cookie-parser');
 const transactionRoutes = require('./routes/transaction.js')
 const loginRoutes = require('./routes/login.js')
 const uploadArquivo = require('./routes/uploadArquivo.js')
+const stats = require('./routes/stats.js')
 
 // View engine
 app.set('view engine', 'ejs')
@@ -29,6 +30,7 @@ app.use(cors({
 app.use('/', transactionRoutes)
 app.use('/', loginRoutes)
 app.use('/', uploadArquivo)
+app.use('/', stats)
 
 
 

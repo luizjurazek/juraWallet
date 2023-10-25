@@ -10,7 +10,7 @@
     "type": "git",
     "url": "git+https://github.com/luizjurazek/token-node.git"
   },
-  "author": "",
+  "author": "Luiz Jurazek",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/luizjurazek/token-node/issues"

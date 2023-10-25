@@ -79,12 +79,6 @@ router.post('/login', async (req, res) => {
             expiresIn: seteDiasEmMilissegundos // 7 dias
         })
 
-        // res.cookie('token', token, {
-        //     maxAge: seteDiasEmMilissegundos,
-        //     httpOnly: true,
-        //     secure: false
-        // })
-
         return res.status(200).json({
             error: false,
             nomeUsuario: user.s_nome_users,

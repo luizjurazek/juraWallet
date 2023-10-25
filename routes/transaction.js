@@ -56,31 +56,31 @@ router.get('/listartransacaopordata/:mes/:ano', eAdmin, async (req, res) => {
             if (query[0] != "") {
                 const result = query[0]
                 const transacaoPorTipo = separarTransacaoPorTipo(result)
-                return res.status(200).json({
+                const response = {
                     error: false,
                     id_usuario_logado: req.userId,
                     quantidadeDeTransacoes: result.length,
                     transacoes: result,
                     entradas: transacaoPorTipo[0],
                     saidas: transacaoPorTipo[1]
-                })
+                }
 
-                // return res.status(200).json(response)
+                return res.status(200).json(response)
             } else if (query[0] == "") {
                 const response = {
                     error: true,
                     mensagem: `Não foram encontradas transações referentes ao mês ${mes} e ano ${ano}`
                 }
 
-
                 return res.status(400).json(response)
             }
         } catch (err) {
             console.error(err);
-            return res.status(500).json({
-                err: true,
-                mensagem: 'Erro interno do servidor',
-            });
+            const response = {
+                    erro: true,
+                    mensagem: 'Erro interno do servidor',
+            }
+            return res.status(500).json(response);
         }
     } else {
         return res.status(400).json({
@@ -109,7 +109,7 @@ router.get('/listartransacao', eAdmin, async (req, res) => {
     } catch (err) {
         console.error(err);
         return res.status(500).json({
-            err: true,
+            erro: true,
             mensagem: 'Erro interno do servidor',
         });
     }
@@ -117,6 +117,7 @@ router.get('/listartransacao', eAdmin, async (req, res) => {
 })
 
 router.post('/criartransacao', eAdmin, async (req, res) => {
+    // Transformar em um objeto
     let nome = req.body.nome;
     let categoria = req.body.categoria;
     let valor = req.body.valor;
@@ -149,6 +150,7 @@ router.post('/criartransacao', eAdmin, async (req, res) => {
 })
 
 router.post('/editartransacao', eAdmin, async (req, res) => {
+    // Transformar em um objeto
     let id = req.body.id;
     let nome = req.body.nome;
     let categoria = req.body.categoria;
