@@ -1,39 +1,4 @@
-function getStatsGeral(objectTransacoes) {
-    const transacoesPorCategoria = {};
-    const somasPorCategoriaETipo = {};
-
-    objectTransacoes.forEach((transacao) => {
-        const categoria = transacao.s_categoria_transacoes;
-
-        if (!transacoesPorCategoria[categoria]) {
-            transacoesPorCategoria[categoria] = []
-        }
-
-        transacoesPorCategoria[categoria].push(transacao)
-    })
-
-    for (const categoria in transacoesPorCategoria) {
-        somasPorCategoriaETipo[categoria] = {
-            entrada: 0,
-            saida: 0,
-        }
-
-        transacoesPorCategoria[categoria].forEach((transacao) => {
-            const tipo = transacao.s_tipo_transacoes;
-            const valor = transacao.i_valor_transacoes
-
-            if (tipo === 'entrada') {
-                somasPorCategoriaETipo[categoria].entrada += valor;
-            } else if (tipo === 'saida') {
-                somasPorCategoriaETipo[categoria].saida += valor;
-            }
-        })
-    }
-
-    return somasPorCategoriaETipo
-}
-
-function entradaEsaidaPorMesDoAno(objectTransacoes) {
+function entradaSaidaPorMes(objectTransacoes) {
     let totaisPorMes = {}
 
     objectTransacoes.forEach((transacao) => {
@@ -60,7 +25,7 @@ function entradaEsaidaPorMesDoAno(objectTransacoes) {
     return totaisPorMes
 }
 
-function somaCategoriaPorMes(objectTransacoes) {
+function somaCategoria(objectTransacoes) {
     const somaPorCategoria = {};
 
     objectTransacoes.forEach((transacao) => {
@@ -78,7 +43,6 @@ function somaCategoriaPorMes(objectTransacoes) {
 }
 
 module.exports = {
-    getStatsGeral,
-    entradaEsaidaPorMesDoAno,
-    somaCategoriaPorMes
+    entradaSaidaPorMes,
+    somaCategoria
 }

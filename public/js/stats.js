@@ -7,41 +7,44 @@ function getStatsMeses() {
             'Authorization': token[1], // Capturar a segunda posição do array que foi extraido o token via regex
         },
     }
-    
+
 
     fetch(endPointStats, requestOptions)
         .then(res => res.json())
         .then(data => {
+            const dataCategoriaMes = data.saidaPorCategoria
+            const dataSaidaMes = data.entradaSaidaMes
 
-            const chaves = Object.keys(data)
-            const entradas = [];
-            const saidas = []
-            for (const chave of chaves) {
-                const valorEntrada = data[chave].entrada;
-                const valorSaida = data[chave].saida;
-                saidas.push(valorSaida);
-                entradas.push(valorEntrada);
-            }
-
-            gerarGraficoPorMes(chaves, entradas, saidas)
+            
+            gerarGraficoPorMes(dataSaidaMes)
         })
 }
 
-function gerarGraficoPorMes(labelChave, labelEntradas, labelSaidas) {
+function gerarGraficoPorMes(requestData) {
+    const chaves = Object.keys(requestData)
+    const entradas = [];
+    const saidas = []
+    for (const chave of chaves) {
+        const valorEntrada = requestData[chave].entrada;
+        const valorSaida = requestData[chave].saida;
+        saidas.push(valorSaida);
+        entradas.push(valorEntrada);
+    }
+
     const ctx = document.getElementById('myChart');
 
-    const labels = labelChave;
+    const labels = chaves;
     const data = {
         labels: labels,
         datasets: [{
                 label: 'Entradas',
-                data: labelEntradas,
+                data: entradas,
                 borderColor: "#76cc76",
                 backgroundColor: "#76cc76",
             },
             {
                 label: 'Saidas',
-                data: labelSaidas,
+                data: saidas,
                 borderColor: "#FF6961",
                 backgroundColor: "#FF6961",
             }
@@ -75,5 +78,5 @@ function gerarGraficoPorMes(labelChave, labelEntradas, labelSaidas) {
 }
 
 window.addEventListener('load', () => {
-    getStatsMeses() 
+    getStatsMeses()
 })

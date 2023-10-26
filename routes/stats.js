@@ -12,8 +12,8 @@ const {
 } = require('../middleware/auth.js')
 
 const {
-    entradaEsaidaPorMesDoAno,
-    somaCategoriaPorMes
+    entradaSaidaPorMes,
+    somaCategoria
 } = require('../funcStats.js')
 
 
@@ -21,9 +21,14 @@ router.get('/statsmesesdoano', eAdmin, async (req, res) => {
     const query = await connection.promise().query('SELECT * FROM transacoes ORDER BY dt_data_transacoes')
     const results = query[0]
 
-    const objectEntSaiPorMesDoAno = entradaEsaidaPorMesDoAno(results)
-    console.log(objectEntSaiPorMesDoAno)
-    res.json(objectEntSaiPorMesDoAno)
+    const entradaSaidaMes= entradaSaidaPorMes(results)
+    const saidaPorCategoria = somaCategoria(results)
+    const response = {
+        entradaSaidaMes,
+        saidaPorCategoria
+    }
+    console.log(response)
+    res.json(response)
 })
 
 router.get('/statscategoriapormes/:mes/:ano', eAdmin, async (req, res) => {
@@ -31,11 +36,6 @@ router.get('/statscategoriapormes/:mes/:ano', eAdmin, async (req, res) => {
     let ano = (req.params.ano >= 2001 && req.params.ano <= 2100) ? req.params.ano : null;
     
     const query = await connection.promise().query(`SELECT * FROM transacoes WHERE DATE_FORMAT(dt_data_transacoes, '%Y-%m') = '${ano}-${mes}'`);
-    const results = query[0]
-    const somaPorCategoria = somaCategoriaPorMes(results)
-
-    console.log(somaPorCategoria)
-    res.json(somaPorCategoria)
 })
 
 module.exports = router
