@@ -1,7 +1,24 @@
-.container-grafico {
-    max-width: 90%;
+.containerGraficoGeral,
+.containerGraficoMes {
     max-height: 400px;
     display: flex;
     justify-content: center;
     margin-top: 30px;
+}
+
+.container-meses,
+.container-dia {
+    display: flex;
+    justify-content: center;
+    width: 70vw;
+}
+
+.container-categorias {
+    display: flex;
+    justify-content: center;
+    width: 30vw;
+}
+
+.ocultar {
+    display: none !important;
 }

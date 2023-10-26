@@ -25,6 +25,35 @@ function entradaSaidaPorMes(objectTransacoes) {
     return totaisPorMes
 }
 
+function entradaSaidaPorDia(objectTransacoes) {
+    let totaisPorMes = {}
+
+    objectTransacoes.forEach((transacao) => {
+        const dataTransacao = new Date(transacao.dt_data_transacoes);
+        const mes = dataTransacao.getMonth() + 1;
+        const dia = dataTransacao.getDay();
+
+        const chaveMes = `${mes}-${dia}`;
+
+        if (!totaisPorMes[chaveMes]) {
+            totaisPorMes[chaveMes] = {
+                entrada: 0,
+                saida: 0,
+            };
+        }
+
+        if (transacao.s_tipo_transacoes === 'entrada') {
+            totaisPorMes[chaveMes].entrada += transacao.i_valor_transacoes;
+        } else if (transacao.s_tipo_transacoes === 'saida') {
+            totaisPorMes[chaveMes].saida += transacao.i_valor_transacoes;
+        }
+    })
+
+    return totaisPorMes
+}
+
+
+
 function somaCategoria(objectTransacoes) {
     const somaPorCategoria = {};
 
@@ -44,5 +73,6 @@ function somaCategoria(objectTransacoes) {
 
 module.exports = {
     entradaSaidaPorMes,
-    somaCategoria
+    somaCategoria,
+    entradaSaidaPorDia
 }
