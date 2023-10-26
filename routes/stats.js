@@ -18,7 +18,7 @@ const {
 
 
 router.get('/statsmesesdoano', eAdmin, async (req, res) => {
-    const query = await connection.promise().query('SELECT * FROM transacoes')
+    const query = await connection.promise().query('SELECT * FROM transacoes ORDER BY dt_data_transacoes')
     const results = query[0]
 
     const objectEntSaiPorMesDoAno = entradaEsaidaPorMesDoAno(results)
