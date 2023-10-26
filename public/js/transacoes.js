@@ -70,7 +70,6 @@ function getTodasTransacoes() {
         .then(data => {
             atualizarResumo(data.entradas.total, data.saidas.total)
             allTransacoes(data.transacoes, transacoesItens)
-
         }).catch(error => {
             console.log("Erro na API: " + error)
         })

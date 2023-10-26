@@ -22,7 +22,7 @@ router.get('/statsmesesdoano', eAdmin, async (req, res) => {
     const results = query[0]
 
     const objectEntSaiPorMesDoAno = entradaEsaidaPorMesDoAno(results)
-
+    console.log(objectEntSaiPorMesDoAno)
     res.json(objectEntSaiPorMesDoAno)
 })
 
@@ -33,7 +33,7 @@ router.get('/statscategoriapormes/:mes/:ano', eAdmin, async (req, res) => {
     const query = await connection.promise().query(`SELECT * FROM transacoes WHERE DATE_FORMAT(dt_data_transacoes, '%Y-%m') = '${ano}-${mes}'`);
     const results = query[0]
     const somaPorCategoria = somaCategoriaPorMes(results)
-    
+
     console.log(somaPorCategoria)
     res.json(somaPorCategoria)
 })

@@ -1,0 +1,7 @@
+.container-grafico {
+    max-width: 90%;
+    max-height: 400px;
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+}

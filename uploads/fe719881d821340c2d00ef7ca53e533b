@@ -1,0 +1,3 @@
+nome_transacao,categoria_transacao,valor_transacao,tipo_transacao,data_transacao
+Salario ,salario ,1756.34,entrada,2023-03-05
+Mercado,mercado,756.34,saida,2023-03-10
