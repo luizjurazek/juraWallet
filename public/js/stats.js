@@ -9,6 +9,9 @@ const chartDias = document.getElementById('chartDias')
 const bntBuscarTransacoes = document.getElementById('buscar-transacoes')
 const bntBuscarTodasTransacoes = document.getElementById('buscar-todas-transacoes');
 
+let chartPizza;
+let chartSerie;
+
 function getStatsMes(mes, ano) {
     const endPoint = `http://localhost:8080/statscategoriapormes/${mes}/${ano}`
     const requestOptions = {
@@ -27,7 +30,7 @@ function getStatsMes(mes, ano) {
             console.log(chartCategoriasDia)
             console.log(chartDias)
             gerarGraficoCategorias(dataCategoria, chartCategoriasDia)
-            gerarGraficoPorMes(dataSaidaMes, chartDias)
+            gerarGraficoDeSerie(dataSaidaMes, chartDias, `Gastos por dia do mês: ${mes}`)
         })
 }
 
@@ -49,7 +52,7 @@ function getStatsAno() {
             const dataCategoriaMes = data.saidaPorCategoria
             const dataSaidaMes = data.entradaSaidaMes
             gerarGraficoCategorias(dataCategoriaMes, chartCategorias)
-            gerarGraficoPorMes(dataSaidaMes, chartMeses)
+            gerarGraficoDeSerie(dataSaidaMes, chartMeses, 'Gastos em cada mês do ano')
         })
 }
 
@@ -89,10 +92,15 @@ function gerarGraficoCategorias(requestData, chart) {
         },
     };
 
-    return new Chart(chart, config)
+    if(chartPizza){
+        chartPizza.destroy();
+    }
+
+    chartPizza = new Chart(chart, config)
+    return chartPizza
 }
 
-function gerarGraficoPorMes(requestData, chart) {
+function gerarGraficoDeSerie(requestData, chart, configText) {
     const chaves = Object.keys(requestData)
     const entradas = [];
     const saidas = []
@@ -138,7 +146,7 @@ function gerarGraficoPorMes(requestData, chart) {
                 },
                 title: {
                     display: true,
-                    text: 'Gasto ao longo do ano:'
+                    text: configText
                 }
             },
             scales: {
@@ -156,7 +164,12 @@ function gerarGraficoPorMes(requestData, chart) {
         },
     }
 
-    return new Chart(chart, config);
+    if(chartSerie){
+        chartSerie.destroy();
+    }
+
+    chartSerie = new Chart(chart, config);
+    return chartSerie
 }
 
 bntBuscarTodasTransacoes.addEventListener('click', (evt) => {
@@ -169,8 +182,8 @@ bntBuscarTransacoes.addEventListener('click', (evt) => {
     containerGraficoMes.classList.remove('ocultar')
     containerGraficosGeral.classList.add('ocultar')
 
-    const mesTransacao = document.getElementById('mes-transacao')
-    const anoTransacao = document.getElementById('ano-transacao')
+    const mesTransacao = document.getElementById('mes-transacao').value
+    const anoTransacao = document.getElementById('ano-transacao').value
 
     getStatsMes(mesTransacao, anoTransacao)
 })
@@ -179,5 +192,5 @@ window.addEventListener('load', () => {
     const date = new Date()
     const currentYear = date.getFullYear();
     const currentMonth = date.getMonth() + 1;
-    getStatsMes(currentMonth, currentYear)
+    getStatsMes(currentMonth, currentYear, `Gastos por dia do mês: ${currentMonth}`)
 })
