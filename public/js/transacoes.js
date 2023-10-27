@@ -187,7 +187,6 @@ function allTransacoes(transacoes, elToAppend) {
         const tipoElement = createElement("td", "", "item", tipoTransacao)
         const dataElement = createElement("td", "", "item", `${dia}/${mes}/${ano}`)
 
-
         const deleteIcon = createElement("img", "", "btnDelete", "")
         deleteIcon.setAttribute("src", "../assets/icons/delete.svg")
         deleteIcon.addEventListener("click", (evt) => {
@@ -229,7 +228,6 @@ function allTransacoes(transacoes, elToAppend) {
             document.getElementById("data_transacao_editar").value = `${ano}-${mes}-${dia}`
 
             editarTransacao.classList.remove("ocultar");
-
             btn_editar_transacao.addEventListener("click", (evt) => {
                 const idTransacaoEditada = idTransacao
                 const nomeEditado = document.getElementById("nome_transacao_editar").value
@@ -237,7 +235,7 @@ function allTransacoes(transacoes, elToAppend) {
                 const valorEditado = document.getElementById("valor_transacao_editar").value
                 const tipoEditado = document.getElementById("tipo_transacao_editar").value
                 const dataEditada = document.getElementById("data_transacao_editar").value
-
+                
                 editarTransacaoFunc(idTransacaoEditada, nomeEditado, categoriaEditada, valorEditado, tipoEditado, dataEditada)
             })
 
@@ -264,6 +262,30 @@ function createElement(tipoEl, IdEl, classEl, innerEl) {
     return el
 }
 
+function getCategorias(){
+    const endPoint = 'http://localhost:8080/getcategorias'
+    const requestOptions = {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            'Authorization': token[1], // Configure o token JWT no cabeçalho
+        }
+    }
+    const selectCategorias = document.getElementById('category_transacao')
+    const categoryTransacaoEditar = document.getElementById('category_transacao_editar')
+    fetch(endPoint, requestOptions)
+        .then(res => res.json())
+        .then(data => {
+            for(let i = 0; i < data.length; i++){
+                let option = document.createElement('option')
+                option.setAttribute('value', data[i].s_categoria_config)
+                option.innerHTML = data[i].s_categoria_config
+                selectCategorias.appendChild(option)
+                categoryTransacaoEditar.appendChild(option)
+            }
+        })
+}
+
 window.addEventListener('load', () => {
     const date = new Date()
     const currentYear = date.getFullYear();
@@ -273,6 +295,8 @@ window.addEventListener('load', () => {
     const selectAno = [...document.querySelector('#ano-transacao')]
     selectMes.forEach((el) => {if(el.value == currentMonth){el.setAttribute('selected', 'selected')}})
     selectAno.forEach((el) => {if(el.value == currentYear){ el.setAttribute('selected', 'selected')}})
+
+    getCategorias()
 
     getTrasacoesPorMes(currentMonth, currentYear)
 })

@@ -23,6 +23,12 @@ router.get('/pagenotfound', eAdmin, async (req, res) => {
     res.render('../views/naoAutorizadoPage.ejs')
 });
 
+router.get('/getcategorias', eAdmin, async (req, res) => {
+    const query = await connection.promise().query('SELECT * FROM categorias')
+    const results = query[0]
+    console.log(results)
+    res.send(results)
+})
 
 router.get('/listartodastransacoes', eAdmin, async (req, res) => {
     connection.query('SELECT * FROM transacoes ORDER BY dt_data_transacoes', function (err, results, fields) {
