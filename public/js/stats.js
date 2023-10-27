@@ -27,8 +27,6 @@ function getStatsMes(mes, ano) {
         .then(data => {
             const dataCategoria = data.saidaPorCategoria
             const dataSaidaMes = data.entradaSaidaDia
-            console.log(chartCategoriasDia)
-            console.log(chartDias)
             gerarGraficoCategorias(dataCategoria, chartCategoriasDia)
             gerarGraficoDeSerie(dataSaidaMes, chartDias, `Gastos por dia do mês: ${mes}`)
         })

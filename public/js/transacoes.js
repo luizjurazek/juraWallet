@@ -268,5 +268,11 @@ window.addEventListener('load', () => {
     const date = new Date()
     const currentYear = date.getFullYear();
     const currentMonth = date.getMonth() + 1;
+    
+    const selectMes = [...document.querySelector('#mes-transacao')]
+    const selectAno = [...document.querySelector('#ano-transacao')]
+    selectMes.forEach((el) => {if(el.value == currentMonth){el.setAttribute('selected', 'selected')}})
+    selectAno.forEach((el) => {if(el.value == currentYear){ el.setAttribute('selected', 'selected')}})
+
     getTrasacoesPorMes(currentMonth, currentYear)
 })
