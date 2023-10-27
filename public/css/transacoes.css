@@ -98,6 +98,9 @@
     flex: 1;
     border: 1px solid #cccccc;
     padding: 5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .transacoes .acoes {

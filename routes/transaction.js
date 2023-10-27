@@ -25,7 +25,7 @@ router.get('/pagenotfound', eAdmin, async (req, res) => {
 
 
 router.get('/listartodastransacoes', eAdmin, async (req, res) => {
-    connection.query('SELECT * FROM transacoes', function (err, results, fields) {
+    connection.query('SELECT * FROM transacoes ORDER BY dt_data_transacoes', function (err, results, fields) {
         if (err) {
             console.error("Erro ao listar as transacoes: " + err)
             return res.status(400).json({
@@ -52,7 +52,7 @@ router.get('/listartransacaopordata/:mes/:ano', eAdmin, async (req, res) => {
     let ano = (req.params.ano >= 2001 && req.params.ano <= 2100) ? req.params.ano : null;
     if (mes > 0 && mes < 13) {
         try {
-            const query = await connection.promise().query(`SELECT * FROM transacoes WHERE DATE_FORMAT(dt_data_transacoes, '%Y-%m') = '${ano}-${mes}'`)
+            const query = await connection.promise().query(`SELECT * FROM transacoes WHERE DATE_FORMAT(dt_data_transacoes, '%Y-%m') = '${ano}-${mes}' ORDER BY dt_data_transacoes`)
             if (query[0] != "") {
                 const result = query[0]
                 const transacaoPorTipo = separarTransacaoPorTipo(result)

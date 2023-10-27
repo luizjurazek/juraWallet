@@ -25,6 +25,7 @@ function getStatsMes(mes, ano) {
     fetch(endPoint, requestOptions)
         .then(res => res.json())
         .then(data => {
+            console.log(data)
             const dataCategoria = data.saidaPorCategoria
             const dataSaidaMes = data.entradaSaidaDia
             gerarGraficoCategorias(dataCategoria, chartCategoriasDia)

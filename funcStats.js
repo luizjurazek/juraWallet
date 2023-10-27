@@ -27,14 +27,12 @@ function entradaSaidaPorMes(objectTransacoes) {
 
 function entradaSaidaPorDia(objectTransacoes) {
     let totaisPorMes = {}
-
     objectTransacoes.forEach((transacao) => {
         const dataTransacao = new Date(transacao.dt_data_transacoes);
         const mes = dataTransacao.getMonth() + 1;
-        const dia = dataTransacao.getDay();
+        const dia = dataTransacao.getDate();
 
         const chaveMes = `${mes}-${dia}`;
-
         if (!totaisPorMes[chaveMes]) {
             totaisPorMes[chaveMes] = {
                 entrada: 0,
