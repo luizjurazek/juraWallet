@@ -24,6 +24,7 @@ router.get('/statsmesesdoano', eAdmin, async (req, res) => {
 
     const entradaSaidaMes= entradaSaidaPorMes(results)
     const saidaPorCategoria = somaCategoria(results)
+
     const response = {
         entradaSaidaMes,
         saidaPorCategoria
@@ -41,6 +42,7 @@ router.get('/statscategoriapormes/:mes/:ano', eAdmin, async (req, res) => {
     
     const entradaSaidaDia= entradaSaidaPorDia(results)
     const saidaPorCategoria = somaCategoria(results)
+    
     const response = {
         entradaSaidaDia,
         saidaPorCategoria

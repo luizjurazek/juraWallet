@@ -1,21 +1,21 @@
 {
-  "name": "token-node",
+  "name": "jurawallet",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/luizjurazek/token-node.git"
+    "url": "git+https://github.com/luizjurazek/juraWallet.git"
   },
   "author": "Luiz Jurazek",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/luizjurazek/token-node/issues"
+    "url": "https://github.com/luizjurazek/juraWallet/issues"
   },
-  "homepage": "https://github.com/luizjurazek/token-node#readme",
+  "homepage": "https://github.com/luizjurazek/juraWallet#readme",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.20.2",

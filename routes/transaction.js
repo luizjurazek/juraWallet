@@ -28,21 +28,27 @@ router.get('/listartodastransacoes', eAdmin, async (req, res) => {
     connection.query('SELECT * FROM transacoes ORDER BY dt_data_transacoes', function (err, results, fields) {
         if (err) {
             console.error("Erro ao listar as transacoes: " + err)
-            return res.status(400).json({
+
+            const response = {
                 error: true,
                 mensagem: "Houve um erro ao listar as transacoes!"
-            })
+            }
+
+            return res.status(400).json(response)
         } else {
             const query = results
             const transacaoPorTipo = separarTransacaoPorTipo(query)
-            return res.status(200).json({
+
+            const response = {
                 error: false,
                 id_usuario_logado: req.userId,
                 quantidadeDeTransacoes: query.length,
                 transacoes: query,
                 entradas: transacaoPorTipo[0],
                 saidas: transacaoPorTipo[1]
-            })
+            }
+
+            return res.status(200).json(response)
         }
     })
 })
@@ -77,16 +83,17 @@ router.get('/listartransacaopordata/:mes/:ano', eAdmin, async (req, res) => {
         } catch (err) {
             console.error(err);
             const response = {
-                    erro: true,
-                    mensagem: 'Erro interno do servidor',
+                erro: true,
+                mensagem: 'Erro interno do servidor',
             }
             return res.status(500).json(response);
         }
     } else {
-        return res.status(400).json({
+        const response = {
             error: true,
             mensagem: "Insira mês e ano válidos!"
-        })
+        }
+        return res.status(400).json()
     }
 
 })
@@ -96,22 +103,25 @@ router.get('/listartransacao', eAdmin, async (req, res) => {
     try {
         const query = await connection.promise().query(`SELECT * FROM transacoes WHERE id_transacoes = ?`, id)
         if (query[0] != "") {
-            return res.status(200).json({
+            const response = {
                 error: false,
                 transacoes: query[0]
-            })
+            }
+
+            return res.status(200).json(response)
         } else if (query[0] == "") {
-            return res.status(400).json({
+            const response = {
                 error: true,
                 mensagem: "Transacação não encontrada!"
-            })
+            }
+            return res.status(400).json(response)
         }
     } catch (err) {
-        console.error(err);
-        return res.status(500).json({
+        const response = {
             erro: true,
             mensagem: 'Erro interno do servidor',
-        });
+        }
+        return res.status(500).json(response);
     }
 
 })

@@ -79,7 +79,7 @@ router.post('/login', async (req, res) => {
             expiresIn: seteDiasEmMilissegundos // 7 dias
         })
 
-        return res.status(200).json({
+        const response = {
             error: false,
             nomeUsuario: user.s_nome_users,
             message: 'Login realizado com sucesso!',
@@ -88,13 +88,16 @@ router.post('/login', async (req, res) => {
                 expiresIn: seteDiasEmMilissegundos,
                 id: user.id_user_users
             },
-        })
+        }
+
+        return res.status(200).json(response)
 
     } catch (err) {
-        return res.status(500).json({
+        const response = {
             err: true,
             mensagem: 'Erro interno do servidor',
-        });
+        }
+        return res.status(500).json(response);
     }
 })
 
