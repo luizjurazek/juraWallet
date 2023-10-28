@@ -128,7 +128,7 @@ function editarTransacaoFunc(idTransacao, nomeTransacao, categoriaTransacao, val
 
     // Configura as opções para a solicitação POST.
     const requestOptions = {
-        method: "POST",
+        method: "PUT",
         headers: {
             "Content-Type": "application/json",
             'Authorization': token[1], // Configure o token JWT no cabeçalho
@@ -262,6 +262,9 @@ function createElement(tipoEl, IdEl, classEl, innerEl) {
     return el
 }
 
+const selectCategorias = document.querySelector('#category_transacao')
+const categoryTransacaoEditar = document.getElementById('category_transacao_editar')
+
 function getCategorias(){
     const endPoint = 'http://localhost:8080/getcategorias'
     const requestOptions = {
@@ -271,18 +274,26 @@ function getCategorias(){
             'Authorization': token[1], // Configure o token JWT no cabeçalho
         }
     }
-    const selectCategorias = document.getElementById('category_transacao')
-    const categoryTransacaoEditar = document.getElementById('category_transacao_editar')
+
     fetch(endPoint, requestOptions)
         .then(res => res.json())
         .then(data => {
-            for(let i = 0; i < data.length; i++){
-                let option = document.createElement('option')
-                option.setAttribute('value', data[i].s_categoria_config)
-                option.innerHTML = data[i].s_categoria_config
-                selectCategorias.appendChild(option)
-                categoryTransacaoEditar.appendChild(option)
-            }
+            data.forEach((el) =>{
+                let optionSelectCategorias = document.createElement('option')
+                let optionCategoryTransacaoEditar = document.createElement('option')
+            
+                optionSelectCategorias.setAttribute('value', el.s_categoria_config)
+                optionSelectCategorias.innerHTML = el.s_categoria_config
+            
+                optionCategoryTransacaoEditar.setAttribute('value', el.s_categoria_config)
+                optionCategoryTransacaoEditar.innerHTML = el.s_categoria_config
+            
+                selectCategorias.appendChild(optionSelectCategorias)
+                categoryTransacaoEditar.appendChild(optionCategoryTransacaoEditar)
+            })
+        })
+        .catch((error) => {
+            console.log(error)
         })
 }
 

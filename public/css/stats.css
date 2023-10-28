@@ -22,3 +22,17 @@
 .ocultar {
     display: none !important;
 }
+
+@media (max-width: 600px) {
+    .containerGraficoMes,
+    .containerGraficoGeral {
+        flex-direction: column;
+        margin: 105px 0 105px 0;
+    }
+
+    .container-dia,
+    .container-categorias,
+    .container-meses {
+        width: 100%;
+    }
+  }

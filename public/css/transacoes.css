@@ -120,3 +120,61 @@
 .btnEdit {
     cursor: pointer;
 }
+
+.group-date-itens {
+    display: flex;
+}
+
+@media (max-width: 600px) {
+    .transacoes {
+        background-color: transparent;
+    }
+
+    .transacoes-cabecalho {
+        font-size: 14px;
+    }
+
+    .itemCabecalho {
+        text-align: center;
+    }
+
+    .transacoes .transacoes-item {
+        background-color: #fff;
+        flex-direction: column;
+        margin-bottom: 15px;
+        font-size: 12px;
+    }
+
+    .transacoes .acoes {
+        justify-content: space-evenly;
+    }
+
+    
+    .form-select-by-date {
+        flex-direction: column;
+    }
+
+    .form-item {
+        margin-bottom: 12px;
+    }
+ 
+    .form-item .form-mes  {
+        width: 30vw;
+    }
+
+    .form-item .form-ano {
+        width: 18vw;
+    } 
+    
+    .btn-transacoes {
+        width: 100%;
+    }
+
+    .container-select-data {
+        height: 150px;
+        flex-direction: column;
+    }
+    .container-select-data label {
+        font-size: 14px;
+    }
+  }

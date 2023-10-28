@@ -26,7 +26,6 @@ router.get('/pagenotfound', eAdmin, async (req, res) => {
 router.get('/getcategorias', eAdmin, async (req, res) => {
     const query = await connection.promise().query('SELECT * FROM categorias')
     const results = query[0]
-    console.log(results)
     res.send(results)
 })
 
@@ -165,7 +164,7 @@ router.post('/criartransacao', eAdmin, async (req, res) => {
     }
 })
 
-router.post('/editartransacao', eAdmin, async (req, res) => {
+router.put('/editartransacao', eAdmin, async (req, res) => {
     // Transformar em um objeto
     let id = req.body.id;
     let nome = req.body.nome;

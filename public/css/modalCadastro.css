@@ -69,3 +69,14 @@
 .ocultar {
     display: none !important; 
 }
+
+
+@media (max-width: 600px) {
+    .form-itens {
+        flex-direction: column;
+    }
+
+    .form-itens .form-item {
+        width: 100%;
+    }
+  }
