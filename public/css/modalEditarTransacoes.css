@@ -54,7 +54,8 @@
     width: 100%;
 }
 
-.form-item-editar input, .form-item-editar select {
+.form-item-editar input,
+.form-item-editar select {
     outline: none;
     width: 100%;
     height: 35px;
@@ -78,6 +79,7 @@
     align-items: center;
     height: 15%;
 }
+
 .btn_editar_transacao {
     height: 30px;
     background-color: #5dc460;
@@ -105,4 +107,10 @@ hr {
 
 .btn_cancelar_edicao:hover {
     background-color: #5b91c7;
+}
+
+@media (max-width: 600px) {
+    .editarTransacaoForm {
+        width: 90vw;
+    }
 }

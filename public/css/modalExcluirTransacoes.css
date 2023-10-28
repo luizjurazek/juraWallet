@@ -64,3 +64,9 @@
 .btn_cancelar {
     background-color: #78A2CC;
 }
+
+@media (max-width: 600px) {
+    .modalDelete {
+        width: 90vw;
+    }
+}

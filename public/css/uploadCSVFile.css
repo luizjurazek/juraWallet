@@ -103,3 +103,13 @@
 .csvFileInput label:hover {
     background-color: #090c0e;
 }
+
+@media (max-width: 600px) {
+    .containerUploadCsv {
+        width: 90vw;
+        padding: 15px;
+    }
+    .csvFileInput label {
+        width: 100%;
+    }
+}

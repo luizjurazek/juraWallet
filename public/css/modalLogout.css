@@ -32,3 +32,10 @@
 .container_logout .btn_cancelar {
     background-color: #FF6961;
 }
+
+
+@media (max-width: 600px) {
+    .container_logout {
+        width: 90vw;
+    }
+}
