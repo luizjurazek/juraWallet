@@ -15,8 +15,10 @@ const {
     separarTransacaoPorTipo
 } = require('../funcAuxiliares')
 
+let userId;
+
 router.get('/home', eAdmin, async (req, res) => {
-    
+    userId = req.userId
     res.render('../views/home.ejs')
 });
 
@@ -31,7 +33,7 @@ router.get('/getcategorias', eAdmin, async (req, res) => {
 })
 
 router.get('/listartodastransacoes', eAdmin, async (req, res) => {
-    connection.query(`SELECT * FROM transacoes ORDER BY dt_data_transacoes`, function (err, results, fields) {
+    connection.query(`SELECT * FROM transacoes_${userId} ORDER BY dt_data_transacoes`, function (err, results, fields) {
         if (err) {
             console.error("Erro ao listar as transacoes: " + err)
 
@@ -63,7 +65,7 @@ router.get('/listartransacaopordata/:mes/:ano', eAdmin, async (req, res) => {
     let ano = (req.params.ano >= 2001 && req.params.ano <= 2100) ? req.params.ano : null;
     if (mes > 0 && mes < 13) {
         try {
-            const query = await connection.promise().query(`SELECT * FROM transacoes WHERE DATE_FORMAT(dt_data_transacoes, '%Y-%m') = '${ano}-${mes}' ORDER BY dt_data_transacoes`)
+            const query = await connection.promise().query(`SELECT * FROM transacoes_${userId} WHERE DATE_FORMAT(dt_data_transacoes, '%Y-%m') = '${ano}-${mes}' ORDER BY dt_data_transacoes`)
             if (query[0] != "") {
                 const result = query[0]
                 const transacaoPorTipo = separarTransacaoPorTipo(result)
@@ -106,7 +108,7 @@ router.get('/listartransacaopordata/:mes/:ano', eAdmin, async (req, res) => {
 router.get('/listartransacao', eAdmin, async (req, res) => {
     let id = req.body.id
     try {
-        const query = await connection.promise().query(`SELECT * FROM transacoes WHERE id_transacoes = ?`, id)
+        const query = await connection.promise().query(`SELECT * FROM transacoes_${userId} WHERE id_transacoes = ?`, id)
         if (query[0] != "") {
             const response = {
                 error: false,
@@ -139,7 +141,7 @@ router.post('/criartransacao', eAdmin, async (req, res) => {
     let tipoTransacao = req.body.tipo;
     let data = req.body.data;
     try {
-        const query = await connection.promise().query(`INSERT INTO transacoes (s_nome_transacoes, s_categoria_transacoes, i_valor_transacoes, s_tipo_transacoes, dt_data_transacoes) 
+        const query = await connection.promise().query(`INSERT INTO transacoes_${userId} (s_nome_transacoes, s_categoria_transacoes, i_valor_transacoes, s_tipo_transacoes, dt_data_transacoes) 
         VALUES ("${nome}", "${categoria}", ${valor}, "${tipoTransacao}" , "${data}")`)
 
 
@@ -172,7 +174,7 @@ router.put('/editartransacao', eAdmin, async (req, res) => {
     let tipoTransacao = req.body.tipo;
     let data = req.body.data;
     try {
-        const query = await connection.promise().query(`UPDATE transacoes SET s_nome_transacoes = "${nome}", s_categoria_transacoes = "${categoria}",
+        const query = await connection.promise().query(`UPDATE transacoes_${userId} SET s_nome_transacoes = "${nome}", s_categoria_transacoes = "${categoria}",
          i_valor_transacoes = ${valor}, s_tipo_transacoes = "${tipoTransacao}",dt_data_transacoes = "${data}" WHERE id_transacoes = ?`, id)
 
         if (query[0].affectedRows > 0) {
@@ -198,7 +200,7 @@ router.put('/editartransacao', eAdmin, async (req, res) => {
 router.post('/deletartransacao/:id', eAdmin, async (req, res) => {
     const id = req.params.id
     try {
-        const query = await connection.promise().query(`DELETE FROM transacoes WHERE id_transacoes = ?`, id)
+        const query = await connection.promise().query(`DELETE FROM transacoes_${userId} WHERE id_transacoes = ?`, id)
 
         if (query[0].affectedRows > 0) {
             return res.status(200).json({

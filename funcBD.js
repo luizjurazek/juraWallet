@@ -2,8 +2,8 @@ const {
     connection
 } = require('./connection.js')
 
-function createTableTransactions(username) {
-    const createTableQuery = `CREATE TABLE transacoes_${username}(
+function createTableTransactions(userId) {
+    const createTableQuery = `CREATE TABLE transacoes_${userId}(
         id_transacoes INT PRIMARY KEY AUTO_INCREMENT,
     s_nome_transacoes VARCHAR(255),
     s_categoria_transacoes VARCHAR(255),

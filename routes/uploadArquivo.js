@@ -19,7 +19,10 @@ const {
     getUser
 } = require('../funcBD.js')
 
+let userId;
+
 router.post('/importartransacoes', eAdmin, upload.single('csvFile'), async (req, res) => {
+    userId = req.userId
     const results = [];
     let csvFilePath;
 
@@ -44,7 +47,7 @@ router.post('/importartransacoes', eAdmin, upload.single('csvFile'), async (req,
         .on('data', (data) => results.push(data))
         .on('end', () => {
             const jsonData = results;
-            gravarTransacaoMassivas(jsonData, user).then(message => {
+            gravarTransacaoMassivas(jsonData, userId).then(message => {
                 res.json({
                     error: false,
                     message: message,
@@ -60,11 +63,11 @@ router.post('/importartransacoes', eAdmin, upload.single('csvFile'), async (req,
         })
 });
 
-async function gravarTransacaoMassivas(data) {
+async function gravarTransacaoMassivas(data, id) {
     try {
         let i;
         for (i = 0; i < data.length; i++) {
-            await connection.promise().query(`INSERT INTO transacoes (s_nome_transacoes, s_categoria_transacoes, i_valor_transacoes, s_tipo_transacoes, dt_data_transacoes) 
+            await connection.promise().query(`INSERT INTO transacoes_${id} (s_nome_transacoes, s_categoria_transacoes, i_valor_transacoes, s_tipo_transacoes, dt_data_transacoes) 
             VALUES (?, ?, ?, ?, ?)`, [data[i].nome_transacao, data[i].categoria_transacao, data[i].valor_transacao, data[i].tipo_transacao, data[i].data_transacao]);
         }
         return "Inserções realizadas com sucesso";

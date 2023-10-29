@@ -35,7 +35,7 @@ router.post('/cadastrar', async (req, res) => {
     const name = req.body.name
 
     connection.query(`INSERT INTO users(s_user_users, s_password_users, s_email_users, s_nome_users) VALUES 
-    ("${username}", "${password}", "${email}", "${name}")`, (err) => {
+    ("${username}", "${password}", "${email}", "${name}")`, (err, results) => {
         if (err) {
             console.error("Erro ao cadastrar o usuário: " + err)
             return res.status(400).json({
@@ -43,7 +43,8 @@ router.post('/cadastrar', async (req, res) => {
                 mensagem: "Erro ao cadastrar o usuário!"
             })
         } else {
-            createTableTransactions(username)
+            const userId = results.insertId
+            createTableTransactions(userId)
             return res.status(200).json({
                 error: false,
                 mensagem: "Usuário cadastrado com sucesso!"
