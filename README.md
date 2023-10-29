@@ -1,1 +1,1 @@
-# token-node
+# juraWallet
