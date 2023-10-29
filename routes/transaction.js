@@ -16,6 +16,7 @@ const {
 } = require('../funcAuxiliares')
 
 router.get('/home', eAdmin, async (req, res) => {
+    
     res.render('../views/home.ejs')
 });
 
@@ -30,7 +31,7 @@ router.get('/getcategorias', eAdmin, async (req, res) => {
 })
 
 router.get('/listartodastransacoes', eAdmin, async (req, res) => {
-    connection.query('SELECT * FROM transacoes ORDER BY dt_data_transacoes', function (err, results, fields) {
+    connection.query(`SELECT * FROM transacoes ORDER BY dt_data_transacoes`, function (err, results, fields) {
         if (err) {
             console.error("Erro ao listar as transacoes: " + err)
 
@@ -43,7 +44,6 @@ router.get('/listartodastransacoes', eAdmin, async (req, res) => {
         } else {
             const query = results
             const transacaoPorTipo = separarTransacaoPorTipo(query)
-
             const response = {
                 error: false,
                 id_usuario_logado: req.userId,
@@ -52,10 +52,10 @@ router.get('/listartodastransacoes', eAdmin, async (req, res) => {
                 entradas: transacaoPorTipo[0],
                 saidas: transacaoPorTipo[1]
             }
-
             return res.status(200).json(response)
         }
     })
+    
 })
 
 router.get('/listartransacaopordata/:mes/:ano', eAdmin, async (req, res) => {
@@ -98,7 +98,7 @@ router.get('/listartransacaopordata/:mes/:ano', eAdmin, async (req, res) => {
             error: true,
             mensagem: "Insira mês e ano válidos!"
         }
-        return res.status(400).json()
+        return res.status(400).json(response)
     }
 
 })
@@ -138,7 +138,6 @@ router.post('/criartransacao', eAdmin, async (req, res) => {
     let valor = req.body.valor;
     let tipoTransacao = req.body.tipo;
     let data = req.body.data;
-
     try {
         const query = await connection.promise().query(`INSERT INTO transacoes (s_nome_transacoes, s_categoria_transacoes, i_valor_transacoes, s_tipo_transacoes, dt_data_transacoes) 
         VALUES ("${nome}", "${categoria}", ${valor}, "${tipoTransacao}" , "${data}")`)

@@ -91,6 +91,7 @@
 .itemCabecalho {
     text-align: left;
     flex: 1;
+    font-size: 14px;
 }
 
 .transacoes .item {
@@ -101,6 +102,7 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    font-size: 12px;
 }
 
 .transacoes .acoes {

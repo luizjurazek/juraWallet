@@ -10,6 +10,10 @@ const {
 } = require('../connection.js')
 
 const {
+    createTableTransactions
+} = require('../funcBD.js')
+
+const {
     logout
 } = require('../middleware/auth.js')
 
@@ -39,6 +43,7 @@ router.post('/cadastrar', async (req, res) => {
                 mensagem: "Erro ao cadastrar o usuário!"
             })
         } else {
+            createTableTransactions(username)
             return res.status(200).json({
                 error: false,
                 mensagem: "Usuário cadastrado com sucesso!"

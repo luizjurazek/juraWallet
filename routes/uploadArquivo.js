@@ -15,6 +15,10 @@ const {
     connection
 } = require('../connection.js')
 
+const {
+    getUser
+} = require('../funcBD.js')
+
 router.post('/importartransacoes', eAdmin, upload.single('csvFile'), async (req, res) => {
     const results = [];
     let csvFilePath;
@@ -40,7 +44,7 @@ router.post('/importartransacoes', eAdmin, upload.single('csvFile'), async (req,
         .on('data', (data) => results.push(data))
         .on('end', () => {
             const jsonData = results;
-            gravarTransacaoMassivas(jsonData).then(message => {
+            gravarTransacaoMassivas(jsonData, user).then(message => {
                 res.json({
                     error: false,
                     message: message,
