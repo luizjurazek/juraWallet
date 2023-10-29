@@ -115,43 +115,7 @@ function deleteTransacao(id, elToRemove) {
         })
 }
 
-function editarTransacaoFunc(idTransacao, nomeTransacao, categoriaTransacao, valorTransacao, tipoTransacao, dataTransacao) {
-    // Cria um objeto com os dados da transação a ser editada.
-    const transacaoEditada = {
-        id: idTransacao,
-        nome: nomeTransacao,
-        categoria: categoriaTransacao,
-        valor: valorTransacao,
-        tipo: tipoTransacao,
-        data: dataTransacao
-    }
 
-    // Configura as opções para a solicitação POST.
-    const requestOptions = {
-        method: "PUT",
-        headers: {
-            "Content-Type": "application/json",
-            'Authorization': token[1], // Configure o token JWT no cabeçalho
-        },
-        body: JSON.stringify(transacaoEditada)
-    }
-
-    // Define o endpoint da API.
-    const endpoint = "http://127.0.0.1:8080/editartransacao"
-
-    // Realiza a solicitação POST para editar a transação.
-    fetch(endpoint, requestOptions)
-        .then(res => res.json())
-        .then(data => {
-            if (data.error == false) {
-                document.getElementById("editarTransacao").classList.add("ocultar")
-                alert(`A transação foi editada com sucesso!`)
-                window.location.reload()
-            } else if (data.error == true) {
-                alert(`Houve um erro ao editar a transação de id ${transacaoEditada.id} e nome ${transacaoEditada.nome}, tente novamente!`)
-            }
-        })
-}
 
 function allTransacoes(transacoes, elToAppend) {
     for (let i = 0; i < transacoes.length; i++) {
@@ -251,6 +215,45 @@ function allTransacoes(transacoes, elToAppend) {
         transacaoLinha.append(nomeElement, categoriaElement, valorElement, tipoElement, dataElement, buttonItem)
         elToAppend.appendChild(transacaoLinha)
     }
+}
+
+
+function editarTransacaoFunc(idTransacao, nomeTransacao, categoriaTransacao, valorTransacao, tipoTransacao, dataTransacao) {
+    // Cria um objeto com os dados da transação a ser editada.
+    const transacaoEditada = {
+        id: idTransacao,
+        nome: nomeTransacao,
+        categoria: categoriaTransacao,
+        valor: valorTransacao,
+        tipo: tipoTransacao,
+        data: dataTransacao
+    }
+
+    // Configura as opções para a solicitação POST.
+    const requestOptions = {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+            'Authorization': token[1], // Configure o token JWT no cabeçalho
+        },
+        body: JSON.stringify(transacaoEditada)
+    }
+
+    // Define o endpoint da API.
+    const endpoint = "http://127.0.0.1:8080/editartransacao"
+
+    // Realiza a solicitação POST para editar a transação.
+    fetch(endpoint, requestOptions)
+        .then(res => res.json())
+        .then(data => {
+            if (data.error == false) {
+                document.getElementById("editarTransacao").classList.add("ocultar")
+                alert(`A transação foi editada com sucesso!`)
+                window.location.reload()
+            } else if (data.error == true) {
+                alert(`Houve um erro ao editar a transação de id ${transacaoEditada.id} e nome ${transacaoEditada.nome}, tente novamente!`)
+            }
+        })
 }
 
 // Função auxiliar para criar os elementos
