@@ -33,6 +33,9 @@
     background-color: #FF6961;
 }
 
+.ocultar {
+    display: none !important;
+}
 
 @media (max-width: 600px) {
     .container_logout {

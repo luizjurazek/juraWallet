@@ -8,6 +8,7 @@ const transactionRoutes = require('./routes/transaction.js')
 const loginRoutes = require('./routes/login.js')
 const uploadArquivo = require('./routes/uploadArquivo.js')
 const stats = require('./routes/stats.js')
+const insertCategorias = require('./routes/categories.js')
 
 // View engine
 app.set('view engine', 'ejs')
@@ -31,6 +32,7 @@ app.use('/', transactionRoutes)
 app.use('/', loginRoutes)
 app.use('/', uploadArquivo)
 app.use('/', stats)
+app.use('/', insertCategorias)
 
 
 
