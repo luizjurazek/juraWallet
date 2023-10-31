@@ -13,11 +13,11 @@ const {
 
 const {
     connection
-} = require('../connection.js')
+} = require('../utils/connection.js')
 
 const {
     getUser
-} = require('../funcBD.js')
+} = require('../utils/funcBD.js')
 
 let userId;
 

@@ -7,11 +7,11 @@ const JWT_SECRET = process.env.JWT_SECRET
 // Database 
 const {
     connection
-} = require('../connection.js')
+} = require('../utils/connection.js')
 
 const {
     createTableTransactions
-} = require('../funcBD.js')
+} = require('../utils/funcBD.js')
 
 const {
     logout

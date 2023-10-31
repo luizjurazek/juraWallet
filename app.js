@@ -8,7 +8,7 @@ const transactionRoutes = require('./routes/transaction.js')
 const loginRoutes = require('./routes/login.js')
 const uploadArquivo = require('./routes/uploadArquivo.js')
 const stats = require('./routes/stats.js')
-const insertCategorias = require('./routes/categories.js')
+const insertCategorias = require('./routes/categorias.js')
 
 // View engine
 app.set('view engine', 'ejs')

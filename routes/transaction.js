@@ -4,7 +4,7 @@ const router = express.Router()
 // Database 
 const {
     connection
-} = require('../connection.js')
+} = require('../utils/connection.js')
 
 // Auxiliares
 const {
@@ -13,7 +13,7 @@ const {
 
 const {
     separarTransacaoPorTipo
-} = require('../funcAuxiliares')
+} = require('../utils/funcAuxiliares')
 
 let userId;
 

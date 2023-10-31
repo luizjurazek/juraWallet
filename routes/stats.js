@@ -4,7 +4,7 @@ const router = express.Router()
 // Database 
 const {
     connection
-} = require('../connection.js')
+} = require('../utils/connection.js')
 
 // Auxiliares
 const {
@@ -15,7 +15,7 @@ const {
     entradaSaidaPorMes,
     somaCategoria,
     entradaSaidaPorDia
-} = require('../funcStats.js')
+} = require('../utils/funcStats.js')
 
 let userId;
 

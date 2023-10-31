@@ -3,7 +3,7 @@ const router = express.Router()
 
 const {
     connection
-} = require('../connection.js')
+} = require('../utils/connection.js')
 
 const {
     eAdmin
@@ -15,7 +15,6 @@ router.get('/controlecategorias', eAdmin, (req, res) => {
 
 router.post('/insertcategoria', eAdmin, async (req, res) =>{
     const categoria = req.body.categoria
-    console.log(categoria)
     try {
         const query = await connection.promise().query('INSERT INTO categorias (s_categoria_config) VALUES (?)', [categoria]);
         if (query[0].affectedRows > 0) {
