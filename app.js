@@ -4,11 +4,11 @@ const app = express()
 const cookieParser = require('cookie-parser');
 
 // Importando rotas
-const transactionRoutes = require('./routes/transaction.js')
-const loginRoutes = require('./routes/login.js')
-const uploadArquivo = require('./routes/uploadArquivo.js')
-const stats = require('./routes/stats.js')
-const insertCategorias = require('./routes/categorias.js')
+const transactionRoutes = require('./routes/routesTransaction.js')
+const loginRoutes = require('./routes/routesLogin.js')
+const uploadArquivo = require('./routes/routesUploadArquivo.js')
+const stats = require('./routes/routesStats.js')
+const insertCategorias = require('./routes/routesCategorias.js')
 
 // View engine
 app.set('view engine', 'ejs')
