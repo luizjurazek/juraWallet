@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="http://localhost:8080/css/menu.css">
     <link rel="stylesheet" href="http://localhost:8080/css/modalLogout.css">
     <link rel="stylesheet" href="http://localhost:8080/css/modalExcluirTransacoes.css">
+    <link rel="stylesheet" href="http://localhost:8080/css/formCategoria.css">
     <link rel="stylesheet" href="http://localhost:8080/css/footer.css">
 </head>
 
@@ -30,11 +31,17 @@
     <div>
         <main class="resumo container" style="height: 100vh;">
             <div class="container-controle-categorias">
-                <form action=""></form>
+                <h2>Insira uma nova categoria: </h2>
+                <div>
+                    <label for="insertCategoria">Crie uma nova categoria: </label>
+                    <input type="text" name="insertCategoria" id="insertCategoria">
+                    <button type="submit" id="btn_criar_categoria">Criar nova categoria</button>
+                </div>
             </div>
         </main>
     </div>
     <%- include('components/footer') %>
+    <script src="http://localhost:8080/js/categorias.js"></script>
     <script src="http://localhost:8080/js/getDate.js"></script>
     <script src="http://localhost:8080/js/logout.js"></script>
 </body>
