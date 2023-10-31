@@ -5,8 +5,7 @@ const btnCriarCategoria = document.getElementById('btn_criar_categoria');
 
 btnCriarCategoria.addEventListener('click', (evt) => {
     const regex = /^[a-zA-Z\s]+$/; // Aceita apenas letras e espaços
-    const inputCategoria = document.getElementById('insertCategoria').value;
-
+    const inputCategoria = document.getElementById('insertCategoria').value.toLowerCase();
     const ObjCategoria = {
         categoria: inputCategoria
     };

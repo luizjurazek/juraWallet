@@ -1,0 +1,39 @@
+.container-controle-categorias {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 40px;
+    height: 100vh;
+}
+
+.box-add-categoria {
+    background-color: #fff;
+    border-radius: 5px;
+    width: 50vw;
+    padding: 15px;
+}
+
+.box-add-categoria input {
+    height: 30px;
+    border-radius: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    outline: 0;
+    border: 1px solid #cccccc;
+}
+
+.box-add-categoria button {
+    width: 10vw;
+    border-radius: 5px;
+    cursor: pointer;
+    color: #fff;
+    outline: 0;
+    border: 0;
+    padding: 5px;
+    background-color: #353535;
+    margin-left: 10px;
+}
+
+.container-controle-categorias .title-box {
+    margin-bottom: 10px;
+}
