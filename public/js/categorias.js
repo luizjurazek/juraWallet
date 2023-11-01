@@ -2,6 +2,8 @@ const regexForToken = /token=([^;]*)/;
 let token = document.cookie.match(regexForToken);
 
 const btnCriarCategoria = document.getElementById('btn_criar_categoria');
+const selectDeleteCategoria = document.getElementById('selectDeleteCategoria');
+const selectEditarCategoria = document.getElementById('selectEditarCategoria')
 
 btnCriarCategoria.addEventListener('click', (evt) => {
     const regex = /^[a-zA-Z\s]+$/; // Aceita apenas letras e espaços
@@ -33,3 +35,39 @@ btnCriarCategoria.addEventListener('click', (evt) => {
         console.log('Campo inválido. Insira um texto válido.');
     }
 });
+
+function getCategorias(){
+    const endPoint = 'http://localhost:8080/getcategorias'
+    const requestOptions = {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            'Authorization': token[1], // Configure o token JWT no cabeçalho
+        }
+    }
+
+    fetch(endPoint, requestOptions)
+        .then(res => res.json())
+        .then(data => {
+            data.forEach((el) =>{
+                let optionSelectCategorias = document.createElement('option')
+                let optionSelectCategoriasEditar = document.createElement('option')
+            
+                optionSelectCategorias.setAttribute('value', el.s_categoria_config)
+                optionSelectCategorias.innerHTML = el.s_categoria_config
+
+                optionSelectCategoriasEditar.setAttribute('value',  el.s_categoria_config)
+                optionSelectCategoriasEditar.innerHTML = el.s_categoria_config
+            
+                selectDeleteCategoria.appendChild(optionSelectCategorias)
+                selectEditarCategoria.appendChild(optionSelectCategoriasEditar)
+            })
+        })
+        .catch((error) => {
+            console.log(error)
+        })
+}
+
+window.addEventListener('load', (evt) => {
+    getCategorias()
+})

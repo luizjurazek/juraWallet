@@ -6,14 +6,22 @@
     height: 100vh;
 }
 
-.box-add-categoria {
+.box-categoria {
     background-color: #fff;
     border-radius: 5px;
     width: 50vw;
     padding: 15px;
+    margin-bottom: 20px;
 }
 
-.box-add-categoria input {
+.box-categoria div {
+    display: flex;
+    justify-content: space-between;
+}
+
+.box-categoria input,
+.box-categoria select{
+    width: 15vw;
     height: 30px;
     border-radius: 5px;
     padding-left: 10px;
@@ -22,7 +30,7 @@
     border: 1px solid #cccccc;
 }
 
-.box-add-categoria button {
+.box-categoria button {
     width: 10vw;
     border-radius: 5px;
     cursor: pointer;

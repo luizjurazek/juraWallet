@@ -31,11 +31,30 @@
     <div>
         <main class="resumo container" style="height: 100vh;">
             <div class="container-controle-categorias">
-                <div class="box-add-categoria">
+                <div class="box-categoria">
                     <h3 class="title-box">Crie uma nova categoria: </h3>
                     <div>   
                         <input type="text" name="insertCategoria" id="insertCategoria">
                         <button type="submit" id="btn_criar_categoria">Criar nova categoria</button>
+                    </div>
+                </div>
+                <div class="box-categoria">
+                    <h3 class="title-box">Excluir categoria: </h3>
+                    <div>   
+                        <select name="selectDeleteCategoria" id="selectDeleteCategoria">
+                            <option value="-">-</option>
+                        </select>
+                        <button type="submit" id="btn_delete_categoria">Excluir categoria</button>
+                    </div>
+                </div>
+                <div class="box-categoria">
+                    <h3 class="title-box">Editar categoria: </h3>
+                    <div>   
+                        <select name="selectEditarCategoria" id="selectEditarCategoria">
+                            <option value="-">-</option>
+                        </select>
+                        <input type="text" name="novaCategoria" id="novaCategoria" placeholder="novo nome da categoria">
+                        <button type="submit" id="btn_editar_categoria">Editar categoria</button>
                     </div>
                 </div>
             </div>
