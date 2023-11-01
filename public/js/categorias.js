@@ -2,8 +2,12 @@ const regexForToken = /token=([^;]*)/;
 let token = document.cookie.match(regexForToken);
 
 const btnCriarCategoria = document.getElementById('btn_criar_categoria');
+const btnDeletarCategoria = document.getElementById('btn_delete_categoria');
+const btnEditarCategoria = document.getElementById('btn_editar_categoria')
+
+
 const selectDeleteCategoria = document.getElementById('selectDeleteCategoria');
-const selectEditarCategoria = document.getElementById('selectEditarCategoria')
+const selectEditarCategoria = document.getElementById('selectEditarCategoria');
 
 btnCriarCategoria.addEventListener('click', (evt) => {
     const regex = /^[a-zA-Z\s]+$/; // Aceita apenas letras e espaços
@@ -66,6 +70,57 @@ function getCategorias(){
         .catch((error) => {
             console.log(error)
         })
+}
+
+btnDeletarCategoria.addEventListener('click', (evt) => {
+    const categoriaExcluir = selectDeleteCategoria.value
+    excluirCategoria(categoriaExcluir)
+})
+
+function excluirCategoria(categoriaExcluida){
+    const endPoint = `http://localhost:8080/deletarcategoria/${categoriaExcluida}`
+    const requestOptions = {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            'Authorization': token[1], // Configure o token JWT no cabeçalho
+        }
+    }
+
+    fetch(endPoint, requestOptions)
+        .then(res => res.json())
+        .then(data => console.log(data))
+        .catch(error => console.log(error))
+}
+
+btnEditarCategoria.addEventListener('click', (evt) => {
+    const categoria = selectEditarCategoria.value;
+    const novaCategoria = document.getElementById('novaCategoria').value
+    console.log(categoria)
+    console.log(novaCategoria)
+    editarCategoria(categoria, novaCategoria)
+})
+
+function editarCategoria(categoria, novaCategoria){
+    const categoriaEditada = {
+        categoria: categoria,
+        novaCategoria: novaCategoria
+    };
+
+    const endPoint = `http://localhost:8080/editarcategoria`
+    const requestOptions = {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+            'Authorization': token[1], // Configure o token JWT no cabeçalho
+        },
+        body: JSON.stringify(categoriaEditada)
+    }
+
+    fetch(endPoint, requestOptions)
+        .then(res => res.json())
+        .then(data => console.log(data))
+        .catch(error => console.log(error))
 }
 
 window.addEventListener('load', (evt) => {

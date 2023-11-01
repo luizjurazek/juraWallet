@@ -47,7 +47,7 @@ router.post('/deletarcategoria/:categoria', eAdmin, async (req, res) => {
     const categoria = req.params.categoria
 
     try {
-        let query = await connection.promise.query(`DELETE FROM categorias WHERE s_categoria_config = ?`, categoria)
+        let query = await connection.promise().query(`DELETE FROM categorias WHERE s_categoria_config = ?`, categoria)
         if (query[0].affectedRows > 0) {
             return res.status(200).json({
                 error: false,
@@ -68,9 +68,10 @@ router.post('/deletarcategoria/:categoria', eAdmin, async (req, res) => {
 
 router.put('/editarcategoria', eAdmin, async (req, res) => {
     let categoria = req.body.categoria;
+    let novaCategoria = req.body.novaCategoria
 
     try {
-        let query = await connection.promise().query('UPDATE categorias SET s_categoria_config = ?', categoria)
+        let query = await connection.promise().query(`UPDATE categorias SET s_categoria_config = '${novaCategoria}' WHERE s_categoria_config = ?`, categoria)
         if (query[0].affectedRows > 0) {
             return res.status(200).json({
                 error: false,
