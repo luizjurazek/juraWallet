@@ -9,7 +9,7 @@ const {
     eAdmin
 } = require('../middleware/auth.js')
 
-router.get('/controlecategorias', eAdmin, (req, res) => {
+router.get('/configuracoesdecategoria', eAdmin, (req, res) => {
     res.render('../views/categorias.ejs')
 })
 
