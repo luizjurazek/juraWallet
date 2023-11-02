@@ -6,6 +6,7 @@ const upload = multer({
 })
 const csv = require('csv-parser');
 const fs = require('fs');
+const createCsvWriter = require('csv-writer').createObjectCsvWriter;
 
 const {
     eAdmin
@@ -16,8 +17,11 @@ const {
 } = require('../utils/connection.js')
 
 const {
-    getUser
-} = require('../utils/funcBD.js')
+    entradaSaidaPorMes,
+    somaCategoria,
+    entradaSaidaPorDia
+} = require('../utils/funcStats.js')
+
 
 let userId;
 
@@ -62,6 +66,45 @@ router.post('/importartransacoes', eAdmin, upload.single('csvFile'), async (req,
 
         })
 });
+
+router.get('/exportartransacoes/:mes/:ano', eAdmin, async (req, res) => {
+    userId = req.userId
+    let mes = (req.params.mes.length === 1) ? "0" + req.params.mes : req.params.mes;
+    let ano = (req.params.ano >= 2001 && req.params.ano <= 2100) ? req.params.ano : null;
+    console.log(mes)
+    console.log(ano)
+
+    if(mes == 00 && ano == null){
+        const query = await connection.promise().query(`SELECT * FROM transacoes_${userId} ORDER BY dt_data_transacoes`)
+        const results = query[0]
+        const entradaEsaidaPorMes = entradaSaidaPorMes(results)
+        const gastosPorCategoria = somaCategoria(results)
+
+       const csvWriter = createCsvWriter({
+        path: 'C:/Users/Luiz Jurazek/Desktop/token-node/uploads/todas-transacoes.csv',
+        header: [
+            {id: 'id_transacoes', title: 'ID Transacao'},
+            {id: 's_nome_transacoes', title: 'Nome Transacao'},
+            {id: 's_categoria_transacoes', title: 'Categoria Transacao'},
+            {id: 'i_valor_transacoes', title: 'Valor Transacao'},
+            {id: 's_tipo_transacoes', title: 'Tipo Transacao'},
+            {id: 'dt_data_transacoes', title: 'Data Transacao'}
+        ]
+       })
+
+       csvWriter.writeRecords(results)
+        .then(() => {
+            console.log('Dados gravados com sucesso no arquivo CSV.');
+        })
+        .catch(err => {
+            console.error('Erro ao gravar os dados no arquivo CSV: ', err)
+        })
+
+    } else if(mes > 0 && mes < 13){
+        const query = await connection.promise().query(`SELECT * FROM transacoes_${userId} WHERE DATE_FORMAT(dt_data_transacoes, '%Y-%m') = '${ano}-${mes}' ORDER BY dt_data_transacoes`)
+        console.log(query)
+    }
+})
 
 async function gravarTransacaoMassivas(data, id) {
     try {

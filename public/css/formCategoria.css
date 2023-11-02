@@ -72,3 +72,11 @@
 .ocultar {
     display: none !important;
 }
+
+.container_excluir_categoria .btn_excluir {
+    background-color: #78A2CC;
+}
+
+.container_excluir_categoria .btn_cancelar {
+    background-color: #E2504C;
+}
