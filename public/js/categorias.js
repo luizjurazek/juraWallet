@@ -40,7 +40,7 @@ btnCriarCategoria.addEventListener('click', (evt) => {
     }
 });
 
-function getCategorias(){
+function getCategorias() {
     const endPoint = 'http://localhost:8080/getcategorias'
     const requestOptions = {
         method: "GET",
@@ -53,16 +53,16 @@ function getCategorias(){
     fetch(endPoint, requestOptions)
         .then(res => res.json())
         .then(data => {
-            data.forEach((el) =>{
+            data.forEach((el) => {
                 let optionSelectCategorias = document.createElement('option')
                 let optionSelectCategoriasEditar = document.createElement('option')
-            
+
                 optionSelectCategorias.setAttribute('value', el.s_categoria_config)
                 optionSelectCategorias.innerHTML = el.s_categoria_config
 
-                optionSelectCategoriasEditar.setAttribute('value',  el.s_categoria_config)
+                optionSelectCategoriasEditar.setAttribute('value', el.s_categoria_config)
                 optionSelectCategoriasEditar.innerHTML = el.s_categoria_config
-            
+
                 selectDeleteCategoria.appendChild(optionSelectCategorias)
                 selectEditarCategoria.appendChild(optionSelectCategoriasEditar)
             })
@@ -73,11 +73,33 @@ function getCategorias(){
 }
 
 btnDeletarCategoria.addEventListener('click', (evt) => {
-    const categoriaExcluir = selectDeleteCategoria.value
-    excluirCategoria(categoriaExcluir)
+    const modalExcluirCategoria = document.getElementById('modal_excluir_categoria')
+    modalExcluirCategoria.classList.remove('ocultar')
+
+    const categoriaSpan = document.getElementById('categoriaSpan')
+    categoriaSpan.innerHTML = selectDeleteCategoria.value
+
+    const btnExcluirCategoria = document.getElementById('btn_excluir_categoria')
+    btnExcluirCategoria.addEventListener('click', (evt) => {
+        if(selectDeleteCategoria.value != '-'){
+            const categoriaExcluir = selectDeleteCategoria.value
+            excluirCategoria(categoriaExcluir)
+            alert('Categoria excluída com sucesso!')
+            window.location.reload()
+        } else {
+            alert('Selecione uma categoria!')
+        }
+        
+    })
+
+    const btnCancelarCategoria = document.getElementById('btn_cancelar_categoria')
+    btnCancelarCategoria.addEventListener('click', (evt) => {
+        modalExcluirCategoria.classList.add('ocultar')
+    })
+
 })
 
-function excluirCategoria(categoriaExcluida){
+function excluirCategoria(categoriaExcluida) {
     const endPoint = `http://localhost:8080/deletarcategoria/${categoriaExcluida}`
     const requestOptions = {
         method: "POST",
@@ -101,7 +123,7 @@ btnEditarCategoria.addEventListener('click', (evt) => {
     editarCategoria(categoria, novaCategoria)
 })
 
-function editarCategoria(categoria, novaCategoria){
+function editarCategoria(categoria, novaCategoria) {
     const categoriaEditada = {
         categoria: categoria,
         novaCategoria: novaCategoria
