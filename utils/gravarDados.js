@@ -15,55 +15,7 @@ async function gravarTodasTransacoes(userId) {
     const results = query[0]
     const pathDoc = `../token-node/uploads/todas-transacoes_${userId}.csv`
 
-    const csvWriter = createCsvWriter({
-        path: pathDoc,
-        header: [{
-                id: 'id_transacoes',
-                title: 'ID Transacao'
-            },
-            {
-                id: 's_nome_transacoes',
-                title: 'Nome Transacao'
-            },
-            {
-                id: 's_categoria_transacoes',
-                title: 'Categoria Transacao'
-            },
-            {
-                id: 'i_valor_transacoes',
-                title: 'Valor Transacao'
-            },
-            {
-                id: 's_tipo_transacoes',
-                title: 'Tipo Transacao'
-            },
-            {
-                id: 'dt_data_transacoes',
-                title: 'Data Transacao'
-            }
-        ]
-    })
-
-    return csvWriter.writeRecords(results)
-        .then(() => {
-            console.log('Dados gravados com sucesso no arquivo CSV.');
-            const localGravado = {
-                error: false,
-                path: pathDoc,
-                mensagem: `O arquivo foi gravo no seguinte endereco ${pathDoc}`
-            }
-            return localGravado
-
-        })
-        .catch(err => {
-            console.error('Erro ao gravar os dados no arquivo CSV: ', err)
-            const localGravado = {
-                error: true,
-                path: pathDoc,
-                mensagem: `Houve um erro ao salvar o arquivo no seguinte endereco ${pathDoc}`
-            }
-            return localGravado
-        })
+    return gerarArquivoCsv(results, pathDoc)
 }
 
 async function gravarTransacoesMes(mes, ano, userId) {
@@ -71,54 +23,7 @@ async function gravarTransacoesMes(mes, ano, userId) {
     const results = query[0]
     const pathDoc = `../token-node/uploads/transacoes-${mes}-${ano}-${userId}.csv`
 
-    const csvWriter = createCsvWriter({
-        path: pathDoc,
-        header: [{
-                id: 'id_transacoes',
-                title: 'ID Transacao'
-            },
-            {
-                id: 's_nome_transacoes',
-                title: 'Nome Transacao'
-            },
-            {
-                id: 's_categoria_transacoes',
-                title: 'Categoria Transacao'
-            },
-            {
-                id: 'i_valor_transacoes',
-                title: 'Valor Transacao'
-            },
-            {
-                id: 's_tipo_transacoes',
-                title: 'Tipo Transacao'
-            },
-            {
-                id: 'dt_data_transacoes',
-                title: 'Data Transacao'
-            }
-        ]
-    })
-
-    return csvWriter.writeRecords(results)
-        .then(() => {
-            console.log('Dados gravados com sucesso no arquivo CSV.');
-            const localGravado = {
-                error: false,
-                path: pathDoc,
-                mensagem: `O arquivo foi gravo no seguinte endereco ${pathDoc}`
-            }
-            return localGravado
-        })
-        .catch(err => {
-            console.error('Erro ao gravar os dados no arquivo CSV: ', err)
-            const localGravado = {
-                error: true,
-                path: pathDoc,
-                mensagem: `Houve um erro ao salvar o arquivo no seguinte endereco ${pathDoc}`
-            }
-            return localGravado
-        })
+    return gerarArquivoCsv(results, pathDoc)
 }
 
 async function gravarTransacaoMassivas(data, id) {
@@ -133,6 +38,58 @@ async function gravarTransacaoMassivas(data, id) {
         console.error("Erro ao gravar transações massivas:", error);
         return "Ocorreu um erro ao inserir as transações.";
     }
+}
+
+
+async function gerarArquivoCsv(query, pathDoc){
+    const csvWriter = createCsvWriter({
+        path: pathDoc,
+        header: [{
+                id: 'id_transacoes',
+                title: 'ID Transacao'
+            },
+            {
+                id: 's_nome_transacoes',
+                title: 'Nome Transacao'
+            },
+            {
+                id: 's_categoria_transacoes',
+                title: 'Categoria Transacao'
+            },
+            {
+                id: 'i_valor_transacoes',
+                title: 'Valor Transacao'
+            },
+            {
+                id: 's_tipo_transacoes',
+                title: 'Tipo Transacao'
+            },
+            {
+                id: 'dt_data_transacoes',
+                title: 'Data Transacao'
+            }
+        ]
+    })
+
+    return csvWriter.writeRecords(query)
+        .then(() => {
+            console.log('Dados gravados com sucesso no arquivo CSV.');
+            const localGravado = {
+                error: false,
+                path: pathDoc,
+                mensagem: `O arquivo foi gravo no seguinte endereco ${pathDoc}`
+            }
+            return localGravado
+        })
+        .catch(err => {
+            console.error('Erro ao gravar os dados no arquivo CSV: ', err)
+            const localGravado = {
+                error: true,
+                path: pathDoc,
+                mensagem: `Houve um erro ao salvar o arquivo no seguinte endereco ${pathDoc}`
+            }
+            return localGravado
+        })
 }
 
 

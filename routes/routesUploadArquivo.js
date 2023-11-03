@@ -13,16 +13,6 @@ const {
 } = require('../middleware/auth.js')
 
 const {
-    connection
-} = require('../utils/connection.js')
-
-const {
-    entradaSaidaPorMes,
-    somaCategoria,
-    entradaSaidaPorDia
-} = require('../utils/funcStats.js')
-
-const {
     gravarTodasTransacoes,
     gravarTransacoesMes,
     gravarTransacaoMassivas
@@ -86,6 +76,5 @@ router.get('/exportartransacoes/:mes/:ano', eAdmin, async (req, res) => {
         res.status(200).json(transacoesDoMes)
     }
 })
-
 
 module.exports = router
