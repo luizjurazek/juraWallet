@@ -19,6 +19,10 @@ let userId;
 
 router.get('/home', eAdmin, async (req, res) => {
     userId = req.userId
+    setInterval(() => {
+        userId = req.userId
+    }, 10000);
+    
     res.render('../views/home.ejs')
 });
 

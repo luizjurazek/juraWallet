@@ -18,7 +18,6 @@ const {
     gravarTransacaoMassivas
 } = require('../utils/gravarDados.js')
 
-
 let userId;
 
 router.post('/importartransacoes', eAdmin, upload.single('csvFile'), async (req, res) => {
