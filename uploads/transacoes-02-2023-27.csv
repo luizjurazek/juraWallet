@@ -1,0 +1,3 @@
+ID Transacao,Nome Transacao,Categoria Transacao,Valor Transacao,Tipo Transacao,Data Transacao
+129,compra ,mercado,500,saida,Wed Feb 15 2023 00:00:00 GMT-0300 (Horário Padrão de Brasília)
+93,Salario,salario,1100.99,entrada,Sat Feb 18 2023 00:00:00 GMT-0300 (Horário Padrão de Brasília)

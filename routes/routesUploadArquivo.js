@@ -23,7 +23,9 @@ const {
 } = require('../utils/funcStats.js')
 
 const {
-    gravarTodasTransacoes
+    gravarTodasTransacoes,
+    gravarTransacoesMes,
+    gravarTransacaoMassivas
 } = require('../utils/gravarDados.js')
 
 
@@ -75,29 +77,15 @@ router.get('/exportartransacoes/:mes/:ano', eAdmin, async (req, res) => {
     userId = req.userId
     let mes = (req.params.mes.length === 1) ? "0" + req.params.mes : req.params.mes;
     let ano = (req.params.ano >= 2001 && req.params.ano <= 2100) ? req.params.ano : null;
-    console.log(mes)
-    console.log(ano)
 
     if(mes == 00 && ano == null){
-        gravarTodasTransacoes(mes, ano, userId)
+        const todasTransacoes = await gravarTodasTransacoes(userId)
+        res.status(200).json(todasTransacoes)
     } else if(mes > 0 && mes < 13){
-        const query = await connection.promise().query(`SELECT * FROM transacoes_${userId} WHERE DATE_FORMAT(dt_data_transacoes, '%Y-%m') = '${ano}-${mes}' ORDER BY dt_data_transacoes`)
-        console.log(query)
+        const transacoesDoMes = await gravarTransacoesMes(mes, ano, userId)
+        res.status(200).json(transacoesDoMes)
     }
 })
 
-async function gravarTransacaoMassivas(data, id) {
-    try {
-        let i;
-        for (i = 0; i < data.length; i++) {
-            await connection.promise().query(`INSERT INTO transacoes_${id} (s_nome_transacoes, s_categoria_transacoes, i_valor_transacoes, s_tipo_transacoes, dt_data_transacoes) 
-            VALUES (?, ?, ?, ?, ?)`, [data[i].nome_transacao, data[i].categoria_transacao, data[i].valor_transacao, data[i].tipo_transacao, data[i].data_transacao]);
-        }
-        return "Inserções realizadas com sucesso";
-    } catch (error) {
-        console.error("Erro ao gravar transações massivas:", error);
-        return "Ocorreu um erro ao inserir as transações.";
-    }
-}
 
 module.exports = router
