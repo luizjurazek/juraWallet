@@ -1,4 +1,5 @@
 ID Transacao,Nome Transacao,Categoria Transacao,Valor Transacao,Tipo Transacao,Data Transacao
+170,Salario ,salario,5000,entrada,Thu Oct 05 2023 00:00:00 GMT-0300 (Horário Padrão de Brasília)
 144,Papelaria,cuidados pessoais,9.5,saida,Wed Oct 11 2023 00:00:00 GMT-0300 (Horário Padrão de Brasília)
 146,Flores e Pelucia,Presente,60,saida,Fri Oct 13 2023 00:00:00 GMT-0300 (Horário Padrão de Brasília)
 147,Bk,gastos fixos,68.8,saida,Fri Oct 13 2023 00:00:00 GMT-0300 (Horário Padrão de Brasília)
