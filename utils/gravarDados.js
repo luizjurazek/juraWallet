@@ -30,7 +30,14 @@ async function gravarTodasTransacoes(userId) {
     const results = query[0]
     
     const arqDeTransacoes = await gerarArquivoDeTransacoesCsv(results, 00, null, userId)
-    return arqDeTransacoes
+    const arqDetalhado = await gerarArquivoDeTransacaoDetalhado(results, 00, null, userId)
+
+    const retorno = {
+        arqDeTransacoes,
+        arqDetalhado
+    }
+
+    return retorno
 }
 
 async function gravarTransacoesMes(mes, ano, userId) {
@@ -38,7 +45,60 @@ async function gravarTransacoesMes(mes, ano, userId) {
     const results = query[0]
     
     const arqDeTransacoes = await gerarArquivoDeTransacoesCsv(results, mes, ano, userId)
+    
     return arqDeTransacoes
+}
+
+async function gerarArquivoDeTransacaoDetalhado(results, mes, ano, userId){
+    let pathDoc;
+    let linkDownload
+    if(mes == 00 && ano == null){
+        pathDoc = `./public/arqExportacao/todasTranscoesDetalhadas-user-${userId}.csv`
+        linkDownload = `/arqExportacao/todasTranscoesDetalhadas-user-${userId}.csv`
+    } else {
+        pathDoc = `./public/arqExportacao/transcoesDetalhadas-${mes}-${ano}-user-${userId}.csv`
+        linkDownload = `/arqExportacao/transcoesDetalhadas-${mes}-${ano}-user-${userId}.csv`
+    }
+
+    const query = await entradaSaidaPorMes(results)
+    const keysOfQuery = Object.keys(query).map(chave => {
+        return {
+            id_transacoes: chave,
+            valor_entrada: query[chave].entrada,
+            valor_saida: query[chave].saida
+        }
+    })
+
+    const csvWriter = createCsvWriter({
+        path: pathDoc,
+        header: [
+            {id:  'id_transacoes', title: 'ID transacao'},
+            {id:  'valor_entrada', title: 'Valor entrada'},
+            {id:  'valor_saida', title: 'Valor saida'},
+        ]
+    })
+
+    return csvWriter.writeRecords(keysOfQuery)
+        .then(() => {
+            console.log('Dados gravados com sucesso no arquivo CSV.');
+            const localGravado = {
+                error: false,
+                mensagem: `O arquivo foi gravo no seguinte endereco ${pathDoc}`,
+                path: pathDoc,
+                linkParaDownload: linkDownload
+            }
+            return localGravado
+        })
+        .catch(err => {
+            console.error('Erro ao gravar os dados no arquivo CSV: ', err)
+            const localGravado = {
+                error: true,
+                mensagem: `Houve um erro ao salvar o arquivo no seguinte endereco ${pathDoc}`,
+                path: pathDoc,
+                linkParaDownload: linkDownload
+            }
+            return localGravado
+        })
 }
 
 
