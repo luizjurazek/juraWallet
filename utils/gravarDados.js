@@ -25,12 +25,12 @@ async function gravarTransacaoMassivas(data, id) {
     }
 }
 
-async function gerarArquivoDeTransacaoDetalhado(results, mes, ano, userId){
+async function gerarArquivoResumoDetalhado(results, mes, ano, userId) {
     let pathDoc;
     let linkDownload;
     let keysOfQuery;
     let csvWriter;
-    if(mes == 00 && ano == null){
+    if (mes == 00 && ano == null) {
         pathDoc = `./public/arqExportacao/resumoPorMes-user-${userId}.csv`
         linkDownload = `/arqExportacao/resumoPorMes-user-${userId}.csv`
         const query = await entradaSaidaPorMes(results)
@@ -43,10 +43,18 @@ async function gerarArquivoDeTransacaoDetalhado(results, mes, ano, userId){
         })
         csvWriter = createCsvWriter({
             path: pathDoc,
-            header: [
-                {id:  'id_transacoes', title: 'Mês'},
-                {id:  'valor_entrada', title: 'Valor entrada'},
-                {id:  'valor_saida', title: 'Valor saida'},
+            header: [{
+                    id: 'id_transacoes',
+                    title: 'Mês'
+                },
+                {
+                    id: 'valor_entrada',
+                    title: 'Valor entrada'
+                },
+                {
+                    id: 'valor_saida',
+                    title: 'Valor saida'
+                },
             ]
         })
     } else {
@@ -62,10 +70,18 @@ async function gerarArquivoDeTransacaoDetalhado(results, mes, ano, userId){
         })
         csvWriter = createCsvWriter({
             path: pathDoc,
-            header: [
-                {id:  'id_transacoes', title: 'Dia'},
-                {id:  'valor_entrada', title: 'Valor entrada'},
-                {id:  'valor_saida', title: 'Valor saida'},
+            header: [{
+                    id: 'id_transacoes',
+                    title: 'Dia'
+                },
+                {
+                    id: 'valor_entrada',
+                    title: 'Valor entrada'
+                },
+                {
+                    id: 'valor_saida',
+                    title: 'Valor saida'
+                },
             ]
         })
     }
@@ -94,17 +110,17 @@ async function gerarArquivoDeTransacaoDetalhado(results, mes, ano, userId){
 }
 
 
-async function gerarArquivoDeTransacoesCsv(query, mes, ano, userId){
+async function gerarArquivoDeTransacoesCsv(query, mes, ano, userId) {
     let pathDoc;
     let linkDownload
-    if(mes == 00 && ano == null){
+    if (mes == 00 && ano == null) {
         pathDoc = `./public/arqExportacao/todasTranscoes-user-${userId}.csv`
         linkDownload = `/arqExportacao/todasTranscoes-user-${userId}.csv`
     } else {
         pathDoc = `./public/arqExportacao/transacoes-${mes}-${ano}-user-${userId}.csv`
         linkDownload = `/arqExportacao/transacoes-${mes}-${ano}-user-${userId}.csv`
     }
-    
+
     const csvWriter = createCsvWriter({
         path: pathDoc,
         header: [{
@@ -157,18 +173,71 @@ async function gerarArquivoDeTransacoesCsv(query, mes, ano, userId){
         })
 }
 
+async function gerarArquivoCategorias(results, mes, ano, userId) {
+    let pathDoc;
+    let linkDownload;
+
+    if (mes == 00 && ano == null) {
+        pathDoc = `./public/arqExportacao/categorias-user-${userId}.csv`
+        linkDownload = `/arqExportacao/categorias-user-${userId}.csv`
+    } else {
+        pathDoc = `./public/arqExportacao/categorias-${mes}-${ano}-user-${userId}.csv`
+        linkDownload = `/arqExportacao/categorias-${mes}-${ano}-user-${userId}.csv`
+    }
+
+    const query = await somaCategoria(results)
+
+    const keysOfQuery = Object.keys(query).map((chave) => {
+        return {
+            categoria: chave,
+            valor: query[chave]
+        }
+    })
+
+    const csvWriter = createCsvWriter({
+        path: pathDoc,
+        header: [
+            { id: 'categoria', title: 'Categoria' },
+            { id: 'valor', title: 'Valor' }
+        ]
+    });
+
+    return csvWriter.writeRecords(keysOfQuery)
+        .then(() => {
+            console.log('Dados gravados com sucesso no arquivo CSV.');
+            const localGravado = {
+                error: false,
+                mensagem: `O arquivo foi gravo no seguinte endereco ${pathDoc}`,
+                path: pathDoc,
+                linkParaDownload: linkDownload
+            }
+            return localGravado
+        })
+        .catch(err => {
+            console.error('Erro ao gravar os dados no arquivo CSV: ', err)
+            const localGravado = {
+                error: true,
+                mensagem: `Houve um erro ao salvar o arquivo no seguinte endereco ${pathDoc}`,
+                path: pathDoc,
+                linkParaDownload: linkDownload
+            }
+            return localGravado
+        })
+}
+
 
 // Gera dois arquivos csv com base em todas as transações feitas pelo o usuário 
 async function gravarTodasTransacoes(userId) {
     const query = await connection.promise().query(`SELECT * FROM transacoes_${userId} ORDER BY dt_data_transacoes`)
     const results = query[0]
-    
-    const arqDeTransacoes = await gerarArquivoDeTransacoesCsv(results, 00, null, userId)
-    const arqDetalhadoMes = await gerarArquivoDeTransacaoDetalhado(results, 00, null, userId)
 
+    const arqDeTransacoes = await gerarArquivoDeTransacoesCsv(results, 00, null, userId)
+    const arqDetalhadoMes = await gerarArquivoResumoDetalhado(results, 00, null, userId)
+    const arqCategorias = await gerarArquivoCategorias(results, 00, null, userId)
     const retorno = {
         arqDeTransacoes,
-        arqDetalhadoMes
+        arqDetalhadoMes,
+        arqCategorias
     }
 
     return retorno
@@ -178,12 +247,14 @@ async function gravarTodasTransacoes(userId) {
 async function gravarTransacoesMes(mes, ano, userId) {
     const query = await connection.promise().query(`SELECT * FROM transacoes_${userId} WHERE DATE_FORMAT(dt_data_transacoes, '%Y-%m') = '${ano}-${mes}' ORDER BY dt_data_transacoes`)
     const results = query[0]
-    
+
     const arqDeTransacoes = await gerarArquivoDeTransacoesCsv(results, mes, ano, userId)
-    const arqDetalhado = await gerarArquivoDeTransacaoDetalhado(results, mes, ano, userId)
+    const arqDetalhado = await gerarArquivoResumoDetalhado(results, mes, ano, userId)
+    const arqCategorias = await gerarArquivoCategorias(results, mes, ano, userId)
     const retorno = {
         arqDeTransacoes,
-        arqDetalhado
+        arqDetalhado,
+        arqCategorias
     }
     return retorno
 }
