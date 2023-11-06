@@ -24,7 +24,6 @@
 div#header-placeholder {
     position: fixed;
     margin-top: 10px;
-
 }
 
 .header {
@@ -77,9 +76,34 @@ div#header-placeholder {
 
 
 @media only screen and (max-width: 800px) {
+    div#header-placeholder {
+        position: unset; 
+        margin-top: 0;
+    }
+
+
     .header {
-        flex-direction: column;
+        display: flex;
+        flex-direction: row;
         justify-content: center;
-        height: 125px;
+        height: 105px;
+    }
+
+    .menu {
+        display: flex;
+        align-items: center;
+    }
+
+    .menu-list {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .menu-list .item-menu {
+        color: #fff;
+        margin-left: 35px;
+        list-style: none;
+        text-align: unset;
+        margin-bottom: 0;
     }
 }

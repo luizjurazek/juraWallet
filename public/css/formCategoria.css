@@ -80,3 +80,24 @@
 .container_excluir_categoria .btn_cancelar {
     background-color: #E2504C;
 }
+
+@media only screen and (max-width: 800px) {
+    .box-categoria {
+        width: 95vw;
+    }
+
+    .box-categoria div {
+
+        flex-direction: column;
+    }
+
+    .box-categoria input, .box-categoria select {
+        width: 100%;
+        margin-bottom: 15px;
+    }
+
+    .box-categoria button {
+        width: 100%;
+        margin-left: 0;
+    }
+}
