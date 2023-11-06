@@ -234,6 +234,7 @@ async function gravarTodasTransacoes(userId) {
     const arqDeTransacoes = await gerarArquivoDeTransacoesCsv(results, 00, null, userId)
     const arqDetalhadoMes = await gerarArquivoResumoDetalhado(results, 00, null, userId)
     const arqCategorias = await gerarArquivoCategorias(results, 00, null, userId)
+    
     const retorno = {
         arqDeTransacoes,
         arqDetalhadoMes,

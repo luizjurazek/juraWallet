@@ -31,7 +31,7 @@
 
 </head>
 
-<body id="body">
+<body id="body" class="container-body">
     <%- include('form/formExcluirTransacao') %>
     <%- include('form/formEditarTransacao') %>
     <%- include('form/formUploadMassivo') %>
@@ -40,15 +40,19 @@
 
     <div>
         <main class="resumo container">
+            <h1 class="item-menu" id="userName">
+                <span></span>
+            </h1> 
             <%- include('components/resumeCard') %>
             <%- include('components/cadastro') %>
             <%- include('components/transacoes') %>
             <%- include('components/statsCategoriaMes') %>
         </main>
-    </div>
+    
 
-    <%- include('components/calculadora') %>
-    <%- include('components/footer') %>
+    <%# include('components/calculadora') %>
+    <%# include('components/footer') %> 
+    </div>
     <script src="http://localhost:8080/js/transacoes.js"></script>
     <script src="http://localhost:8080/js/cadastrarTransacao.js"></script>
     <script src="http://localhost:8080/js/getDate.js"></script>
