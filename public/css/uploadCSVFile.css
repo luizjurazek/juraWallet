@@ -27,7 +27,7 @@
 }
 
 
-
+.btnFileExport:hover,
 .btnFileInput:hover {
     background-color: #090c0e;
 }
@@ -61,7 +61,8 @@
     background-color: #59b459;
 }
 
-.btnFileInput {
+.btnFileInput,
+.btnFileExport {
     margin-top: 10px;
     border-radius: 5px;
     cursor: pointer;

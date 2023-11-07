@@ -118,6 +118,7 @@ function gerarGraficoDeSerie(requestData, chart, configText) {
                 data: entradas,
                 borderColor: "#76cc76",
                 backgroundColor: "#76cc76",
+                hidden: true
             },
             {
                 label: 'Saidas',
