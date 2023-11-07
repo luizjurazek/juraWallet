@@ -269,11 +269,30 @@ async function gravarTransacoesMes(mes, ano, userId) {
     const arqDeTransacoes = await gerarArquivoDeTransacoesCsv(results, mes, ano, userId)
     const arqDetalhado = await gerarArquivoResumoDetalhado(results, mes, ano, userId)
     const arqCategorias = await gerarArquivoCategorias(results, mes, ano, userId)
-    const retorno = {
-        arqDeTransacoes,
-        arqDetalhado,
-        arqCategorias
-    }
+
+    const zip = new AdmZip()
+    zip.addLocalFile(arqDeTransacoes.path)
+    zip.addLocalFile(arqDetalhado.path)
+    zip.addLocalFile(arqCategorias.path)
+
+
+    const zipFileName = `./public/arqExportacao/transacoes-${mes}-${ano}-${userId}.zip`
+    let retorno
+    zip.writeZip(zipFileName, (err) => {
+        if(err){
+            retorno = {
+                error: true,
+                mensagem: "Houve um erro ao gerar o arquivo!"
+            }
+        } else {
+            retorno = {
+                error: false,
+                mensagem: "Arquivo salvo com sucesso!",
+                path: zipFileName
+            }
+        }
+    })
+
     return retorno
 }
 
