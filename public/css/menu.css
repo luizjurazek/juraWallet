@@ -21,19 +21,16 @@
     background-color: #fff;
 }
 
-div#header-placeholder {
+/* div#header-placeholder {
     position: fixed;
     margin-top: 10px;
-}
+} */
 
 .header {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    height: 100vh;
-    width: 120px;
-    margin-top: -10px;
 }
 
 .header .div-logo h1 {
@@ -55,15 +52,16 @@ div#header-placeholder {
 
 .menu-list {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .menu-list .item-menu {
     color: #fff;
-    /* margin-left: 35px; */
     list-style: none;
-    margin-bottom: 15px;
     text-align: center;
+    margin-right: 20px;
 }
 
 .header .div-logo a,
@@ -71,39 +69,4 @@ div#header-placeholder {
 .menu-list .item-menu span {
     text-decoration: none;
     color: white;
-}
-
-
-
-@media only screen and (max-width: 800px) {
-    div#header-placeholder {
-        position: unset; 
-        margin-top: 0;
-    }
-
-
-    .header {
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        height: 105px;
-    }
-
-    .menu {
-        display: flex;
-        align-items: center;
-    }
-
-    .menu-list {
-        display: flex;
-        flex-direction: row;
-    }
-
-    .menu-list .item-menu {
-        color: #fff;
-        margin-left: 35px;
-        list-style: none;
-        text-align: unset;
-        margin-bottom: 0;
-    }
 }
