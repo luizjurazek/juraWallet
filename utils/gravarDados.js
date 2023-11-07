@@ -1,4 +1,6 @@
 const createCsvWriter = require('csv-writer').createObjectCsvWriter;
+const fs = require('fs')
+const AdmZip = require('adm-zip')
 
 const {
     connection
@@ -234,12 +236,27 @@ async function gravarTodasTransacoes(userId) {
     const arqDeTransacoes = await gerarArquivoDeTransacoesCsv(results, 00, null, userId)
     const arqDetalhadoMes = await gerarArquivoResumoDetalhado(results, 00, null, userId)
     const arqCategorias = await gerarArquivoCategorias(results, 00, null, userId)
-    
-    const retorno = {
-        arqDeTransacoes,
-        arqDetalhadoMes,
-        arqCategorias
-    }
+    const zip = new AdmZip();
+    zip.addLocalFile(arqDeTransacoes.path)
+    zip.addLocalFile(arqDetalhadoMes.path)
+    zip.addLocalFile(arqCategorias.path)
+
+    const zipFileName = `./public/arqExportacao/todasTranscoes-${userId}.zip`
+    let retorno
+    zip.writeZip(zipFileName, (err) => {
+        if(err){
+            retorno = {
+                error: true,
+                mensagem: "Houve um erro ao gerar o arquivo!"
+            }
+        } else {
+            retorno = {
+                error: false,
+                mensagem: "Arquivo salvo com sucesso!",
+                path: zipFileName
+            }
+        }
+    })
 
     return retorno
 }
