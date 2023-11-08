@@ -11,12 +11,45 @@
 .containerExportCsv {
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
+    justify-content: space-between;
     align-items: center;
     width: 40vw;
-    height: 27vh;
+    height: 40vh;
     background-color: #fff;
     border-radius: 5px;
+}
+
+
+.cabecalho-export {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 20%;
+    border-bottom: 1px solid #f3f3f3;
+}
+.main-export {
+    width: 100%;
+    height: 100%;
+    border-bottom: 1px solid #f3f3f3;
+}
+.footer-export {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 20%;
+}
+
+.btn_cancelar_export {
+    width: 40%;
+    padding: 5px;
+    outline: none;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+    background-color: #FF6961;
 }
 
 .ocultar {

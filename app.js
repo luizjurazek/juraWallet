@@ -6,7 +6,7 @@ const cookieParser = require('cookie-parser');
 // Importando rotas
 const transactionRoutes = require('./routes/routesTransaction.js')
 const loginRoutes = require('./routes/routesLogin.js')
-const uploadArquivo = require('./routes/routesUploadArquivo.js')
+const uploadArquivo = require('./routes/routesUploadExportArquivos.js')
 const stats = require('./routes/routesStats.js')
 const insertCategorias = require('./routes/routesCategorias.js')
 
