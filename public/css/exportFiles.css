@@ -29,10 +29,43 @@
     border-bottom: 1px solid #f3f3f3;
 }
 .main-export {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
     width: 100%;
     height: 100%;
     border-bottom: 1px solid #f3f3f3;
 }
+
+.container-export-all {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.container-export-mes {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+}
+
+.container-export-mes .form-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.container-export-mes .form-item .form-ano, 
+.container-export-mes .form-item .form-mes {
+    width: 90%;
+}
+
 .footer-export {
     display: flex;
     justify-content: center;
@@ -41,15 +74,26 @@
     height: 20%;
 }
 
-.btn_cancelar_export {
-    width: 40%;
+.btn_cancelar_export,
+.btn_export_all_transacoes,
+.btn_export_mes_transacoes {
     padding: 5px;
     outline: none;
     border: none;
     border-radius: 5px;
     color: #fff;
     cursor: pointer;
+}
+
+.btn_cancelar_export {
+    width: 40%;
     background-color: #FF6961;
+}
+
+.btn_export_all_transacoes,
+.btn_export_mes_transacoes {
+    width: 95%;
+    background-color: #353535;
 }
 
 .ocultar {
