@@ -12,7 +12,7 @@
             <div class="container-export-mes">
                 <div class="form-item">
                     <label for="mes-transacao">mês: </label>
-                    <select name="mes-transacao" id="mes-transacao" class="form-mes">
+                    <select name="mes-transacao" id="mes-transacao-export" class="form-mes">
                         <option>-</option>
                         <option value="01">Janeiro</option>
                         <option value="02">Fevereiro</option>
@@ -30,7 +30,7 @@
                 </div>
                 <div class="form-item form-item-ano">
                     <label for="ano-transacao">ano: </label>
-                    <select name="ano-transacao" id="ano-transacao" class="form-ano">
+                    <select name="ano-transacao" id="ano-transacao-export" class="form-ano">
                         <option>-</option>
                         <option value="2023">2023</option>
                         <option value="2024">2024</option>
@@ -42,6 +42,7 @@
                     Exportar todas as transações do mês selecionado
                 </button>
             </div>
+            <div id="containerDownload" class="containerDownload"></div>
         </div>
         <div class="footer-export">
             <button id="btn_cancelar_export" class="btn_cancelar_export">Cancelar</button>

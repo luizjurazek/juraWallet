@@ -242,6 +242,7 @@ async function gravarTodasTransacoes(userId) {
     zip.addLocalFile(arqCategorias.path)
 
     const zipFileName = `./public/arqExportacao/todasTranscoes-${userId}.zip`
+    const pathToDownload = `/arqExportacao/todasTranscoes-${userId}.zip`
     let retorno
     zip.writeZip(zipFileName, (err) => {
         if(err){
@@ -253,7 +254,9 @@ async function gravarTodasTransacoes(userId) {
             retorno = {
                 error: false,
                 mensagem: "Arquivo salvo com sucesso!",
-                path: zipFileName
+                path: zipFileName,
+                arqName: `todasTranscoes-${userId}`,
+                pathDownload: pathToDownload
             }
         }
     })
@@ -277,6 +280,7 @@ async function gravarTransacoesMes(mes, ano, userId) {
 
 
     const zipFileName = `./public/arqExportacao/transacoes-${mes}-${ano}-${userId}.zip`
+    const pathToDownload = `/arqExportacao/transacoes-${mes}-${ano}-${userId}.zip`
     let retorno
     zip.writeZip(zipFileName, (err) => {
         if(err){
@@ -288,7 +292,9 @@ async function gravarTransacoesMes(mes, ano, userId) {
             retorno = {
                 error: false,
                 mensagem: "Arquivo salvo com sucesso!",
-                path: zipFileName
+                path: zipFileName,
+                arqName: `transacoes-${mes}-${ano}-${userId}`,
+                pathDownload: pathToDownload
             }
         }
     })
