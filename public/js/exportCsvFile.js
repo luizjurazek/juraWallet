@@ -8,10 +8,15 @@ const anoTransacaoExport = document.getElementById('ano-transacao-export')
 const mesTransacaoExport = document.getElementById('mes-transacao-export')
 const containerDownload = document.getElementById('containerDownload')
 
+const btnCancelarExport = document.getElementById('btn_cancelar_export')
 
 
 btnFileExport.addEventListener('click', (evt) => {
     modalExport.classList.remove('ocultar')
+})
+
+btnCancelarExport.addEventListener('click', (evt) => {
+    modalExport.classList.add('ocultar')
 })
 
 btnExportAllTransacoes.addEventListener('click', (evt) => {

@@ -14,7 +14,7 @@
     justify-content: space-between;
     align-items: center;
     width: 40vw;
-    height: 40vh;
+    height: 50vh;
     background-color: #fff;
     border-radius: 5px;
 }
@@ -64,6 +64,14 @@
 .container-export-mes .form-item .form-ano, 
 .container-export-mes .form-item .form-mes {
     width: 90%;
+}
+
+.containerDownload {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 5%;
 }
 
 .footer-export {
