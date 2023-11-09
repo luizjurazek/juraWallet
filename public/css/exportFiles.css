@@ -107,3 +107,13 @@
 .ocultar {
     display: none;
 }
+
+@media (max-width: 600px) {
+    .containerExportCsv {
+        width: 90vw;
+        padding: 15px;
+    }
+    .csvFileInput label {
+        width: 100%;
+    }
+}

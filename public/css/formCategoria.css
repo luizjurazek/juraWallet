@@ -20,7 +20,7 @@
 }
 
 .box-categoria input,
-.box-categoria select{
+.box-categoria select {
     width: 15vw;
     height: 30px;
     border-radius: 5px;
@@ -81,7 +81,7 @@
     background-color: #E2504C;
 }
 
-@media only screen and (max-width: 800px) {
+@media only screen and (max-width: 990px) {
     .box-categoria {
         width: 95vw;
     }
@@ -91,7 +91,8 @@
         flex-direction: column;
     }
 
-    .box-categoria input, .box-categoria select {
+    .box-categoria input,
+    .box-categoria select {
         width: 100%;
         margin-bottom: 15px;
     }
