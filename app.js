@@ -26,7 +26,6 @@ app.use(cors({
     allowedHeaders: 'Aceept, Content-Type, Authorization'
 }))
 
-
 // Rotas 
 app.use('/', transactionRoutes)
 app.use('/', loginRoutes)
@@ -35,7 +34,14 @@ app.use('/', stats)
 app.use('/', insertCategorias)
 
 
+const pastaExportacao = './public/arqExportacao'
+const pastaUploads = './uploads'
+const { excluirArquivosNaPasta } = require('./utils/funcAuxiliares.js')
+
 
 app.listen(8080, () => {
+    excluirArquivosNaPasta(pastaExportacao)
+    excluirArquivosNaPasta(pastaUploads)
+    
     console.log("Servidor rodando na porta 8080: http://localhost:8080/")
 });
