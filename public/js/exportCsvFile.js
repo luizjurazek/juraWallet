@@ -16,6 +16,7 @@ btnFileExport.addEventListener('click', (evt) => {
 })
 
 btnCancelarExport.addEventListener('click', (evt) => {
+    containerDownload.innerHTML = ""
     modalExport.classList.add('ocultar')
 })
 

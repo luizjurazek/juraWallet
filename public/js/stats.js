@@ -28,7 +28,7 @@ function getStatsMes(mes, ano) {
             const dataCategoria = data.saidaPorCategoria
             const dataSaidaMes = data.entradaSaidaDia
             gerarGraficoCategorias(dataCategoria, chartCategoriasDia)
-            gerarGraficoDeSerie(dataSaidaMes, chartDias, `Gastos por dia do mês: ${mes}`)
+            gerarGraficoDeSerie(dataSaidaMes, chartDias, `Gastos por dia do mês: ${mes}`, true)
         })
 }
 
@@ -50,7 +50,7 @@ function getStatsAno() {
             const dataCategoriaMes = data.saidaPorCategoria
             const dataSaidaMes = data.entradaSaidaMes
             gerarGraficoCategorias(dataCategoriaMes, chartCategorias)
-            gerarGraficoDeSerie(dataSaidaMes, chartMeses, 'Gastos em cada mês do ano')
+            gerarGraficoDeSerie(dataSaidaMes, chartMeses, 'Gastos em cada mês do ano', false)
         })
 }
 
@@ -98,7 +98,7 @@ function gerarGraficoCategorias(requestData, chart) {
     return chartPizza
 }
 
-function gerarGraficoDeSerie(requestData, chart, configText) {
+function gerarGraficoDeSerie(requestData, chart, configText, displayDataSetEntradas) {
     const chaves = Object.keys(requestData)
     const entradas = [];
     const saidas = []
@@ -117,7 +117,7 @@ function gerarGraficoDeSerie(requestData, chart, configText) {
                 data: entradas,
                 borderColor: "#76cc76",
                 backgroundColor: "#76cc76",
-                hidden: true
+                hidden: displayDataSetEntradas
             },
             {
                 label: 'Saidas',
