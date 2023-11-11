@@ -36,25 +36,22 @@ btnExportAllTransacoes.addEventListener('click', (evt) => {
                 let downloadLink;
                 createLinkDownload(containerDownload, downloadLink, 'a', "Clique para baixar o arquivo!", data)
             } else {
-                containerDownload.innerHTML = ""
-                const responseError = document.createElement('p')
-                responseError.innerHTML = data.mensagem
-                containerDownload.appendChild(responseError)
+                let responseError;
+                createTextErrorDownload(containerDownload, responseError, "p", data.mensagem)
             }
         })
         .catch(error => {
-            containerDownload.innerHTML = ""
-            const erroInterno = document.createElement('p')
-            erroInterno.innerHTML = "Houve um erro interno ao gerar o arquivo!"
-            containerDownload.appendChild(erroInterno)
             console.log(error)
+            let erroInterno;
+            createTextErrorDownload(containerDownload, erroInterno, "p", "Houve um erro interno ao gerar o arquivo!")
         })
 })
+
 
 btnExportMesTransacoes.addEventListener('click', (evt) => {
     const mes = mesTransacaoExport.value
     const ano = anoTransacaoExport.value
-
+    
     if (mes != '-' && ano != '-') {
         const endpoint = `http://localhost:8080/exportartransacoes/${mes}/${ano}`
         const requestOptions = {
@@ -70,14 +67,13 @@ btnExportMesTransacoes.addEventListener('click', (evt) => {
                     let downloadLink;
                     createLinkDownload(containerDownload, downloadLink, 'a', "Clique para baixar o arquivo!", data)
                 } else {
-                    let responseError;
-                    createTextErrorDownload(containerDownload, responseError, "p", data.mensagem)
+
                 }
             })
             .catch(error => {
+                console.log(error)
                 let erroInterno;
                 createTextErrorDownload(containerDownload, erroInterno, "p", "Houve um erro interno ao gerar o arquivo!")
-                console.log(error)
             })
     } else {
         let elementText;
@@ -86,6 +82,7 @@ btnExportMesTransacoes.addEventListener('click', (evt) => {
 })
 
 
+// Criar elemento de texto caso tenha um erro ao gerar o link de exportação 
 let createTextErrorDownload = (container, elementoTexto, typeElement, textElment) => {
     container.innerHTML = ""
     elementoTexto = document.createElement(typeElement)
@@ -93,7 +90,8 @@ let createTextErrorDownload = (container, elementoTexto, typeElement, textElment
     container.appendChild(elementoTexto)
 }
 
-let createLinkDownload = (container ,elementLink, typeOfElement, textElement, data) => {
+// Criar o elemento de download para baixar a exportação
+let createLinkDownload = (container, elementLink, typeOfElement, textElement, data) => {
     container.innerHTML = ""
     elementLink = document.createElement(typeOfElement)
     elementLink.innerHTML = textElement
