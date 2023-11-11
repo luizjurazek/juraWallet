@@ -33,12 +33,8 @@ btnExportAllTransacoes.addEventListener('click', (evt) => {
         .then(res => res.json())
         .then(data => {
             if (data.error == false) {
-                containerDownload.innerHTML = ""
-                const downloadLink = document.createElement(`a`)
-                downloadLink.innerHTML = "Clique para baixar o arquivo!"
-                downloadLink.href = data.pathDownload;
-                downloadLink.setAttribute('download', data.arqName);
-                containerDownload.appendChild(downloadLink)
+                let downloadLink;
+                createLinkDownload(containerDownload, downloadLink, 'a', "Clique para baixar o arquivo!", data)
             } else {
                 containerDownload.innerHTML = ""
                 const responseError = document.createElement('p')
@@ -71,34 +67,37 @@ btnExportMesTransacoes.addEventListener('click', (evt) => {
             .then(res => res.json())
             .then(data => {
                 if (data.error == false) {
-                    containerDownload.innerHTML = ""
-                    const downloadLink = document.createElement(`a`)
-                    downloadLink.innerHTML = "Clique para baixar o arquivo!"
-                    downloadLink.href = data.pathDownload;
-                    downloadLink.setAttribute('download', data.arqName);
-                    containerDownload.appendChild(downloadLink)
+                    let downloadLink;
+                    createLinkDownload(containerDownload, downloadLink, 'a', "Clique para baixar o arquivo!", data)
                 } else {
-                    containerDownload.innerHTML = ""
-                    const responseError = document.createElement('p')
-                    responseError.innerHTML = data.mensagem
-                    containerDownload.appendChild(responseError)
+                    let responseError;
+                    createTextErrorDownload(containerDownload, responseError, "p", data.mensagem)
                 }
             })
             .catch(error => {
-                containerDownload.innerHTML = ""
-                const erroInterno = document.createElement('p')
-                erroInterno.innerHTML = "Houve um erro interno ao gerar o arquivo!"
-                containerDownload.appendChild(erroInterno)
+                let erroInterno;
+                createTextErrorDownload(containerDownload, erroInterno, "p", "Houve um erro interno ao gerar o arquivo!")
                 console.log(error)
             })
     } else {
-        containerDownload.innerHTML = ""
-        const selectInput = document.createElement('p')
-        selectInput.innerHTML = "Selecione um período válido."
-        containerDownload.appendChild(selectInput)
+        let elementText;
+        createTextErrorDownload(containerDownload, elementText, "a", "Selecione um período válido.")
     }
-
-
-
-
 })
+
+
+let createTextErrorDownload = (container, elementoTexto, typeElement, textElment) => {
+    container.innerHTML = ""
+    elementoTexto = document.createElement(typeElement)
+    elementoTexto.innerHTML = textElment
+    container.appendChild(elementoTexto)
+}
+
+let createLinkDownload = (container ,elementLink, typeOfElement, textElement, data) => {
+    container.innerHTML = ""
+    elementLink = document.createElement(typeOfElement)
+    elementLink.innerHTML = textElement
+    elementLink.href = data.pathDownload;
+    elementLink.setAttribute('download', data.arqName);
+    container.appendChild(elementLink)
+}
