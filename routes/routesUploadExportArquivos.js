@@ -47,12 +47,14 @@ router.post('/importartransacoes', eAdmin, upload.single('csvFile'), async (req,
         .on('data', (data) => results.push(data))
         .on('end', () => {
             const jsonData = results;
+            const response = {
+                error: false,
+                message: message,
+                data: jsonData
+            }
+
             gravarTransacaoMassivas(jsonData, userId).then(message => {
-                res.json({
-                    error: false,
-                    message: message,
-                    data: jsonData
-                });
+                res.json(response);
             }).catch(err => {
                 res.json({
                     error: true,
@@ -68,10 +70,10 @@ router.get('/exportartransacoes/:mes/:ano', eAdmin, async (req, res) => {
     let mes = (req.params.mes.length === 1) ? "0" + req.params.mes : req.params.mes;
     let ano = (req.params.ano >= 2001 && req.params.ano <= 2100) ? req.params.ano : null;
 
-    if(mes == 00 && ano == null){
+    if (mes == 00 && ano == null) {
         const todasTransacoes = await gravarTodasTransacoes(userId)
         res.status(200).json(todasTransacoes)
-    } else if(mes > 0 && mes < 13){
+    } else if (mes > 0 && mes < 13) {
         const transacoesDoMes = await gravarTransacoesMes(mes, ano, userId)
         res.status(200).json(transacoesDoMes)
     }

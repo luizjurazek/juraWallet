@@ -98,10 +98,19 @@
     background-color: #FF6961;
 }
 
+.btn_cancelar_export:hover {
+    background-color: #fc5c54;
+}
+
 .btn_export_all_transacoes,
 .btn_export_mes_transacoes {
     width: 95%;
     background-color: #353535;
+}
+
+.btn_export_all_transacoes:hover,
+.btn_export_mes_transacoes:hover {
+    background-color: #090c0e;
 }
 
 .ocultar {
